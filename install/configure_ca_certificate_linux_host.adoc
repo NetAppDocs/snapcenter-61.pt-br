@@ -1,0 +1,73 @@
+---
+permalink: install/configure_ca_certificate_linux_host.html 
+sidebar: sidebar 
+keywords: SnapCenter, configure, CA certificate, linux, linux host 
+summary: Você deve configurar o certificado CA com o SnapCenter Server no host Linux. 
+---
+= Configurar certificado CA para host Linux
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Após instalar o SnapCenter Server no Linux, o instalador cria o certificado autoassinado.  Se quiser usar o certificado CA, você deve configurar os certificados para o proxy reverso nginx, registro de auditoria e serviços do SnapCenter .
+
+
+
+== Configurar certificado nginx
+
+.Passos
+. Navegue até _/etc/nginx/conf.d_: `cd /etc/nginx/conf.d`
+. Abra *snapcenter.conf* usando o vi ou qualquer editor de texto.
+. Navegue até a seção do servidor no arquivo de configuração.
+. Modifique os caminhos de _ssl_certificate_ e _ssl_certificate_key_ para apontar para o certificado CA.
+. Salve e feche o arquivo.
+. Recarregue o nginx: `$nginx -s reload`
+
+
+
+
+== Configurar certificado de log de auditoria
+
+.Passos
+. Abra _INSTALL_DIR/ NetApp/snapcenter/SnapManagerWeb/ SnapManager.Web.UI.dll.config_ usando o vi ou qualquer editor de texto.
++
+O valor padrão de _INSTALL_DIR_ é _/opt_.
+
+. Edite as chaves *AUDILOG_CERTIFICATE_PATH* e *AUDILOG_CERTIFICATE_PASSWORD* para incluir o caminho do certificado CA e a senha, respectivamente.
++
+Somente o formato _.pfx_ é suportado para certificado de log de auditoria.
+
+. Salve e feche o arquivo.
+. Reinicie o serviço *snapmanagerweb*: `$ systemctl restart snapmanagerweb`
+
+
+
+
+== Configurar certificado de serviços do SnapCenter
+
+.Passos
+. Abra os seguintes arquivos de configuração usando o vi ou qualquer editor de texto.
++
+** _INSTALL_DIR/ NetApp/snapcenter/SnapManagerWeb/ SnapManager.Web.UI.dll.config_
+** _INSTALL_DIR/ NetApp/snapcenter/SMCore/SMCoreServiceHost.dll.config_
+** _INSTALL_DIR/ NetApp/snapcenter/Scheduler/Scheduler.Api.dll.config_
++
+O valor padrão de _INSTALL_DIR_ é _/opt_.
+
+
+
+. Edite as chaves *SERVICE_CERTIFICATE_PATH* e *SERVICE_CERTIFICATE_PASSWORD* para incluir o caminho do certificado da CA e a senha, respectivamente.
++
+Somente o formato _.pfx_ é suportado para o certificado de serviços do SnapCenter .
+
+. Salve e feche os arquivos.
+. Reinicie todos os serviços.
++
+** `$ systemctl restart snapmanagerweb`
+** `$ systemctl restart smcore`
+** `$ systemctl restart scheduler`
+
+
+

@@ -1,0 +1,76 @@
+---
+permalink: protect-db2/restore-auto-discovered-database-backup.html 
+sidebar: sidebar 
+keywords: SnapCenter Plug-in for IBM Db2 
+summary: Você pode usar o SnapCenter para restaurar e recuperar dados de um ou mais backups. 
+---
+= Restaurar e recuperar um backup de banco de dados descoberto automaticamente
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Você pode usar o SnapCenter para restaurar e recuperar dados de um ou mais backups.
+
+.Antes de começar
+* Você deve ter feito backup do recurso ou dos grupos de recursos.
+* Você deve ter cancelado qualquer operação de backup que esteja em andamento para o recurso ou grupo de recursos que deseja restaurar.
+* Para comandos de pré-restauração, pós-restauração, montagem e desmontagem, você deve verificar se os comandos existem na lista de comandos disponível no host do plug-in nos seguintes caminhos:
++
+** Local padrão no host do Windows: _C:\Arquivos de Programas\ NetApp\ SnapCenter\Snapcenter Plug-in Creator\etc\allowed_commands.config_
+** Local padrão no host Linux: _/opt/ NetApp/snapcenter/scc/etc/allowed_commands.config_
+
+
+
+
+
+NOTE: Se os comandos não existirem na lista de comandos, a operação falhará.
+
+.Sobre esta tarefa
+* Para recursos descobertos automaticamente, a restauração é suportada com SFSR.
+* A recuperação automática não é suportada.
+* Para o ONTAP 9.12.1 e versões anteriores, os clones criados a partir dos snapshots do SnapLock Vault como parte da restauração herdarão o tempo de expiração do SnapLock Vault. O administrador de armazenamento deve limpar manualmente os clones após o tempo de expiração do SnapLock .
+
+
+.Passos
+. No painel de navegação esquerdo, clique em *Recursos* e selecione o plug-in apropriado na lista.
+. Na página Recursos, filtre os recursos da lista suspensa *Exibir* com base no tipo de recurso.
++
+Os recursos são exibidos junto com o tipo, host, grupos de recursos e políticas associados e status.
+
++
+
+NOTE: Embora um backup possa ser para um grupo de recursos, ao restaurar, você deve selecionar os recursos individuais que deseja restaurar.
+
++
+Se o recurso não estiver protegido, "`Não protegido`" será exibido na coluna Status geral.  Isso pode significar que o recurso não está protegido ou que o backup do recurso foi feito por um usuário diferente.
+
+. Selecione o recurso ou selecione um grupo de recursos e depois selecione um recurso nesse grupo.
++
+A página de topologia de recursos é exibida.
+
+. Na exibição Gerenciar cópias, selecione *Backups* dos sistemas de armazenamento primário ou secundário (espelhado ou em cofre).
+. Na tabela Backup(s) primário(s), selecione o backup que deseja restaurar e clique em *image:../media/restore_icon.gif["ícone de restauração"] *.
++
+image::../media/restoring_resource.gif[restaurando recursos]
+
+. Na página Escopo de restauração, selecione *Recurso completo* para restaurar os volumes de dados configurados do banco de dados IBM Db2.
+. Na página Pré-operações, insira os comandos pre restore e unmount para executar antes de realizar um trabalho de restauração.
++
+Comandos de desmontagem não são necessários para recursos descobertos automaticamente.
+
+. Na página Post ops, insira os comandos mount e post restore para serem executados após realizar um trabalho de restauração.
++
+Comandos de montagem não são necessários para recursos descobertos automaticamente.
+
+. Na página Notificação, na lista suspensa *Preferência de e-mail*, selecione os cenários nos quais você deseja enviar os e-mails.
++
+Você também deve especificar os endereços de e-mail do remetente e do destinatário e o assunto do e-mail.  O SMTP também deve ser configurado na página *Configurações* > *Configurações globais*.
+
+. Revise o resumo e clique em *Concluir*.
+. Monitore o progresso da operação clicando em *Monitorar* > *Trabalhos*.
+
+
+.Depois que você terminar
+A recuperação só é possível se o status do Rollforward estiver em "BD pendente".  Este status é aplicável a bancos de dados Db2 com registro de arquivamento habilitado.

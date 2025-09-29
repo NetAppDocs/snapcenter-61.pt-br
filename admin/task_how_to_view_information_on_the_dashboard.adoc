@@ -1,0 +1,23 @@
+---
+permalink: admin/task_how_to_view_information_on_the_dashboard.html 
+sidebar: sidebar 
+keywords: dashboard 
+summary: 'No painel de navegação esquerdo do SnapCenter , você pode visualizar vários blocos do Painel, ou exibições, juntamente com detalhes do sistema associados.  O número de exibições disponíveis no Painel é fixo e não pode ser alterado.  O conteúdo fornecido em cada exibição depende do controle de acesso baseado em função (RBAC).' 
+---
+= Como visualizar informações no painel
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+No painel de navegação esquerdo do SnapCenter , você pode visualizar vários blocos do Painel, ou exibições, juntamente com detalhes do sistema associados.  O número de exibições disponíveis no Painel é fixo e não pode ser alterado.  O conteúdo fornecido em cada exibição depende do controle de acesso baseado em função (RBAC).
+
+*Passos*
+
+. No painel de navegação esquerdo, clique em *Painel*.
+. Clique nas áreas ativas em cada exibição para obter informações adicionais.
++
+Por exemplo, clicar em um gráfico de rosca em *Jobs* redireciona você para a página Monitor para obter mais informações sobre sua seleção.  Clicar em um gráfico de rosca em *Resumo de proteção* redireciona você para a página Relatórios, que pode fornecer mais informações sobre sua seleção.
+
+

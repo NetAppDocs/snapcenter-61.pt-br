@@ -1,0 +1,48 @@
+---
+permalink: protect-scsql/reference_back_up_sql_server_database_or_instance_or_availability_group.html 
+sidebar: sidebar 
+keywords: Backup workflow 
+summary: Ao instalar o SnapCenter Plug-in para Microsoft SQL Server em seu ambiente, você pode usar o SnapCenter para fazer backup dos recursos do SQL Server. 
+---
+= Fluxo de trabalho de backup
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Ao instalar o SnapCenter Plug-in para Microsoft SQL Server em seu ambiente, você pode usar o SnapCenter para fazer backup dos recursos do SQL Server.
+
+Você pode agendar vários backups para serem executados em todos os servidores simultaneamente.
+
+As operações de backup e restauração não podem ser executadas simultaneamente no mesmo recurso.
+
+O fluxo de trabalho a seguir mostra a sequência na qual você deve executar as operações de backup:
+
+image::../media/scsql_backup_workflow.gif[Fluxo de trabalho de backup SCSQL]
+
+
+NOTE: As opções Fazer backup agora, Restaurar, Gerenciar backups e Clonar na página Recursos serão desabilitadas se você selecionar um LUN que não seja da NetApp , um banco de dados corrompido ou um banco de dados que esteja sendo restaurado.
+
+Você também pode usar cmdlets do PowerShell manualmente ou em scripts para executar operações de backup, restauração, recuperação, verificação e clonagem.  Para obter informações detalhadas sobre cmdlets do PowerShell, use a ajuda do cmdlet do SnapCenter ou consulte o https://docs.netapp.com/us-en/snapcenter-cmdlets/index.html["Guia de referência do cmdlet do software SnapCenter"]
+
+
+
+== Como o SnapCenter faz backup de bancos de dados
+
+O SnapCenter usa a tecnologia Snapshot para fazer backup dos bancos de dados do SQL Server que residem em LUNs ou VMDKs.  O SnapCenter cria o backup criando instantâneos dos bancos de dados.
+
+Quando você seleciona um banco de dados para um backup completo na página Recursos, o SnapCenter seleciona automaticamente todos os outros bancos de dados que residem no mesmo volume de armazenamento.  Se o LUN ou VMDK armazenar apenas um único banco de dados, você poderá limpar ou selecionar novamente o banco de dados individualmente.  Se o LUN ou VMDK abrigar vários bancos de dados, você deverá limpar ou selecionar novamente os bancos de dados como um grupo.
+
+Todos os bancos de dados que residem em um único volume são copiados simultaneamente usando Snapshots.  Se o número máximo de bancos de dados de backup simultâneos for 35 e se mais de 35 bancos de dados residirem em um volume de armazenamento, o número total de Snapshots criados será igual ao número de bancos de dados dividido por 35.
+
+
+NOTE: Você pode configurar o número máximo de bancos de dados para cada Snapshot na política de backup.
+
+Quando o SnapCenter cria um Snapshot, todo o volume do sistema de armazenamento é capturado no Snapshot.  No entanto, o backup é válido somente para o servidor host SQL para o qual o backup foi criado.
+
+Se dados de outros servidores host SQL residirem no mesmo volume, esses dados não poderão ser restaurados do Snapshot.
+
+*Encontre mais informações*
+
+link:https://kb.netapp.com/Advice_and_Troubleshooting/Data_Protection_and_Security/SnapCenter/Quiesce_or_grouping_resources_operations_fail["As operações de agrupamento ou de desativação de recursos falham"]

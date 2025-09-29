@@ -1,0 +1,138 @@
+---
+permalink: admin/concept_manage_the_storage_system.html 
+sidebar: sidebar 
+keywords: Manage storage system 
+summary: Depois de adicionar o sistema de armazenamento, você pode modificar a configuração e as conexões do sistema de armazenamento ou excluí-lo. 
+---
+= Gerenciar o sistema de armazenamento
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Depois de adicionar o sistema de armazenamento, você pode modificar a configuração e as conexões do sistema de armazenamento ou excluí-lo.
+
+
+
+== Modificar a configuração do sistema de armazenamento
+
+Você pode usar o SnapCenter para modificar a configuração do seu sistema de armazenamento se quiser alterar o nome de usuário, a senha, a plataforma, a porta, o protocolo, o período de tempo limite, o endereço IP preferencial ou as opções de mensagens.
+
+*Sobre esta tarefa*
+
+Você pode modificar as conexões de armazenamento para um usuário individual ou para um grupo.  Se você pertencer a um ou mais grupos com permissão para o mesmo sistema de armazenamento, o nome da conexão de armazenamento será exibido várias vezes na lista de conexões de armazenamento, uma vez para cada grupo com permissão para o sistema de armazenamento.
+
+*Passos*
+
+. No painel de navegação esquerdo, clique em *Sistemas de armazenamento*.
+. Na página Sistemas de Armazenamento, no menu suspenso *Tipo*, execute uma das seguintes ações:
++
+|===
+| Selecione... | Passos... 
+
+
+ a| 
+SVMs ONTAP
+ a| 
+Para visualizar todas as máquinas virtuais de armazenamento (SVMs) que foram adicionadas e modificar a configuração de SVM necessária.
+
+.. Na página Conexões de armazenamento, clique no nome do SVM apropriado.
+.. Execute uma das seguintes ações:
++
+*** Se o SVM não fizer parte de nenhum cluster, na página Modificar sistema de armazenamento, modifique as configurações, como nome de usuário, senha, configurações de EMS e AutoSupport , plataforma, protocolo, porta, tempo limite e IP preferencial.
+*** Se o SVM fizer parte de um cluster, na página Modificar sistema de armazenamento, selecione *Gerenciar SVM independentemente* e modifique as configurações, como nome de usuário, senha, configurações de EMS e AutoSupport , plataforma, protocolo, porta, tempo limite e IP preferencial.
++
+Após modificar o SVM para ser gerenciado de forma independente, se você decidir gerenciá-lo por meio do cluster, exclua o SVM e clique em *Rediscover*.  O SVM será adicionado ao cluster ONTAP .
+
++
+
+NOTE: Quando uma senha do sistema de armazenamento é atualizada na GUI do SnapCenter , você deve reiniciar os serviços do SMCore do respectivo plug-in ou do host do servidor porque a senha atualizada não é refletida no SMCore, e os trabalhos de backup falharão com um erro de credencial incorreta.
+
+
+
+
+
+
+
+ a| 
+Clusters ONTAP
+ a| 
+Para visualizar todos os clusters que foram adicionados e modificar a configuração de cluster necessária.
+
+.. Na página Conexões de armazenamento, clique no nome do cluster.
+.. Na página Modificar sistema de armazenamento, clique no ícone de edição ao lado de Nome de usuário e modifique o nome de usuário e a senha.
+.. Selecione ou desmarque as configurações do EMS e do AutoSupport .
+.. Clique em *Mais opções* e modifique outras configurações, como plataforma, protocolo, porta, tempo limite e IP preferencial.
+
+
+|===
+. Clique em *Enviar*.
+
+
+
+
+== Excluir o sistema de armazenamento
+
+Você pode usar o SnapCenter para excluir qualquer sistema de armazenamento não utilizado.
+
+*Sobre esta tarefa*
+
+Você pode excluir conexões de armazenamento para um usuário individual ou para um grupo.  Se você pertencer a um ou mais grupos com permissão para o mesmo sistema de armazenamento, o nome do sistema de armazenamento será exibido várias vezes na lista de conexões de armazenamento, uma vez para cada grupo com permissão para o sistema de armazenamento.
+
+
+IMPORTANT: Ao excluir um sistema de armazenamento, todas as operações que estão sendo executadas nesse sistema de armazenamento falharão.
+
+*Passos*
+
+. No painel de navegação esquerdo, clique em *Sistemas de armazenamento*.
+. Na página Sistemas de Armazenamento, no menu suspenso *Tipo*, selecione * ONTAP SVMs* ou * ONTAP Clusters*.
+. Na página Conexões de armazenamento, marque a caixa de seleção ao lado do SVM ou do cluster que você deseja excluir.
++
+
+NOTE: Você não pode selecionar o SVM que faz parte de um cluster.
+
+. Clique em *Excluir*.
+. Na página Excluir configurações de conexão do sistema de armazenamento, clique em *OK*.
++
+
+NOTE: Se uma SVM for excluída do cluster ONTAP usando a GUI do ONTAP , na GUI do SnapCenter , clique em *Rediscover* para atualizar a lista de SVMs.
+
+
+
+
+
+== Suporte à API REST
+
+Todas as conexões de sistemas ASA, AFF ou FAS com o ONTAP passarão pelo ZAPI por padrão.  A API REST pode ser habilitada para versões específicas do ONTAP .
+
+O SnapCenter utiliza APIs REST para executar todas as operações em sistemas ASA r2, que não oferecem suporte a ZAPIs.
+
+Você pode modificar as chaves de configuração nos seguintes arquivos de configuração:
+
+* IsRestEnabledForStorageConnection
++
+O valor padrão é falso.
+
+* Versão MinOntap para usar REST
++
+O valor padrão é 9.13.1.
+
+
+
+.Habilitar conexão por meio da API REST
+. Defina IsRestEnabledForStorageConnection como verdadeiro.
+. Adicione a chave em SMCoreServiceHost.dll.config e SnapDriveService.dll.config nos hosts do servidor e do plug-in do Windows.
++
+_<adicionar chave="IsRestEnabledForStorageConnection" valor="true" />_
+
+
+
+.Limitar a conexão por meio da API REST a uma versão específica do ONTAP
+. Defina o parâmetro de configuração MinOntapVersionToUseREST como verdadeiro.
+. Adicione a chave em SMCoreServiceHost.dll.config e SnapDriveService.dll.config nos hosts do servidor e do plug-in do Windows.
++
+_<adicionar chave="MinOntapVersionToUseREST" valor="9.13.1" />_
+
+. Reinicie o serviço do SmCore no servidor e o serviço do plug-in e do SnapDrive na máquina do plug-in.
+

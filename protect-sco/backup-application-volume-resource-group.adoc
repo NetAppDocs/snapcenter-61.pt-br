@@ -1,0 +1,44 @@
+---
+permalink: protect-sco/backup-application-volume-resource-group.html 
+sidebar: sidebar 
+keywords: application volume, resource group, back up, database 
+summary: Você pode fazer backup do grupo de recursos que contém apenas volumes de aplicativos ou uma mistura de volumes de aplicativos e banco de dados. 
+---
+= Fazer backup do grupo de recursos de volumes do aplicativo
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Você pode fazer backup do grupo de recursos que contém apenas volumes de aplicativos ou uma mistura de volumes de aplicativos e banco de dados.  Uma operação de backup no grupo de recursos é executada em todos os recursos definidos no grupo de recursos.
+
+Se o grupo de recursos tiver vários volumes de aplicativo, todos os volumes de aplicativo deverão ter a política de replicação SnapMirror ou SnapVault .
+
+*Sobre esta tarefa*
+
+Por padrão, backups de grupo de consistência (CG) são criados.  Se você quiser criar backups baseados em volume, defina o valor de *EnableOracleNdvVolumeBasedBackup* como true no arquivo _web.config_.
+
+*Passos*
+
+. No painel de navegação esquerdo, clique em *Recursos* e selecione o plug-in do Oracle Database na lista.
+. Na página Recursos, selecione *Grupo de recursos* na lista *Exibir*.
++
+Você pode pesquisar o grupo de recursos inserindo o nome do grupo de recursos na caixa de pesquisa ou clicando em *image:../media/filter_icon.gif["ícone de filtro"] * e, em seguida, selecionando a tag.  Você pode então clicar em *image:../media/filter_icon.gif["ícone de filtro"] * para fechar o painel de filtro.
+
+. Na página Grupos de recursos, selecione o grupo de recursos que você deseja fazer backup e clique em *Fazer backup agora*.
+. Na página Backup, execute as seguintes etapas:
++
+.. Se você tiver associado várias políticas ao grupo de recursos, na lista suspensa *Política*, selecione a política que deseja usar para backup.
++
+Se a política selecionada para o backup sob demanda estiver associada a um agendamento de backup, os backups sob demanda serão retidos com base nas configurações de retenção especificadas para o tipo de agendamento.
+
+.. Clique em *Backup*.
+
+
+. Monitore o progresso da operação clicando em *Monitorar* > *Trabalhos*.
++
+
+NOTE: A operação de verificação será realizada apenas para os bancos de dados e não para os volumes do aplicativo.
+
+

@@ -1,0 +1,41 @@
+---
+permalink: protect-azure/add-hosts-install-plugin-for-sap-hana.html 
+sidebar: sidebar 
+keywords: add host, install, install plug-in, SAP HANA 
+summary: Adicione hosts e depois instale os pacotes de plug-ins. 
+---
+= Adicionar hosts e instalar o plug-in SnapCenter para o banco de dados SAP HANA
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Você deve usar a página Adicionar Host do SnapCenter para adicionar hosts e, em seguida, instalar os pacotes de plug-ins.  Os plug-ins são instalados automaticamente nos hosts remotos.
+
+.Antes de começar
+* Você deve ser um usuário atribuído a uma função que tenha permissões de instalação e desinstalação de plug-ins, como a função de administrador do SnapCenter .
+* Ao instalar um plug-in em um host Windows, se você especificar uma credencial que não esteja integrada ou se o usuário pertencer a um usuário de grupo de trabalho local, será necessário desabilitar o UAC no host.
+* Se você estiver instalando no host centralizado, certifique-se de que o software cliente SAP HANA esteja instalado nesse host e abra as portas necessárias no host do banco de dados SAP HANA para executar as consultas SQL do HDB remotamente.
+
+
+.Passos
+. No painel de navegação esquerdo, clique em *Hosts*.
+. Verifique se a guia *Hosts gerenciados* está selecionada.
+. Clique em *Adicionar*.
+. Na página Hosts, execute as seguintes ações:
++
+.. No campo Tipo de host, selecione o tipo de host.
+.. No campo Nome do host, insira o nome de domínio totalmente qualificado (FQDN) ou o endereço IP do host.
+.. No campo Credenciais, insira a credencial que você criou.
+
+
+. Na seção Selecionar plug-ins para instalar, selecione os plug-ins a serem instalados.
+. (Opcional) Clique em *Mais opções* e especifique os detalhes.
+. Clique em *Enviar*.
+. Se o tipo de host for Linux, verifique a impressão digital e clique em *Confirmar e Enviar*.
++
+Em uma configuração de cluster, você deve verificar a impressão digital de cada um dos nós do cluster.
+
+. Monitore o progresso da instalação.
+

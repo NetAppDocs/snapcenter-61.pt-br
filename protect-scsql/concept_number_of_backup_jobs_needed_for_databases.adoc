@@ -1,0 +1,16 @@
+---
+permalink: protect-scsql/concept_number_of_backup_jobs_needed_for_databases.html 
+sidebar: sidebar 
+keywords: Number of backup jobs 
+summary: 'Os fatores que determinam o número de tarefas de backup necessárias incluem o tamanho do banco de dados, o número de volumes usados, a taxa de alteração do banco de dados e seu Contrato de Nível de Serviço (SLA).' 
+---
+= Número de trabalhos de backup necessários para bancos de dados
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Os fatores que determinam o número de tarefas de backup necessárias incluem o tamanho do banco de dados, o número de volumes usados, a taxa de alteração do banco de dados e seu Contrato de Nível de Serviço (SLA).
+
+Para backups de banco de dados, o número de tarefas de backup que você escolhe normalmente depende do número de volumes nos quais você colocou seus bancos de dados.  Por exemplo, se você colocar um grupo de bancos de dados pequenos em um volume e um banco de dados grande em outro volume, você poderá criar uma tarefa de backup para os bancos de dados pequenos e uma tarefa de backup para o banco de dados grande.

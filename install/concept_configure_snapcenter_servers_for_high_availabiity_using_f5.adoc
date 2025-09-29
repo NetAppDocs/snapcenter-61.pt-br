@@ -1,0 +1,138 @@
+---
+permalink: install/concept_configure_snapcenter_servers_for_high_availabiity_using_f5.html 
+sidebar: sidebar 
+keywords: F5, netwoek load balancer, NLB, high availability, elastic load balancing, ELB, Azure load balancing, Amazon Web Services, AWS 
+summary: Configurar alta disponibilidade no SnapCenter usando F5, balanceamento de carga de rede ou Amazon Web Services 
+---
+= Configurar servidores SnapCenter para alta disponibilidade
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Para oferecer suporte à Alta Disponibilidade (HA) no SnapCenter em execução no Windows ou no Linux, você pode instalar o balanceador de carga F5.  O F5 permite que o SnapCenter Server suporte configurações ativas-passivas em até dois hosts que estão no mesmo local.  Para usar o F5 Load Balancer no SnapCenter, você deve configurar os servidores SnapCenter e configurar o balanceador de carga F5.
+
+Você também pode configurar o Balanceamento de Carga de Rede (NLB) para configurar a Alta Disponibilidade do SnapCenter .  Você deve configurar manualmente o NLB fora da instalação do SnapCenter para alta disponibilidade.
+
+Para o ambiente de nuvem, você pode configurar alta disponibilidade usando o Amazon Web Services (AWS) Elastic Load Balancing (ELB) e o balanceador de carga do Azure.
+
+[role="tabbed-block"]
+====
+.Configurar alta disponibilidade usando F5
+--
+Para obter instruções sobre como configurar os servidores SnapCenter para alta disponibilidade usando o balanceador de carga F5, consulte https://kb.netapp.com/Advice_and_Troubleshooting/Data_Protection_and_Security/SnapCenter/How_to_configure_SnapCenter_Servers_for_high_availability_using_F5_Load_Balancer["Como configurar servidores SnapCenter para alta disponibilidade usando o balanceador de carga F5"^] .
+
+Você deve ser membro do grupo Administradores locais nos servidores SnapCenter (além de ter a função SnapCenterAdmin atribuída) para usar os seguintes cmdlets para adicionar e remover clusters F5:
+
+* Adicionar-SmServerCluster
+* Adicionar-SmServer
+* Remover-SmServerCluster
++
+Para obter mais informações, consulte  https://docs.netapp.com/us-en/snapcenter-cmdlets/index.html["Guia de referência do cmdlet do software SnapCenter"^] .
+
+
+
+Informações adicionais
+
+* Depois de instalar e configurar o SnapCenter para alta disponibilidade, edite o atalho da área de trabalho do SnapCenter para apontar para o IP do cluster F5.
+* Se ocorrer um failover entre os servidores SnapCenter e se também houver uma sessão SnapCenter existente, você deverá fechar o navegador e fazer logon no SnapCenter novamente.
+* Na configuração do balanceador de carga (NLB ou F5), se você adicionar um host que é parcialmente resolvido pelo host NLB ou F5 e se o host SnapCenter não conseguir contatá-lo, a página do host SnapCenter alternará frequentemente entre os hosts inativos e em execução.  Para resolver esse problema, você deve garantir que ambos os hosts do SnapCenter consigam resolver o host no NLB ou no host F5.
+* Os comandos do SnapCenter para configurações de MFA devem ser executados em todos os hosts.  A configuração da parte confiável deve ser feita no servidor dos Serviços de Federação do Active Directory (AD FS) usando detalhes do cluster F5.  O acesso à interface de usuário do SnapCenter no nível do host será bloqueado após a ativação do MFA.
+* Durante o failover, as configurações do log de auditoria não serão refletidas no segundo host.  Portanto, você deve repetir manualmente as configurações do log de auditoria no host passivo F5 quando ele se tornar ativo.
+
+
+--
+.Configurar alta disponibilidade usando balanceamento de carga de rede (NLB)
+--
+Você pode configurar o Balanceamento de Carga de Rede (NLB) para configurar a Alta Disponibilidade do SnapCenter .  Você deve configurar manualmente o NLB fora da instalação do SnapCenter para alta disponibilidade.
+
+Para obter informações sobre como configurar o balanceamento de carga de rede (NLB) com o SnapCenter , consulte https://kb.netapp.com/Advice_and_Troubleshooting/Data_Protection_and_Security/SnapCenter/How_to_configure_NLB_and_ARR_with_SnapCenter["Como configurar o NLB com o SnapCenter"^] .
+
+--
+.Configurar alta disponibilidade usando o AWS Elastic Load Balancing (ELB)
+--
+Você pode configurar o ambiente SnapCenter de alta disponibilidade na Amazon Web Services (AWS) configurando dois servidores SnapCenter em zonas de disponibilidade (AZs) separadas e configurando-os para failover automático.  A arquitetura inclui endereços IP privados virtuais, tabelas de roteamento e sincronização entre bancos de dados MySQL ativos e em espera.
+
+.Passos
+. Configurar sobreposição de IP virtual privado na AWS. Para obter informações, consulte https://docs.aws.amazon.com/vpc/latest/userguide/replace-local-route-target.html["Configurar sobreposição de IP virtual privado"^] .
+. Prepare seu host Windows
++
+.. Forçar o IPv4 a ser priorizado em relação ao IPv6:
++
+*** Localização: HKLM\SYSTEM\CurrentControlSet\Services\Tcpip6\Parameters
+*** Chave: DisabledComponents
+*** Tipo: REG_DWORD
+*** Valor: 0x20
+
+
+.. Certifique-se de que os nomes de domínio totalmente qualificados possam ser resolvidos via DNS ou via configuração de host local para endereços IPv4.
+.. Certifique-se de que você não tenha um proxy de sistema configurado.
+.. Certifique-se de que a senha do administrador seja a mesma no Windows Server ao usar uma configuração sem um Active Directory e que os servidores não estejam no mesmo domínio.
+.. Adicione IP virtual em ambos os servidores Windows.
+
+
+. Crie o cluster SnapCenter .
++
+.. Inicie o Powershell e conecte-se ao SnapCenter.
+`Open-SmConnection`
+.. Crie o cluster.
+`Add-SmServerCluster -ClusterName <cluster_name> -ClusterIP <cluster_ip> -PrimarySCServerIP <primary_ip> -Verbose -Credential administrator`
+.. Adicione o servidor secundário.
+`Add-SmServer -ServerName <server_name> -ServerIP <server_ip> -CleanUpSecondaryServer -Verbose -Credential administrator`
+.. Obtenha os detalhes de alta disponibilidade.
+`Get-SmServerConfig`
+
+
+. Crie a função Lamda para ajustar a tabela de roteamento caso o ponto de extremidade do IP privado virtual fique indisponível, monitorado pelo AWS CloudWatch. Para obter informações, consulte https://docs.aws.amazon.com/lambda/latest/dg/getting-started.html#getting-started-create-function["Criar uma função Lambda"^] .
+. Crie um monitor no CloudWatch para monitorar a disponibilidade do endpoint do SnapCenter .  Um alarme é configurado para acionar uma função Lambda se o ponto de extremidade estiver inacessível.  A função Lambda ajusta a tabela de roteamento para redirecionar o tráfego para o servidor SnapCenter ativo. Para obter informações, consulte https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/CloudWatch_Synthetics_Canaries_Create.html["Crie canários sintéticos"^] .
+. Implemente o fluxo de trabalho usando uma função de etapa como alternativa ao monitoramento do CloudWatch, proporcionando tempos de failover menores.  O fluxo de trabalho inclui uma função de sonda Lambda para testar o URL do SnapCenter , uma tabela do DynamoDB para armazenar contagens de falhas e a própria função Step.
++
+.. Use uma função lambda para sondar o URL do SnapCenter . Para obter informações, consulte https://docs.aws.amazon.com/lambda/latest/dg/getting-started.html["Criar função Lambda"^] .
+.. Crie uma tabela do DynamoDB para armazenar a contagem de falhas entre duas iterações da Função de Etapa. Para obter informações, consulte https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/GettingStartedDynamoDB.html["Comece a usar a tabela do DynamoDB"^] .
+.. Crie a função Step. Para obter informações, consulte https://docs.aws.amazon.com/step-functions/["Documentação da função Step"^] .
+.. Teste uma única etapa.
+.. Teste a função completa.
+.. Crie uma função do IAM e ajuste as permissões para poder executar a função do Lambda.
+.. Crie uma programação para acionar a Step Function. Para obter informações, consulte https://docs.aws.amazon.com/step-functions/latest/dg/using-eventbridge-scheduler.html["Usando o Amazon EventBridge Scheduler para iniciar um Step Functions"^] .
+
+
+
+
+--
+.Configurar alta disponibilidade usando o balanceador de carga do Azure
+--
+Você pode configurar o ambiente SnapCenter de alta disponibilidade usando o balanceador de carga do Azure.
+
+.Passos
+. Crie máquinas virtuais em um conjunto de dimensionamento usando o portal do Azure.  O conjunto de dimensionamento de máquinas virtuais do Azure permite que você crie e gerencie um grupo de máquinas virtuais com balanceamento de carga.  O número de instâncias de máquinas virtuais pode aumentar ou diminuir automaticamente em resposta à demanda ou a um cronograma definido. Para obter informações, consulte https://learn.microsoft.com/en-us/azure/virtual-machine-scale-sets/flexible-virtual-machine-scale-sets-portal["Crie máquinas virtuais em um conjunto de dimensionamento usando o portal do Azure"^] .
+. Depois de configurar as máquinas virtuais, efetue login em cada máquina virtual no conjunto de VMs e instale o SnapCenter Server em ambos os nós.
+. Crie o cluster no host 1.
+`Add-SmServerCluster -ClusterName <cluster_name> -ClusterIP <specify the load balancer front end virtual ip> -PrimarySCServerIP <ip address> -Verbose -Credential <credentials>`
+. Adicione o servidor secundário.
+`Add-SmServer -ServerName <name of node2> -ServerIP <ip address of node2> -Verbose -Credential <credentials>`
+. Obtenha os detalhes de alta disponibilidade.
+`Get-SmServerConfig`
+. Se necessário, reconstrua o host secundário.
+`Set-SmRepositoryConfig -RebuildSlave -Verbose`
+. Failover para o segundo host.
+`Set-SmRepositoryConfig ActiveMaster <name of node2> -Verbose`
+
+
+--
+== Mude de NLB para F5 para alta disponibilidade
+
+Você pode alterar a configuração do SnapCenter HA do Network Load Balancing (NLB) para usar o F5 Load Balancer.
+
+*Passos*
+
+. Configure os servidores SnapCenter para alta disponibilidade usando F5. https://kb.netapp.com/Advice_and_Troubleshooting/Data_Protection_and_Security/SnapCenter/How_to_configure_SnapCenter_Servers_for_high_availability_using_F5_Load_Balancer["Saber mais"^] .
+. No host do SnapCenter Server, inicie o PowerShell.
+. Inicie uma sessão usando o cmdlet Open-SmConnection e insira suas credenciais.
+. Atualize o SnapCenter Server para apontar para o endereço IP do cluster F5 usando o cmdlet Update-SmServerCluster.
++
+As informações sobre os parâmetros que podem ser usados com o cmdlet e suas descrições podem ser obtidas executando _Get-Help command_name_. Alternativamente, você também pode consultar o https://docs.netapp.com/us-en/snapcenter-cmdlets/index.html["Guia de referência do cmdlet do software SnapCenter"^] .
+
+
+
+====

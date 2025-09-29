@@ -1,0 +1,53 @@
+---
+permalink: protect-scw/concept_snapcenter_plug_in_for_windows_features.html 
+sidebar: sidebar 
+keywords: SnapCenter 
+summary: O plug-in para Windows integra-se à tecnologia NetApp Snapshot no sistema de armazenamento.  Para trabalhar com o Plug-in para Windows, use a interface do SnapCenter . 
+---
+= Recursos do plug-in SnapCenter para Windows
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+O plug-in para Windows integra-se à tecnologia NetApp Snapshot no sistema de armazenamento.  Para trabalhar com o Plug-in para Windows, use a interface do SnapCenter .
+
+O plug-in para Windows inclui estes recursos principais:
+
+* *Interface gráfica de usuário unificada com tecnologia SnapCenter*
++
+A interface do SnapCenter oferece padronização e consistência entre plug-ins e ambientes.  A interface do SnapCenter permite que você conclua processos consistentes de backup e restauração em todos os plug-ins, use relatórios centralizados, use visualizações de painel rápidas, configure o controle de acesso baseado em função (RBAC) e monitore trabalhos em todos os plug-ins.  O SnapCenter também oferece agendamento centralizado e gerenciamento de políticas para dar suporte a operações de backup e clonagem.
+
+* *Administração central automatizada*
++
+Você pode agendar backups de rotina do sistema de arquivos, configurar retenção de backup baseada em políticas e configurar operações de restauração.  Você também pode monitorar proativamente o ambiente do seu sistema de arquivos configurando o SnapCenter para enviar alertas por e-mail.
+
+* *Tecnologia NetApp Snapshot não disruptiva*
++
+O plug-in para Windows usa a tecnologia NetApp Snapshot.  Isso permite que você faça backup de sistemas de arquivos em segundos e restaure-os rapidamente sem deixar o host offline.  Os instantâneos consomem espaço de armazenamento mínimo.
+
+
+
+Além desses recursos principais, o Plug-in para Windows oferece os seguintes benefícios:
+
+* Suporte para fluxo de trabalho de backup, restauração e clonagem
+* Segurança com suporte RBAC e delegação centralizada de funções
+* Criação de cópias com eficiência de espaço de sistemas de arquivos de produção para testes ou extração de dados usando a tecnologia NetApp FlexClone
++
+Para obter informações sobre o licenciamento do FlexClone , consultelink:../get-started/concept_snapcenter_licenses.html["Licenças SnapCenter"^] .
+
+* Capacidade de executar vários backups ao mesmo tempo em vários servidores
+* Cmdlets do PowerShell para scripts de operações de backup, restauração e clonagem
+* Suporte para backup de sistemas de arquivos e discos de máquinas virtuais (VMDKs)
+* Suporte para infraestruturas físicas e virtualizadas
+* Suporte para iSCSI, Fibre Channel, FCoE, mapeamento de dispositivos brutos (RDM), mapeamento de LUN assimétrico (ALM), VMDK sobre NFS e VMFS e FC virtual
+* Suporte para memória não volátil expressa (NVMe) no Windows Server 2022
++
+** Fluxos de trabalho de backup, restauração, clonagem e verificação no layout VMDK criado em NVMe sobre TCP/IP.
+** Suporta firmware NVMe versão 1.3 a partir do ESX 8.0 atualização 2 e requer hardware virtual versão 21.
+** O Windows Server Failover Clustering (WSFC) não é suportado para aplicativos via VMDK em NVMe via TCP/IP.
+
+
+* Oferece suporte à sincronização ativa do SnapMirror (inicialmente lançado como SnapMirror Business Continuity [SM-BC]), que permite que os serviços empresariais continuem operando mesmo durante uma falha completa do site, permitindo que os aplicativos façam failover de forma transparente usando uma cópia secundária.  Não é necessária intervenção manual nem script adicional para acionar um failover com a sincronização ativa do SnapMirror .
+

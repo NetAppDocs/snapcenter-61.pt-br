@@ -1,0 +1,90 @@
+---
+permalink: admin/concept_manage_policies.html 
+sidebar: sidebar 
+keywords: Manage policies 
+summary: Você pode desanexar políticas de um recurso ou grupo de recursos, modificar, excluir, visualizar e copiar. 
+---
+= Gerenciar políticas
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Você pode desanexar políticas de um recurso ou grupo de recursos, modificar, excluir, visualizar e copiar.
+
+
+
+== Modificar políticas
+
+Você pode modificar as opções de replicação, as configurações de retenção de instantâneos, a contagem de novas tentativas de erro ou as informações de scripts enquanto uma política estiver anexada a um recurso ou grupo de recursos.  Você pode modificar o tipo de agendamento (frequência) somente depois de desanexar uma política.
+
+*Sobre esta tarefa*
+
+Modificar o tipo de agendamento em uma política requer etapas adicionais porque o SnapCenter Server registra o tipo de agendamento somente no momento em que a política é anexada a um recurso ou grupo de recursos.
+
+|===
+| Se você quiser... | Então... 
+
+
+ a| 
+Adicionar um tipo de programação adicional
+ a| 
+Crie uma nova política e anexe-a aos recursos ou grupos de recursos necessários.
+
+Por exemplo, se uma política de grupo de recursos especificar apenas backups de hora em hora e você quiser adicionar backups diários também, poderá criar uma política com um tipo de agendamento diário e adicioná-la ao grupo de recursos.  O grupo de recursos teria então duas políticas: horária e diária.
+
+
+
+ a| 
+Remover ou alterar um tipo de programação
+ a| 
+Execute o seguinte:
+
+. Desanexe a política de cada recurso e grupo de recursos que usa essa política.
+. Modifique o tipo de programação.
+. Anexe a política novamente a todos os recursos e grupos de recursos.
+
+
+Por exemplo, se uma política especifica backups de hora em hora e você deseja alterá-la para backups diários, você deve desanexar a política primeiro.
+
+|===
+*Passos*
+
+. No painel de navegação esquerdo, clique em *Configurações*.
+. Na página Configurações, clique em *Políticas*.
+. Selecione a política e clique em *Modificar*.
+. Modifique as informações e clique em *Concluir*.
+
+
+
+
+== Políticas de desanexação
+
+Você pode desanexar políticas de um recurso ou grupo de recursos sempre que não quiser mais que essas políticas controlem a proteção de dados dos recursos.  Você deve desanexar uma política antes de excluí-la ou antes de modificar o tipo de agendamento.
+
+*Passos*
+
+. No painel de navegação esquerdo, clique em *Recursos* e selecione o plug-in apropriado na lista.
+. Na página Recursos, selecione *Grupo de recursos* na lista *Exibir*.
+. Selecione o grupo de recursos e clique em *Modificar grupo de recursos*.
+. Na página Políticas do assistente Modificar Grupo de Recursos, na lista suspensa, desmarque a marca de seleção ao lado das políticas que deseja desanexar.
+. Faça quaisquer modificações adicionais no grupo de recursos no restante do assistente e clique em *Concluir*.
+
+
+
+
+== Excluir políticas
+
+Se você não precisar mais de políticas, talvez seja necessário excluí-las.
+
+.Antes de começar
+Você deve desanexar a política do recurso ou grupos de recursos se ela estiver associada a qualquer recurso ou grupo de recursos.
+
+*Passos*
+
+. No painel de navegação esquerdo, clique em *Configurações*.
+. Na página Configurações, clique em *Políticas*.
+. Selecione a política e clique em *Excluir*.
+. Clique em *Sim*.
+

@@ -1,0 +1,32 @@
+---
+permalink: protect-scw/task_determine_resource_availability_for_windows_file_systems.html 
+sidebar: sidebar 
+keywords: availability 
+summary: Recursos são LUNs e componentes semelhantes no seu sistema de arquivos que são mantidos pelos plug-ins que você instalou.  Você pode adicionar esses recursos a grupos de recursos para poder executar tarefas de proteção de dados em vários recursos, mas primeiro você deve identificar quais recursos estão disponíveis.  Descobrir os recursos disponíveis também verifica se a instalação do plug-in foi concluída com sucesso. 
+---
+= Determinar a disponibilidade de recursos para sistemas de arquivos do Windows
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Recursos são LUNs e componentes semelhantes no seu sistema de arquivos que são mantidos pelos plug-ins que você instalou.  Você pode adicionar esses recursos a grupos de recursos para poder executar tarefas de proteção de dados em vários recursos, mas primeiro você deve identificar quais recursos estão disponíveis.  Descobrir os recursos disponíveis também verifica se a instalação do plug-in foi concluída com sucesso.
+
+.Antes de começar
+* Você já deve ter concluído tarefas como instalar o SnapCenter Server, adicionar hosts, criar conexões de máquina virtual de armazenamento (SVM) e adicionar credenciais.
+* Se os arquivos residirem em LUNs ou VMDKs do VMware RDM, você deverá implantar o SnapCenter Plug-in for VMware vSphere e registrar o plug-in no SnapCenter. Para obter mais informações, consulte  https://docs.netapp.com/us-en/sc-plugin-vmware-vsphere/["Documentação do SnapCenter Plug-in for VMware vSphere"^] .
+
+
+.Passos
+. No painel de navegação esquerdo, clique em *Recursos* e selecione o plug-in apropriado na lista.
+. Na página Recursos, selecione *Sistemas de arquivos* na lista.
+. Selecione o host para filtrar a lista de recursos e clique em *Atualizar recursos*.
++
+Os sistemas de arquivos recém-adicionados, renomeados ou excluídos são atualizados para o inventário do SnapCenter Server.
+
++
+
+IMPORTANT: Você deve atualizar os recursos se os bancos de dados forem renomeados fora do SnapCenter.
+
+

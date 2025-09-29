@@ -1,0 +1,253 @@
+---
+permalink: protect-db2/prerequisites-to-adding-hosts-and-installing-snapcenter-plug-in-for-ibm-db2.html 
+sidebar: sidebar 
+keywords: credentials, Windows, Linux, AIX 
+summary: Antes de adicionar um host e instalar os pacotes de plug-in, você deve concluir todos os requisitos.  Plug-in SnapCenter para IBM Db2 compatível com ambientes Windows, Linux e AIX. 
+---
+= Pré-requisitos para adicionar hosts e instalar o pacote de plug-ins para Windows, Linux ou AIX
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Antes de adicionar um host e instalar os pacotes de plug-in, você deve concluir todos os requisitos.  Plug-in SnapCenter para IBM Db2 compatível com ambientes Windows, Linux e AIX.
+
+* Você deve ter instalado o Java 11 no seu host.
++
+
+NOTE: O IBM Java não é suportado em hosts Windows e Linux.
+
+* No Windows, o Plug-in Creator Service deve ser executado usando o usuário do Windows "`LocalSystem`", que é o comportamento padrão quando o Plug-in para IBM Db2 é instalado como administrador de domínio.
+* Ao instalar um plug-in em um host Windows, se você especificar uma credencial que não esteja integrada ou se o usuário pertencer a um usuário de grupo de trabalho local, será necessário desabilitar o UAC no host.  O plug-in SnapCenter para Microsoft Windows será implantado por padrão com o plug-in IBM Db2 em hosts Windows.
+* O SnapCenter Server deve ter acesso à porta 8145 ou personalizada do plug-in para host IBM Db2.
+
+
+
+
+== Hosts do Windows
+
+* Você deve ter um usuário de domínio com privilégios de administrador local e permissões de login local no host remoto.
+* Ao instalar o Plug-in para IBM Db2 em um host Windows, o SnapCenter Plug-in para Microsoft Windows é instalado automaticamente.
+* Você deve ter habilitado a conexão SSH baseada em senha para o usuário root ou não root.
+* Você deve ter instalado o Java 11 no seu host Windows.
++
+http://www.java.com/en/download/manual.jsp["Baixe JAVA para Windows"]
+
++
+https://imt.netapp.com/matrix/imt.jsp?components=121066;&solution=1259&isHWU&src=IMT["Ferramenta de Matriz de Interoperabilidade da NetApp"]
+
+
+
+
+
+== Hosts Linux e AIX
+
+* Você deve ter habilitado a conexão SSH baseada em senha para o usuário root ou não root.
+* Você deve ter instalado o Java 11 no seu host Linux.
++
+http://www.java.com/en/download/manual.jsp["Baixe JAVA para Linux"]
+
++
+https://developer.ibm.com/languages/java/semeru-runtimes/downloads/?license=IBM["Baixe JAVA para AIX"]
+
++
+https://imt.netapp.com/matrix/imt.jsp?components=121066;&solution=1259&isHWU&src=IMT["Ferramenta de Matriz de Interoperabilidade da NetApp"]
+
+* Para bancos de dados IBM Db2 em execução em um host Linux, ao instalar o Plug-in para IBM Db2, o SnapCenter Plug-in para UNIX é instalado automaticamente.
+* Você deve ter *bash* como o shell padrão para instalação de plug-ins.
+
+
+
+
+== Comandos suplementares
+
+Para executar um comando suplementar no SnapCenter Plug-in para IBM Db2, você deve incluí-lo no arquivo _allowed_commands.config_.
+
+* Local padrão no host do Windows: _C:\Arquivos de Programas\ NetApp\ SnapCenter\Snapcenter Plug-in Creator\etc\allowed_commands.config_
+* Local padrão no host Linux: _/opt/ NetApp/snapcenter/scc/etc/allowed_commands.config_
+
+
+Para permitir comandos suplementares no host do plug-in, abra o arquivo _allowed_commands.config_ em um editor.  Digite cada comando em uma linha separada e os comandos não diferenciam maiúsculas de minúsculas.  Certifique-se de especificar o caminho totalmente qualificado e coloque-o entre aspas (") se ele contiver espaços.
+
+Por exemplo:
+
+comando: montar
+
+comando: umount
+
+comando: "C:\Arquivos de Programas\ NetApp\Comandos do SnapCreator\sdcli.exe"
+
+comando: myscript.bat
+
+Se o arquivo _allowed_commands.config_ não estiver presente, os comandos ou a execução do script serão bloqueados e o fluxo de trabalho falhará com o seguinte erro:
+
+"[/mnt/mount -a] execução não permitida.  Autorize adicionando o comando no arquivo %s no host do plugin."
+
+Se o comando ou script não estiver presente no _allowed_commands.config_, a execução do comando ou script será bloqueada e o fluxo de trabalho falhará com o seguinte erro:
+
+"[/mnt/mount -a] execução não permitida.  Autorize adicionando o comando no arquivo %s no host do plugin."
+
+
+NOTE: Você não deve usar uma entrada curinga (*) para permitir todos os comandos.
+
+
+
+== Configurar privilégios sudo para usuários não root para host Linux
+
+O SnapCenter permite que um usuário não root instale o pacote de plug-ins do SnapCenter para Linux e inicie o processo de plug-in.  Os processos do plug-in serão executados como um usuário não root efetivo.  Você deve configurar privilégios sudo para que o usuário não root forneça acesso a vários caminhos.
+
+*O que você vai precisar*
+
+* Sudo versão 1.8.7 ou posterior.
+* Se a umask for 0027, certifique-se de que a pasta java e todos os arquivos dentro dela tenham permissão de 555.  Caso contrário, a instalação do plug-in poderá falhar.
+* Para o usuário não root, certifique-se de que o nome do usuário não root e o nome do grupo do usuário sejam os mesmos.
+* Edite o arquivo _/etc/ssh/sshd_config_ para configurar os algoritmos do código de autenticação de mensagens: MACs hmac-sha2-256 e MACs hmac-sha2-512.
++
+Reinicie o serviço sshd após atualizar o arquivo de configuração.
+
++
+Exemplo:
+
++
+[listing]
+----
+#Port 22
+#AddressFamily any
+#ListenAddress 0.0.0.0
+#ListenAddress ::
+#Legacy changes
+#KexAlgorithms diffie-hellman-group1-sha1
+#Ciphers aes128-cbc
+#The default requires explicit activation of protocol
+Protocol 2
+HostKey/etc/ssh/ssh_host_rsa_key
+MACs hmac-sha2-256
+----
+
+
+*Sobre esta tarefa*
+
+Você deve configurar privilégios sudo para que o usuário não root forneça acesso aos seguintes caminhos:
+
+* /home/_LINUX_USER_/.sc_netapp/snapcenter_linux_host_plugin.bin
+* /localização_personalizada/ NetApp/snapcenter/spl/instalação/plugins/desinstalação
+* /localização_personalizada/ NetApp/snapcenter/spl/bin/spl
+
+
+*Passos*
+
+. Efetue login no host Linux no qual você deseja instalar o pacote de plug-ins do SnapCenter para Linux.
+. Adicione as seguintes linhas ao arquivo /etc/sudoers usando o utilitário visudo Linux.
++
+[listing, subs="+quotes"]
+----
+Cmnd_Alias HPPLCMD = sha224:checksum_value== /home/_LINUX_USER_/.sc_netapp/snapcenter_linux_host_plugin.bin, /opt/NetApp/snapcenter/spl/installation/plugins/uninstall, /opt/NetApp/snapcenter/spl/bin/spl, /opt/NetApp/snapcenter/scc/bin/scc
+Cmnd_Alias PRECHECKCMD = sha224:checksum_value== /home/_LINUX_USER_/.sc_netapp/Linux_Prechecks.sh
+Cmnd_Alias CONFIGCHECKCMD = sha224:checksum_value== /opt/NetApp/snapcenter/spl/plugins/scu/scucore/configurationcheck/Config_Check.sh
+Cmnd_Alias SCCMD = sha224:checksum_value== /opt/NetApp/snapcenter/spl/bin/sc_command_executor
+Cmnd_Alias SCCCMDEXECUTOR =checksum_value== /opt/NetApp/snapcenter/scc/bin/sccCommandExecutor
+_LINUX_USER_ ALL=(ALL) NOPASSWD:SETENV: HPPLCMD, PRECHECKCMD, CONFIGCHECKCMD, SCCCMDEXECUTOR, SCCMD
+Defaults: _LINUX_USER_ env_keep += "IATEMPDIR"
+Defaults: _LINUX_USER_ env_keep += "JAVA_HOME"
+Defaults: _LINUX_USER_ !visiblepw
+Defaults: _LINUX_USER_ !requiretty
+----
++
+
+NOTE: Se você tiver uma configuração RAC, junto com os outros comandos permitidos, você deve adicionar o seguinte ao arquivo /etc/sudoers: '/<crs_home>/bin/olsnodes'
+
+
+
+Você pode obter o valor de _crs_home_ do arquivo _/etc/oracle/olr.loc_.
+
+_LINUX_USER_ é o nome do usuário não root que você criou.
+
+Você pode obter o _checksum_value_ do arquivo *sc_unix_plugins_checksum.txt*, localizado em:
+
+* _C:\ProgramData\ NetApp\ SnapCenter\Package Repository\sc_unix_plugins_checksum.txt_ se o SnapCenter Server estiver instalado no host Windows.
+* _/opt/ NetApp/snapcenter/SnapManagerWeb/Repository/sc_unix_plugins_checksum.txt_ se o SnapCenter Server estiver instalado no host Linux.
+
+
+
+IMPORTANT: O exemplo deve ser usado apenas como referência para criar seus próprios dados.
+
+
+
+== Configurar privilégios sudo para usuários não root para host AIX
+
+O SnapCenter 4.4 e versões posteriores permitem que um usuário não root instale o Pacote de plug-ins do SnapCenter para AIX e inicie o processo de plug-in.  Os processos do plug-in serão executados como um usuário não root efetivo.  Você deve configurar privilégios sudo para que o usuário não root forneça acesso a vários caminhos.
+
+*O que você vai precisar*
+
+* Sudo versão 1.8.7 ou posterior.
+* Se a umask for 0027, certifique-se de que a pasta java e todos os arquivos dentro dela tenham permissão de 555.  Caso contrário, a instalação do plug-in poderá falhar.
+* Edite o arquivo _/etc/ssh/sshd_config_ para configurar os algoritmos do código de autenticação de mensagens: MACs hmac-sha2-256 e MACs hmac-sha2-512.
++
+Reinicie o serviço sshd após atualizar o arquivo de configuração.
+
++
+Exemplo:
+
++
+[listing]
+----
+#Port 22
+#AddressFamily any
+#ListenAddress 0.0.0.0
+#ListenAddress ::
+#Legacy changes
+#KexAlgorithms diffie-hellman-group1-sha1
+#Ciphers aes128-cbc
+#The default requires explicit activation of protocol
+Protocol 2
+HostKey/etc/ssh/ssh_host_rsa_key
+MACs hmac-sha2-256
+----
+
+
+*Sobre esta tarefa*
+
+Você deve configurar privilégios sudo para que o usuário não root forneça acesso aos seguintes caminhos:
+
+* /home/_AIX_USER_/.sc_netapp/snapcenter_aix_host_plugin.bsx
+* /localização_personalizada/ NetApp/snapcenter/spl/instalação/plugins/desinstalação
+* /localização_personalizada/ NetApp/snapcenter/spl/bin/spl
+
+
+*Passos*
+
+. Efetue login no host AIX no qual você deseja instalar o Pacote de plug-ins do SnapCenter para AIX.
+. Adicione as seguintes linhas ao arquivo /etc/sudoers usando o utilitário visudo Linux.
++
+[listing, subs="+quotes"]
+----
+Cmnd_Alias HPPACMD = sha224:checksum_value== /home/_AIX_USER_/.sc_netapp/snapcenter_aix_host_plugin.bsx,
+/opt/NetApp/snapcenter/spl/installation/plugins/uninstall, /opt/NetApp/snapcenter/spl/bin/spl
+Cmnd_Alias PRECHECKCMD = sha224:checksum_value== /home/_AIX_USER_/.sc_netapp/AIX_Prechecks.sh
+Cmnd_Alias CONFIGCHECKCMD = sha224:checksum_value== /opt/NetApp/snapcenter/spl/plugins/scu/scucore/configurationcheck/Config_Check.sh
+Cmnd_Alias SCCMD = sha224:checksum_value== /opt/NetApp/snapcenter/spl/bin/sc_command_executor
+_AIX_USER_ ALL=(ALL) NOPASSWD:SETENV: HPPACMD, PRECHECKCMD, CONFIGCHECKCMD, SCCMD
+Defaults: _LINUX_USER_ env_keep += "IATEMPDIR"
+Defaults: _LINUX_USER_ env_keep += "JAVA_HOME"
+Defaults: _AIX_USER_ !visiblepw
+Defaults: _AIX_USER_ !requiretty
+----
++
+
+NOTE: Se você tiver uma configuração RAC, junto com os outros comandos permitidos, você deve adicionar o seguinte ao arquivo /etc/sudoers: '/<crs_home>/bin/olsnodes'
+
+
+
+Você pode obter o valor de _crs_home_ do arquivo _/etc/oracle/olr.loc_.
+
+_AIX_USER_ é o nome do usuário não root que você criou.
+
+Você pode obter o _checksum_value_ do arquivo *sc_unix_plugins_checksum.txt*, localizado em:
+
+* _C:\ProgramData\ NetApp\ SnapCenter\Package Repository\sc_unix_plugins_checksum.txt_ se o SnapCenter Server estiver instalado no host Windows.
+* _/opt/ NetApp/snapcenter/SnapManagerWeb/Repository/sc_unix_plugins_checksum.txt_ se o SnapCenter Server estiver instalado no host Linux.
+
+
+
+IMPORTANT: O exemplo deve ser usado apenas como referência para criar seus próprios dados.

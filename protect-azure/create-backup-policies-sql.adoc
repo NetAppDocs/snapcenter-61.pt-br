@@ -1,0 +1,71 @@
+---
+permalink: protect-azure/create-backup-policies-sql.html 
+sidebar: sidebar 
+keywords: create policies, sql, backup policies 
+summary: Crie uma política de backup para o recurso ou grupo de recursos do qual você deseja fazer backup. 
+---
+= Crie políticas de backup para bancos de dados SQL Server
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Você pode criar uma política de backup para o recurso ou grupo de recursos antes de usar o SnapCenter para fazer backup de recursos do SQL Server ou pode criar uma política de backup no momento em que cria um grupo de recursos ou faz backup de um único recurso.
+
+.Passos
+. No painel de navegação esquerdo, clique em *Configurações*.
+. Na página Configurações, clique em *Políticas*.
+. Clique em *Novo*.
+. Na página Nome, insira o nome e a descrição da política.
+. Na página Tipo de política, execute as seguintes etapas:
++
+.. Selecione * Azure NetApp Files* como o tipo de armazenamento.
+.. Selecione o tipo de backup.
++
+... Selecione *Backup completo e backup de log* se quiser fazer backup de arquivos de banco de dados e logs de transações.
+... Selecione *Backup completo* se quiser fazer backup apenas dos arquivos do banco de dados.
+... Selecione *Backup de Log* se quiser fazer backup apenas dos logs de transações.
+... Selecione *Copiar somente backup* se quiser fazer backup de seus recursos usando outro aplicativo.
+
+
+.. Na seção Configurações do grupo de disponibilidade, execute as seguintes ações:
++
+... Selecione Fazer backup na réplica de backup preferida se quiser fazer backup somente na réplica.
+... Selecione a réplica do AG primário ou a réplica do AG secundário para o backup.
+... Selecione a prioridade do backup.
+
+
+
+
+. Na página Snapshot e backup, execute as seguintes etapas:
++
+.. Selecione a frequência do backup agendado.
+.. Especifique as configurações de retenção dependendo do tipo de backup selecionado.
+.. Se você quiser habilitar o backup do Azure NetApp Files , selecione *Habilitar backup* e especifique as configurações de retenção.
+
+
+. Na página Verificação, execute as seguintes etapas:
++
+.. Na seção Executar verificação para os seguintes agendamentos de backup, selecione a frequência do agendamento.
+.. Na seção Opções de verificação de consistência do banco de dados, execute as seguintes ações:
++
+... Selecione *Limitar a estrutura de integridade à estrutura física do banco de dados (PHYSICAL_ONLY)* para limitar a verificação de integridade à estrutura física do banco de dados e detectar páginas quebradas, falhas de soma de verificação e falhas comuns de hardware que afetam o banco de dados.
+... Selecione *Suprimir todas as mensagens informativas (NO_INFOMSGS)* para suprimir todas as mensagens informativas.
++
+Selecionado por padrão.
+
+... Selecione *Exibir todas as mensagens de erro relatadas por objeto (ALL_ERRORMSGS)* para exibir todos os erros relatados por objeto.
+... Selecione *Não verificar índices não agrupados (NOINDEX)* se não quiser verificar índices não agrupados.
++
+O banco de dados SQL Server usa o Microsoft SQL Server Database Consistency Checker (DBCC) para verificar a integridade lógica e física dos objetos no banco de dados.
+
+... Selecione *Limitar as verificações e obter os bloqueios em vez de usar uma cópia de instantâneo do banco de dados interno (TABLOCK)* para limitar as verificações e obter os bloqueios em vez de usar um instantâneo do banco de dados interno.
+
+
+.. Na seção *Backup de log*, selecione *Verificar backup de log após a conclusão* para verificar o backup de log após a conclusão.
+.. Na seção *Configurações do script de verificação*, insira o caminho e os argumentos do prescript ou postscript que devem ser executados antes ou depois da operação de verificação, respectivamente.
+
+
+. Revise o resumo e clique em *Concluir*.
+

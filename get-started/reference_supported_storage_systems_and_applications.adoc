@@ -1,0 +1,38 @@
+---
+permalink: get-started/reference_supported_storage_systems_and_applications.html 
+sidebar: sidebar 
+keywords: storage system, ONTAP version, ASA r2 systems 
+summary: Você deve conhecer o sistema de armazenamento, os aplicativos e os bancos de dados suportados. 
+---
+= Sistemas de armazenamento e aplicativos suportados pelo SnapCenter
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Você deve conhecer os sistemas de armazenamento, aplicativos e bancos de dados suportados pelo SnapCenter.
+
+
+
+== Sistemas de armazenamento suportados
+
+* NetApp ONTAP 9.12.1 e posterior
+* Azure NetApp Files
+* Amazon FSx for NetApp ONTAP
++
+Suporta memória não volátil expressa (NVMe) via Protocolo de Controle de Transporte (TCP).
+
++
+Para obter informações sobre o Amazon FSx for NetApp ONTAP, consulte https://docs.aws.amazon.com/fsx/latest/ONTAPGuide/what-is-fsx-ontap.html["Documentação do Amazon FSx for NetApp ONTAP"^] .
+
+* Sistemas NetApp ASA r2 que executam o NetApp ONTAP 9.16.1.
+
+
+
+
+== Aplicativos e bancos de dados suportados
+
+O SnapCenter oferece suporte à proteção de diferentes aplicativos e bancos de dados.  Para obter informações detalhadas sobre os aplicativos e bancos de dados suportados, consulte https://imt.netapp.com/matrix/imt.jsp?components=121074;&solution=1257&isHWU&src=IMT["Ferramenta de Matriz de Interoperabilidade da NetApp"^] .
+
+O SnapCenter oferece suporte à proteção de cargas de trabalho Oracle e Microsoft SQL em ambientes de Software-Defined Data Center (SDDC) do VMware Cloud on Amazon Web Services (AWS). https://community.netapp.com/t5/Tech-ONTAP-Blogs/Protect-Oracle-MS-SQL-workloads-using-NetApp-SnapCenter-in-VMware-Cloud-on-AWS/ba-p/449168["Saber mais"^] .

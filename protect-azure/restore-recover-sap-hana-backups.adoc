@@ -1,0 +1,49 @@
+---
+permalink: protect-azure/restore-recover-sap-hana-backups.html 
+sidebar: sidebar 
+keywords: SnapCenter Plug-in for SAP HANA Database, restore, recover 
+summary: Você pode usar o SnapCenter para restaurar e recuperar dados de um ou mais backups. 
+---
+= Restaurar e recuperar bancos de dados SAP HANA
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Você pode restaurar e recuperar dados dos backups.
+
+.Sobre esta tarefa
+Para sistemas HANA descobertos automaticamente, se a opção *Recurso Completo* for selecionada, a restauração será realizada usando a tecnologia de restauração de instantâneo de arquivo único.  Se a caixa de seleção *Restauração rápida* estiver selecionada, a tecnologia de reversão de volume será usada.
+
+Para recursos adicionados manualmente, a tecnologia Volume Revert é sempre usada.
+
+.Passos
+. No painel de navegação esquerdo, clique em *Recursos* e selecione o plug-in apropriado na lista.
+. Na página Recursos, filtre os recursos da lista suspensa *Exibir* com base no tipo de recurso.
+. Selecione o recurso ou selecione um grupo de recursos e, em seguida, selecione um recurso nesse grupo.
+. Na exibição Gerenciar cópias, selecione *Backups* dos sistemas de armazenamento primário ou secundário (espelhado ou em cofre).
+. Na tabela Backup(s) primário(s), selecione o backup que deseja restaurar e clique em *image:../media/restore_icon.gif["ícone de restauração"] *.
+. Na página Escopo de restauração, selecione *Recurso completo*.
++
+Todos os volumes de dados configurados do banco de dados SAP HANA são restaurados.
+
+. Para sistemas HANA descobertos automaticamente, na página Escopo de recuperação, execute as seguintes ações:
++
+.. Selecione *Recuperar para o estado mais recente* se quiser recuperar o mais próximo possível do momento atual.
+.. Selecione *Recuperar para um ponto no tempo* se quiser recuperar para o ponto no tempo especificado.
+.. Selecione *Recuperar para backup de dados especificado* se quiser recuperar para um backup de dados específico.
+.. Selecione *Sem recuperação* se não quiser recuperar agora.
+.. Especifique os locais de backup do log.
+.. Especifique o local do catálogo de backup.
+
+
+. Na página Pré-operações, insira os comandos pre restore e unmount para executar antes de realizar um trabalho de restauração.
+. Na página Post ops, insira os comandos mount e post restore para serem executados após realizar um trabalho de restauração.
+. Na página Notificação, na lista suspensa *Preferência de e-mail*, selecione os cenários nos quais você deseja enviar os e-mails.
++
+Você também deve especificar os endereços de e-mail do remetente e do destinatário e o assunto do e-mail.  O SMTP também deve ser configurado na página *Configurações* > *Configurações globais*.
+
+. Revise o resumo e clique em *Concluir*.
+. Monitore o progresso da operação clicando em *Monitorar* > *Trabalhos*.
+

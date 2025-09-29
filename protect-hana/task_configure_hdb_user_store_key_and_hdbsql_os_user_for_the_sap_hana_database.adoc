@@ -1,0 +1,38 @@
+---
+permalink: protect-hana/task_configure_hdb_user_store_key_and_hdbsql_os_user_for_the_sap_hana_database.html 
+sidebar: sidebar 
+keywords: HDB User Store Key, HDBSQL OS User, SAP HANA database 
+summary: Você deve configurar a chave de armazenamento do usuário HDB e o usuário do sistema operacional HDBSQL para executar operações de proteção de dados em bancos de dados SAP HANA. 
+---
+= Configurar a chave de armazenamento do usuário HDB e o usuário do sistema operacional HDBSQL para o banco de dados SAP HANA
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Você deve configurar a chave de armazenamento do usuário HDB e o usuário do sistema operacional HDBSQL para executar operações de proteção de dados em bancos de dados SAP HANA.
+
+.Antes de começar
+* Se o banco de dados SAP HANA não tiver a chave de armazenamento de usuário seguro do HDB e o usuário do sistema operacional SQL do HDB configurados, um ícone de cadeado vermelho aparecerá somente para os recursos descobertos automaticamente.  Se, durante uma operação de descoberta subsequente, a chave de armazenamento de usuário segura do HDB configurada for considerada incorreta ou não fornecer acesso ao próprio banco de dados, o ícone de cadeado vermelho reaparecerá.
+* Você deve configurar a chave de armazenamento de usuário seguro do HDB e o usuário do sistema operacional SQL do HDB para poder proteger o banco de dados ou adicioná-lo a um grupo de recursos para executar operações de proteção de dados.
+* Você deve configurar o usuário do sistema operacional HDB SQL para acessar o banco de dados do sistema.  Se o usuário do sistema operacional HDB SQL estiver configurado para acessar somente o banco de dados do locatário, a operação de descoberta falhará.
+
+
+.Passos
+. No painel de navegação esquerdo, clique em *Recursos* e selecione Plug-in SnapCenter para banco de dados SAP HANA na lista.
+. Na página Recursos, selecione o tipo de recurso na lista *Exibir*.
+. (Opcional) Cliqueimage:../media/filter_icon.gif["ícone de filtro"] e selecione o nome do host.
++
+Você pode então clicarimage:../media/filter_icon.gif["ícone de filtro"] para fechar o painel de filtro.
+
+. Selecione o banco de dados e clique em *Configurar banco de dados*.
+. Na seção Configurar definições do banco de dados, insira a Chave de armazenamento de usuário seguro do HDB.
++
+
+NOTE: O nome do host do plug-in é exibido e o usuário do sistema operacional HDB SQL é preenchido automaticamente como <sid>adm.
+
+. Clique em *OK*.
+
+
+Você pode modificar a configuração do banco de dados na página Topologia.

@@ -1,0 +1,38 @@
+---
+permalink: protect-scsql/task_restore_a_sql_server_database_from_secondary_storage.html 
+sidebar: sidebar 
+keywords: restore operation 
+summary: 'Você pode restaurar os bancos de dados do SQL Server com backup dos LUNs físicos (RDM, iSCSI ou FCP) em um sistema de armazenamento secundário.  O recurso Restaurar é um processo multifásico que copia todos os dados e as páginas de log de um backup especificado do SQL Server que reside no sistema de armazenamento secundário para um banco de dados especificado.' 
+---
+= Restaurar um banco de dados SQL Server do armazenamento secundário
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Você pode restaurar os bancos de dados do SQL Server com backup dos LUNs físicos (RDM, iSCSI ou FCP) em um sistema de armazenamento secundário.  O recurso Restaurar é um processo multifásico que copia todos os dados e as páginas de log de um backup especificado do SQL Server que reside no sistema de armazenamento secundário para um banco de dados especificado.
+
+.Antes de começar
+* Você deve ter replicado os Snapshots do sistema de armazenamento primário para o secundário.
+* Você deve garantir que o SnapCenter Server e o host do plug-in consigam se conectar ao sistema de armazenamento secundário.
+* A maioria dos campos nas páginas do assistente de restauração são explicados no processo básico de restauração.  As informações a seguir descrevem alguns dos campos para os quais você pode precisar de orientação.
+
+
+.Sobre esta tarefa
+Para políticas habilitadas para SnapLock , para ONTAP 9.12.1 e versões anteriores, se você especificar um período de bloqueio de Snapshot, os clones criados a partir de Snapshots à prova de violação como parte da restauração herdarão o tempo de expiração do SnapLock . O administrador de armazenamento deve limpar manualmente os clones após o tempo de expiração do SnapLock .
+
+.Passos
+. No painel de navegação esquerdo, clique em *Recursos* e selecione * SnapCenter Plug-in para SQL Server* na lista.
+. Na página Recursos, selecione *Banco de dados* ou *Grupo de recursos* na lista suspensa *Exibir*.
+. Selecione o banco de dados ou grupo de recursos.
++
+A página de topologia do banco de dados ou do grupo de recursos é exibida.
+
+. Na seção Gerenciar cópias, selecione *Backups* do sistema de armazenamento secundário (espelhado ou cofre).
+. Selecione o backup na lista e clique emimage:../media/restore_icon.gif["ícone de restauração"] .
+. Na página Localização, escolha o volume de destino para restaurar o recurso selecionado.
+. Conclua o assistente de restauração, revise o resumo e clique em *Concluir*.
+
+
+Se você restaurou um banco de dados para um caminho diferente que é compartilhado por outros bancos de dados, você deve executar um backup completo e uma verificação de backup para confirmar que seu banco de dados restaurado está livre de corrupção em nível físico.

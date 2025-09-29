@@ -1,0 +1,33 @@
+---
+permalink: protect-scsql/task_reseed_availability_group_databases.html 
+sidebar: sidebar 
+keywords: reseed 
+summary: 'Reseed é uma opção para restaurar bancos de dados do Grupo de Disponibilidade (AG).  Se um banco de dados secundário ficar fora de sincronia com o banco de dados primário em um AG, você poderá propagar novamente o banco de dados secundário.' 
+---
+= Bancos de dados do Grupo de Disponibilidade de Reseed
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Reseed é uma opção para restaurar bancos de dados do Grupo de Disponibilidade (AG).  Se um banco de dados secundário ficar fora de sincronia com o banco de dados primário em um AG, você poderá propagar novamente o banco de dados secundário.
+
+.Antes de começar
+* Você deve ter criado um backup do banco de dados secundário do AG que deseja restaurar.
+* O SnapCenter Server e o host do plug-in devem ter a mesma versão do SnapCenter instalada.
+
+
+.Sobre esta tarefa
+* Não é possível executar a operação de nova propagação em bancos de dados primários.
+* Não é possível executar uma operação de nova propagação se o banco de dados de réplica for removido do grupo de disponibilidade.  Quando a réplica é removida, a operação de nova propagação falha.
+* Ao executar a operação de nova propagação no banco de dados do Grupo de Disponibilidade SQL, você não deve acionar backups de log nos bancos de dados de réplica desse banco de dados do grupo de disponibilidade.  Se você acionar backups de log durante uma operação de nova propagação, a operação de nova propagação falhará com a mensagem de erro O banco de dados espelho, "database_name" tem dados de log de transações insuficientes para preservar a cadeia de backup de log do banco de dados principal.
+
+
+.Passos
+. No painel de navegação esquerdo, clique em *Recursos* e selecione * SnapCenter Plug-in para SQL Server* na lista.
+. Na página Recursos, selecione *Banco de dados* na lista *Exibir*.
+. Selecione o banco de dados AG secundário na lista.
+. Clique em *Reproduzir novamente*.
+. Monitore o progresso da operação clicando em *Monitorar* > *Trabalhos*.
+

@@ -1,0 +1,65 @@
+---
+permalink: protect-sco/discover-oracle-database.html 
+sidebar: sidebar 
+keywords: oracle databases discover 
+summary: Como o SnapCenter descobre bancos de dados Oracle. 
+---
+= Como o SnapCenter descobre bancos de dados Oracle
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Os recursos são bancos de dados Oracle no host que são mantidos pelo SnapCenter.  Você pode adicionar esses bancos de dados a grupos de recursos para executar operações de proteção de dados depois de descobrir os bancos de dados disponíveis.
+
+As seções a seguir descrevem o processo que o SnapCenter usa para descobrir diferentes tipos e versões de bancos de dados Oracle.
+
+
+
+== Para versões Oracle 11__g__ a 12__c__R1
+
+.Banco de dados RAC
+Os bancos de dados RAC são descobertos apenas com base nas entradas /etc/oratab.  Você deve ter as entradas do banco de dados no arquivo /etc/oratab.
+
+.Autônomo
+Os bancos de dados independentes são descobertos apenas com base nas entradas /etc/oratab.
+
+.ASM
+A entrada da instância ASM deve estar disponível no arquivo /etc/oratab.
+
+.RAC Um Nó
+Os bancos de dados do RAC One Node são descobertos apenas com base nas entradas /etc/oratab.  Os bancos de dados devem estar no estado nomount, mount ou open.  Você deve ter as entradas do banco de dados no arquivo /etc/oratab.
+
+O status do banco de dados do RAC One Node será marcado como renomeado ou excluído se o banco de dados já tiver sido descoberto e houver backups associados ao banco de dados.
+
+Você deve executar as seguintes etapas se o banco de dados for realocado:
+
+. Adicione manualmente a entrada do banco de dados realocado no arquivo /etc/oratab no nó RAC com failover.
+. Atualize manualmente os recursos.
+. Selecione o banco de dados RAC One Node na página de recursos e clique em Configurações do banco de dados.
+. Configure o banco de dados para definir os nós de cluster preferenciais para o nó RAC que atualmente hospeda o banco de dados.
+. Execute as operações do SnapCenter .
+. Se você tiver realocado um banco de dados de um nó para outro e se a entrada do oratab no nó anterior não for excluída, exclua manualmente a entrada do oratab para evitar que o mesmo banco de dados seja exibido duas vezes.
+
+
+
+
+== Para versões Oracle 12cR2 a 18c, 19c ou 21c
+
+.Banco de dados RAC
+Os bancos de dados RAC são descobertos usando o comando srvctl config.  Você deve ter as entradas do banco de dados no arquivo /etc/oratab.
+
+.Autônomo
+Os bancos de dados independentes são descobertos com base nas entradas no arquivo /etc/oratab e na saída do comando srvctl config.
+
+.ASM
+A entrada da instância ASM não precisa estar no arquivo /etc/oratab.
+
+.RAC Um Nó
+Os bancos de dados do RAC One Node são descobertos usando somente o comando srvctl config.  Os bancos de dados devem estar no estado nomount, mount ou open.  O status do banco de dados do RAC One Node será marcado como renomeado ou excluído se o banco de dados já tiver sido descoberto e houver backups associados ao banco de dados.
+
+Você deve executar as seguintes etapas se o banco de dados for realocado: .  Atualize manualmente os recursos. .  Selecione o banco de dados RAC One Node na página de recursos e clique em Configurações do banco de dados. .  Configure o banco de dados para definir os nós de cluster preferenciais para o nó RAC que atualmente hospeda o banco de dados. .  Execute as operações do SnapCenter .
+
+
+NOTE: Se houver entradas de banco de dados Oracle 12__c__R2 e 18__c__ no arquivo /etc/oratab e o mesmo banco de dados for registrado com o comando srvctl config, o SnapCenter eliminará as entradas duplicadas do banco de dados.  Se houver entradas desatualizadas no banco de dados, o banco de dados será descoberto, mas ficará inacessível e o status será offline.

@@ -1,0 +1,52 @@
+---
+permalink: protect-scsql/task-install-snapcenter-plug-in-for-sql-server.html 
+sidebar: sidebar 
+keywords: credentials 
+summary: Fornece instruções para instalar o plug-in SnapCenter para Microsoft SQL Server. 
+---
+= Instalar o plug-in SnapCenter para Microsoft SQL Server
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Fornece um conjunto condensado de instruções de instalação para o plug-in SnapCenter para Microsoft SQL Server.
+
+
+
+== Etapa 1: Configurar credenciais Executar como para instalar o plug-in para Microsoft SQL Server
+
+. No painel esquerdo, clique em *Configurações > Credenciais > Novo*.
+. Insira as credenciais.
++
+Para um formato de nome de usuário de administrador de domínio integrado, use: _NetBIOS\<nome de usuário>_ ou _<nome de usuário>@<domínio>_ ou _<FQDN do domínio>\<nome de usuário>_.
+
++
+Para um formato de nome de usuário de administrador local integrado, use _<nome de usuário>_.
+
+
+
+
+
+== Etapa 2: adicione um host e instale o plug-in para Microsoft SQL Server
+
+. No painel esquerdo da GUI do SnapCenter , clique em *Hosts > Hosts gerenciados > Adicionar*.
+. Na página Hosts do assistente, faça o seguinte:
++
+.. Tipo de host: selecione o tipo de host do Windows.
+.. Nome do host: use o host SQL ou especifique o FQDN de um host Windows dedicado.
+.. Credenciais: selecione o nome de credencial válido do host que você criou ou crie novas credenciais.
+
+
+. Na seção Selecionar plug-ins para instalar, selecione *Microsoft SQL Server*.
+. Clique em *Mais opções* para especificar os seguintes detalhes:
++
+.. Porta: mantenha o número da porta padrão ou especifique o número da porta.
+.. Caminho de instalação: O caminho padrão é _C:\Arquivos de Programas\ NetApp\SnapCenter_.  Opcionalmente, você pode personalizar o caminho.
+.. Adicionar todos os hosts no cluster: marque esta caixa de seleção se estiver usando SQL no WSFC.
+.. Ignorar verificações de pré-instalação: marque esta caixa de seleção se você já instalou os plug-ins manualmente ou não deseja validar se o host atende aos requisitos para instalar o plug-in.
+
+
+. Clique em *Enviar*.
+

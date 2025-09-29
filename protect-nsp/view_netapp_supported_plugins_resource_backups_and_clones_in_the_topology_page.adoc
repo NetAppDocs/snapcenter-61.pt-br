@@ -1,0 +1,72 @@
+---
+permalink: protect-nsp/view_netapp_supported_plugins_resource_backups_and_clones_in_the_topology_page.html 
+sidebar: sidebar 
+keywords: view NetApp supported plug-in resource 
+summary: Ao se preparar para fazer backup ou clonar um recurso, pode ser útil visualizar uma representação gráfica de todos os backups e clones no armazenamento primário e secundário.  Na página Topologia, você pode ver todos os backups e clones disponíveis para o recurso ou grupo de recursos selecionado.  Você pode visualizar os detalhes desses backups e clones e selecioná-los para executar operações de proteção de dados. 
+---
+= Exibir backups e clones relacionados a recursos de plug-ins suportados pela NetApp na página Topologia
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Ao se preparar para fazer backup ou clonar um recurso, pode ser útil visualizar uma representação gráfica de todos os backups e clones no armazenamento primário e secundário.  Na página Topologia, você pode ver todos os backups e clones disponíveis para o recurso ou grupo de recursos selecionado.  Você pode visualizar os detalhes desses backups e clones e selecioná-los para executar operações de proteção de dados.
+
+.Sobre esta tarefa
+Você pode revisar os seguintes ícones na exibição Gerenciar cópias para determinar se os backups e clones estão disponíveis no armazenamento primário ou secundário (cópias espelhadas ou cópias do Vault).
+
+* image:../media/topology_primary_storage.gif["ícone de armazenamento primário"]exibe o número de backups e clones que estão disponíveis no armazenamento primário.
+* image:../media/topology_mirror_secondary_storage.gif["ícone de espelho de armazenamento secundário"]exibe o número de backups e clones que são espelhados no armazenamento secundário usando a tecnologia SnapMirror .
++
+
+NOTE: Clones de um backup de um espelho flexível em termos de versão em um volume do tipo mirror-vault são exibidos na exibição de topologia, mas a contagem de backups de espelho na exibição de topologia não inclui o backup flexível em termos de versão.
+
+* image:../media/topology_vault_secondary_storage.gif["ícone do cofre secundário"]exibe o número de backups e clones que são replicados no armazenamento secundário usando a tecnologia SnapVault .
++
+O número de backups exibidos inclui os backups excluídos do armazenamento secundário.  Por exemplo, se você criou 6 backups usando uma política para manter apenas 4 backups, o número de backups exibidos será 6.
+
++
+
+NOTE: Clones de um backup de um espelho flexível em termos de versão em um volume do tipo mirror-vault são exibidos na exibição de topologia, mas a contagem de backups de espelho na exibição de topologia não inclui o backup flexível em termos de versão.
+
+
+
+.Passos
+. No painel de navegação esquerdo, clique em *Recursos* e selecione o plug-in apropriado na lista.
+. Na página Recursos, selecione o recurso ou grupo de recursos na lista suspensa *Exibir*.
+. Selecione o recurso na exibição de detalhes do recurso ou na exibição de detalhes do grupo de recursos.
++
+Se o recurso estiver protegido, a página de topologia do recurso selecionado será exibida.
+
+. Revise o cartão Resumo para ver um resumo do número de backups e clones disponíveis no armazenamento primário e secundário.
++
+A seção Cartão de Resumo exibe o número total de backups e clones.
+
++
+Clicar no botão de atualização inicia uma consulta ao armazenamento para exibir uma contagem precisa.
+
++
+Se o backup habilitado para SnapLock for feito, clicar no botão *Atualizar* atualiza o tempo de expiração do SnapLock primário e secundário recuperado do ONTAP.  Uma programação semanal também atualiza o tempo de expiração do SnapLock primário e secundário recuperado do ONTAP.
+
++
+Quando o recurso do aplicativo estiver distribuído em vários volumes, o tempo de expiração do SnapLock para o backup será o maior tempo de expiração do SnapLock definido para um Snapshot em um volume.  O maior tempo de expiração do SnapLock é recuperado do ONTAP.
+
++
+Após o backup sob demanda, clicar no botão *Atualizar* atualiza os detalhes do backup ou clone.
+
+. Na exibição Gerenciar cópias, clique em *Backups* ou *Clones* do armazenamento primário ou secundário para ver detalhes de um backup ou clone.
++
+Os detalhes dos backups e clones são exibidos em formato de tabela.
+
+. Selecione o backup na tabela e clique nos ícones de proteção de dados para executar operações de restauração, clonagem, renomeação e exclusão.
++
+
+NOTE: Não é possível renomear ou excluir backups que estejam no sistema de armazenamento secundário.
+
++
+
+NOTE: Não é possível renomear os backups que estão no sistema de armazenamento primário.
+
+. Se você quiser excluir um clone, selecione o clone da tabela e clique emimage:../media/delete_icon.gif["ícone de exclusão"] para excluir o clone.
+

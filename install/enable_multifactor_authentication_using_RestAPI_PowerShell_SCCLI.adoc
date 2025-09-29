@@ -1,0 +1,266 @@
+---
+permalink: install/enable_multifactor_authentication_using_RestAPI_PowerShell_SCCLI.html 
+sidebar: sidebar 
+keywords: mfa, authentication, multifactor authentication 
+summary: Você pode usar as interfaces Rest API, PowerShell e SCCLI para gerenciar o MFA. 
+---
+= Gerenciar autenticação multifator (MFA) usando Rest API, PowerShell e SCCLI
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+O login MFA é compatível com navegador, API REST, PowerShell e SCCLI.  O MFA é suportado por um gerenciador de identidade do AD FS.  Você pode habilitar o MFA, desabilitar o MFA e configurar o MFA a partir da GUI, API REST, PowerShell e SCCLI.
+
+
+
+== Configurar o AD FS como OAuth/OIDC
+
+*Configurar o AD FS usando o assistente da GUI do Windows*
+
+. Navegue até *Painel do Gerenciador de Servidores* > *Ferramentas* > *Gerenciamento do ADFS*.
+. Navegue até *ADFS* > *Grupos de Aplicativos*.
++
+.. Clique com o botão direito do mouse em *Grupos de aplicativos*.
+.. Selecione *Adicionar grupo de aplicativos* e insira *Nome do aplicativo*.
+.. Selecione *Aplicativo do Servidor*.
+.. Clique em *Avançar*.
+
+
+. Copie *Identificador do Cliente*.
++
+Este é o ID do cliente.  ..  Adicione URL de retorno de chamada (URL do SnapCenter Server) na URL de redirecionamento.  .. Clique em *Avançar*.
+
+. Selecione *Gerar segredo compartilhado*.
++
+Copie o valor secreto.  Este é o segredo do cliente.  .. Clique em *Avançar*.
+
+. Na página *Resumo*, clique em *Avançar*.
++
+.. Na página *Concluído*, clique em *Fechar*.
+
+
+. Clique com o botão direito do mouse no *Grupo de Aplicativos* recém-adicionado e selecione *Propriedades*.
+. Selecione *Adicionar aplicativo* em Propriedades do aplicativo.
+. Clique em *Adicionar aplicativo*.
++
+Selecione Web API e clique em *Avançar*.
+
+. Na página Configurar API da Web, insira a URL do SnapCenter Server e o Identificador do Cliente criados na etapa anterior na seção Identificador.
++
+.. Clique em *Adicionar*.
+.. Clique em *Avançar*.
+
+
+. Na página *Escolher política de controle de acesso*, selecione a política de controle com base em suas necessidades (por exemplo, Permitir todos e exigir MFA) e clique em *Avançar*.
+. Na página *Configurar permissão do aplicativo*, por padrão o openid é selecionado como um escopo, clique em *Avançar*.
+. Na página *Resumo*, clique em *Avançar*.
++
+Na página *Concluído*, clique em *Fechar*.
+
+. Na página *Propriedades do aplicativo de exemplo*, clique em *OK*.
+. Token JWT emitido por um servidor de autorização (AD FS) e destinado a ser consumido pelo recurso.
++
+A declaração 'aud' ou de público deste token deve corresponder ao identificador do recurso ou da API da Web.
+
+. Edite a WebAPI selecionada e verifique se o URL de retorno de chamada (URL do SnapCenter Server) e o identificador do cliente foram adicionados corretamente.
++
+Configure o OpenID Connect para fornecer um nome de usuário como declarações.
+
+. Abra a ferramenta *Gerenciamento do AD FS* localizada no menu *Ferramentas* no canto superior direito do Gerenciador do Servidor.
++
+.. Selecione a pasta *Grupos de Aplicativos* na barra lateral esquerda.
+.. Selecione a API da Web e clique em *EDITAR*.
+.. Guia de regras de transformação de emissão
+
+
+. Clique em *Adicionar regra*.
++
+.. Selecione *Enviar atributos LDAP como declarações* no menu suspenso Modelo de regra de declaração.
+.. Clique em *Avançar*.
+
+
+. Digite o nome da *Regra de reivindicação*.
++
+.. Selecione *Active Directory* no menu suspenso Armazenamento de atributos.
+.. Selecione *Nome-Principal-do-Usuário* no menu suspenso *Atributo LDAP* e *UPN* no menu suspenso Tipo de Reivindicação de Saída*.
+.. Clique em *Concluir*.
+
+
+
+
+
+
+== Criar grupo de aplicativos usando comandos do PowerShell
+
+Você pode criar o grupo de aplicativos, a API da Web e adicionar o escopo e as declarações usando comandos do PowerShell.  Esses comandos estão disponíveis em formato de script automatizado.  Para mais informações, consulte <link para o artigo da KB>.
+
+. Crie o novo Grupo de Aplicativos no AD FS usando o seguinte comando.
++
+`New-AdfsApplicationGroup -Name $ClientRoleIdentifier -ApplicationGroupIdentifier $ClientRoleIdentifier`
+
++
+`ClientRoleIdentifier`nome do seu grupo de aplicação
+
++
+`redirectURL`URL válida para redirecionamento após autorização
+
+. Crie o aplicativo do servidor AD FS e gere o segredo do cliente.
++
+`Add-AdfsServerApplication -Name "$ClientRoleIdentifier - Server app" -ApplicationGroupIdentifier` `$ClientRoleIdentifier -RedirectUri $redirectURL  -Identifier $identifier -GenerateClientSecret`
+
+. Crie o aplicativo ADFS Web API e configure o nome da política que ele deve usar.
++
+`$identifier = (New-Guid).Guid`
+
++
+`Add-AdfsWebApiApplication -ApplicationGroupIdentifier $ClientRoleIdentifier  -Name "App Web API"`
+
++
+`-Identifier $identifier -AccessControlPolicyName "Permit everyone"`
+
+. Obtenha o ID do cliente e o segredo do cliente da saída dos comandos a seguir, pois eles são exibidos apenas uma vez.
++
+`"client_id = $identifier"`
+
++
+`"client_secret: "$($ADFSApp.ClientSecret)`
+
+. Conceda ao aplicativo AD FS as permissões allatclaims e openid.
++
+`Grant-AdfsApplicationPermission -ClientRoleIdentifier $identifier -ServerRoleIdentifier $identifier -ScopeNames @('openid')`
+
++
+`$transformrule = @"`
+
++
+`@RuleTemplate = "LdapClaims"`
+
++
+`@RuleName = "AD User properties and Groups"`
+
++
+`c:[Type == "http://schemas.microsoft.com/ws/2008/06/identity/claims/windowsaccountname", Issuer ==`
+
++
+`"AD AUTHORITY"]`
+
++
+`=> issue(store = "Active Directory", types = ("http://schemas.xmlsoap.org/ws/2005/05/identity/claims/upn"), query = ";userPrincipalName;{0}", param = c.Value);`
+
++
+`"@`
+
+. Escreva o arquivo de regras de transformação.
++
+`$transformrule |Out-File -FilePath .\issueancetransformrules.tmp -force -Encoding ascii`
+`$relativePath = Get-Item .\issueancetransformrules.tmp`
+
+. Nomeie o aplicativo Web API e defina suas regras de transformação de emissão usando um arquivo externo.
++
+`Set-AdfsWebApiApplication -Name "$ClientRoleIdentifier - Web API" -TargetIdentifier`
+
++
+`$identifier -Identifier $identifier,$redirectURL -IssuanceTransformRulesFile`
+
++
+`$relativePath`
+
+
+
+
+
+== Atualizar tempo de expiração do token de acesso
+
+Você pode atualizar o tempo de expiração do token de acesso usando o comando do PowerShell.
+
+*Sobre esta tarefa*
+
+* Um token de acesso pode ser usado somente para uma combinação específica de usuário, cliente e recurso.  Os tokens de acesso não podem ser revogados e são válidos até expirarem.
+* Por padrão, o tempo de expiração de um token de acesso é de 60 minutos.  Este tempo mínimo de expiração é suficiente e dimensionado.  Você deve fornecer valor suficiente para evitar quaisquer trabalhos críticos para os negócios em andamento.
+
+
+*Etapa*
+
+Para atualizar o tempo de expiração do token de acesso para um grupo de aplicativos WebApi, use o seguinte comando no servidor AD FS.
+
++ 
+`Set-AdfsWebApiApplication -TokenLifetime 3600 -TargetName "<Web API>"`
+
+
+
+== Obter o token do portador do AD FS
+
+Você deve preencher os parâmetros mencionados abaixo em qualquer cliente REST (como o Postman) e ele solicitará que você preencha as credenciais do usuário.  Além disso, você deve inserir a autenticação de segundo fator (algo que você tem e algo que você é) para obter o token do portador.
+
++ A validade do token portador é configurável no servidor AD FS por aplicativo e o período de validade padrão é de 60 minutos.
+
+|===
+
+
+| Campo | Valor 
+
+
+ a| 
+Tipo de subsídio
+ a| 
+Código de autorização
+
+
+
+ a| 
+URL de retorno de chamada
+ a| 
+Insira a URL base do seu aplicativo se você não tiver uma URL de retorno de chamada.
+
+
+
+ a| 
+URL de autenticação
+ a| 
+[adfs-nome-de-domínio]/adfs/oauth2/autorizar
+
+
+
+ a| 
+URL do token de acesso
+ a| 
+[nome-de-domínio-adfs]/adfs/oauth2/token
+
+
+
+ a| 
+ID do cliente
+ a| 
+Insira o ID do cliente do AD FS
+
+
+
+ a| 
+Segredo do cliente
+ a| 
+Digite o segredo do cliente do AD FS
+
+
+
+ a| 
+Escopo
+ a| 
+OpenID
+
+
+
+ a| 
+Autenticação do cliente
+ a| 
+Enviar como cabeçalho AUTH básico
+
+
+
+ a| 
+Recurso
+ a| 
+Na aba *Opções Avançadas*, adicione o campo Recurso com o mesmo valor que o URL de retorno de chamada, que vem como um valor “aud” no token JWT.
+
+|===

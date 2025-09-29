@@ -1,0 +1,197 @@
+---
+permalink: protect-nsp/create_resource_groups_and_attach_policies.html 
+sidebar: sidebar 
+keywords: resource groups, attach policies, snapcenter 
+summary: Um grupo de recursos é o contêiner ao qual você deve adicionar recursos que deseja fazer backup e proteger. 
+---
+= Crie grupos de recursos e anexe políticas
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Um grupo de recursos é o contêiner ao qual você deve adicionar recursos que deseja fazer backup e proteger.  Ele permite que você faça backup de todos os dados associados a um determinado aplicativo simultaneamente.  Você também deve anexar uma ou mais políticas ao grupo de recursos para definir o tipo de trabalho de proteção de dados que deseja executar.
+
+.Passos
+. No painel de navegação esquerdo, selecione *Recursos* e, em seguida, selecione o plug-in apropriado na lista.
+. Na página Recursos, selecione Novo grupo de recursos.
+. Na página Nome, execute as seguintes ações:
++
+|===
+| Para este campo... | Faça isso... 
+
+
+ a| 
+Nome
+ a| 
+Insira um nome para o grupo de recursos.
+
+Observação: o nome do grupo de recursos não deve exceder 250 caracteres.
+
+
+
+ a| 
+Etiquetas
+ a| 
+Insira um ou mais rótulos que ajudarão você a pesquisar posteriormente o grupo de recursos.
+
+Por exemplo, se você adicionar RH como uma tag a vários grupos de recursos, poderá encontrar posteriormente todos os grupos de recursos associados à tag RH.
+
+
+
+ a| 
+Use formato de nome personalizado para cópia do Snapshot
+ a| 
+Marque esta caixa de seleção e insira um formato de nome personalizado que você deseja usar para o nome do Snapshot.
+
+Por exemplo, _customtext_resource group_policy_hostname ou resource group_hostname_.  Por padrão, um registro de data e hora é anexado ao nome do Snapshot.
+
+|===
+. Opcional: Na página Recursos, selecione um nome de host na lista suspensa *Host* e o tipo de recurso na lista suspensa *Tipo de recurso*.
++
+Isso ajuda a filtrar informações na tela.
+
+. Selecione os recursos na seção *Recursos disponíveis* e, em seguida, selecione a seta para a direita para movê-los para a seção *Recursos selecionados*.
+. Opcional: Na página *Configurações do aplicativo*, faça o seguinte:
++
+.. Selecione a seta Backups para definir opções adicionais de backup:
++
+Habilite o backup do grupo de consistência e execute as seguintes tarefas:
+
++
+|===
+| Para este campo... | Faça isso... 
+
+
+ a| 
+Permitir tempo de espera para que a operação do Consistency Group Snapshot seja concluída
+ a| 
+Selecione Urgente, Médio ou Relaxado para especificar o tempo de espera para a conclusão da operação de Snapshot.
+
+Urgente = 5 segundos, Médio = 7 segundos e Relaxado = 20 segundos.
+
+
+
+ a| 
+Desativar sincronização WAFL
+ a| 
+Selecione esta opção para evitar forçar um ponto de consistência WAFL .
+
+|===
++
+image:../media/application_settings.gif["Uma captura de tela das opções para backup de grupo de consistência: urgente, médio ou flexível."]
+
+.. Selecione a seta Scripts e insira os comandos pre e post para operações de inatividade, instantâneo e ativação/desativação.  Você também pode inserir os pré-comandos a serem executados antes de sair em caso de falha.
+.. Selecione a seta Configurações personalizadas e insira os pares de chave-valor personalizados necessários para todas as operações de proteção de dados que usam este recurso.
++
+|===
+| Parâmetro | Contexto | Descrição 
+
+
+ a| 
+HABILITAR_REGISTRO_DE_ARQUIVO
+ a| 
+(S/N)
+ a| 
+Permite que o gerenciamento de log de arquivamento exclua os logs de arquivamento.
+
+
+
+ a| 
+RETENÇÃO_DE_REGISTRO_DE_ARQUIVO
+ a| 
+número_de_dias
+ a| 
+Especifica o número de dias que os logs de arquivamento são retidos.
+
+Esta configuração deve ser igual ou maior que NTAP_SNAPSHOT_ RETENTIONS.
+
+
+
+ a| 
+DIRETÓRIO_DE_LOG_DE_ARQUIVO
+ a| 
+change_info_directory/logs
+ a| 
+Especifica o caminho para o diretório que contém os logs de arquivamento.
+
+
+
+ a| 
+EXT_DE_LOG_DE_ARQUIVO
+ a| 
+extensão_de_arquivo
+ a| 
+Especifica o comprimento da extensão do arquivo de log de arquivamento.
+
+Por exemplo, se o log de arquivamento for log_backup_0_0_0_0.161518551942 9 e se o valor file_extension for 5, a extensão do log manterá 5 dígitos, que é 16151.
+
+
+
+ a| 
+ARQUIVO_LOG_RECURSIVO_SE ARQUIVO
+ a| 
+(S/N)
+ a| 
+Permite o gerenciamento de logs de arquivo dentro de subdiretórios.
+
+Você deve usar este parâmetro se os logs de arquivamento estiverem localizados em subdiretórios.
+
+|===
+.. Selecione a seta *Ferramenta de Cópia de Instantâneo* para selecionar a ferramenta para criar Instantâneos:
++
+|===
+| Se você quiser... | Então... 
+
+
+ a| 
+SnapCenter para usar o plug-in para Windows e colocar o sistema de arquivos em um estado consistente antes de criar um Snapshot.  Para recursos do Linux, esta opção não é aplicável.
+ a| 
+Selecione * SnapCenter com consistência do sistema de arquivos*.
+
+Esta opção não é aplicável ao SnapCenter Plug-in para banco de dados SAP HANA.
+
+
+
+ a| 
+SnapCenter para criar um instantâneo de nível de armazenamento
+ a| 
+Selecione * SnapCenter sem consistência do sistema de arquivos*.
+
+
+
+ a| 
+Para inserir o comando a ser executado no host para criar Snapshots.
+ a| 
+Selecione *Outro* e insira o comando a ser executado no host para criar um Snapshot.
+
+|===
+
+
+. Na página Políticas, execute as seguintes etapas:
++
+.. Selecione uma ou mais políticas na lista suspensa.
++
+
+NOTE: Você também pode criar uma política selecionando *image:../media/add_policy_from_resourcegroup.gif["Um ícone de mais"] *.
+
++
+As políticas estão listadas na seção *Configurar agendamentos para políticas selecionadas*.
+
+.. Na coluna *Configurar agendamentos*, selecione *image:../media/add_policy_from_resourcegroup.gif["Um ícone de mais"] * para a política que você deseja configurar.
+.. Na caixa de diálogo Adicionar agendamentos para a política _nome_da_política_, configure o agendamento e selecione OK.
++
+Onde policy_name é o nome da política que você selecionou.
+
++
+Os agendamentos configurados são listados na coluna Agendamentos Aplicados.  Os agendamentos de backup de terceiros não são suportados quando se sobrepõem aos agendamentos de backup do SnapCenter .
+
+
+
+. Na lista suspensa *Preferências de e-mail* na página *Notificação*, selecione os cenários nos quais você deseja enviar os e-mails.
++
+Você também deve especificar os endereços de e-mail do remetente e do destinatário, e o assunto do e-mail.  O servidor SMTP deve ser configurado em *Configurações* > *Configurações globais*.
+
+. Revise o resumo e selecione *Concluir*.
+

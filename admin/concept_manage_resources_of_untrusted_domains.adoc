@@ -1,0 +1,82 @@
+---
+permalink: admin/concept_manage_resources_of_untrusted_domains.html 
+sidebar: sidebar 
+keywords: Manage resources 
+summary: 'Além de gerenciar hosts em domínios confiáveis ​​do Active Directory (AD), o SnapCenter também gerencia hosts em vários domínios não confiáveis ​​do AD.  Os domínios do AD não confiáveis ​​devem ser registrados no SnapCenter Server.  O SnapCenter oferece suporte a usuários e grupos de vários domínios do AD não confiáveis.' 
+---
+= Gerenciar recursos de domínios não confiáveis
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Além de gerenciar hosts em domínios confiáveis ​​do Active Directory (AD), o SnapCenter também gerencia hosts em vários domínios não confiáveis ​​do AD.  Os domínios do AD não confiáveis ​​devem ser registrados no SnapCenter Server.  O SnapCenter oferece suporte a usuários e grupos de vários domínios do AD não confiáveis.
+
+Você pode instalar o SnapCenter Server em uma máquina que esteja em um domínio ou em um grupo de trabalho.  Para instalar o SnapCenter Server, você deve especificar as credenciais de domínio se a máquina estiver em um domínio ou as credenciais de administrador local se a máquina estiver em um grupo de trabalho.
+
+Grupos do Active Directory (AD) que pertencem a domínios não registrados no SnapCenter Server não são suportados.  Embora você possa criar funções do SnapCenter com esses grupos do AD, o login no SnapCenter Server falha com a seguinte mensagem de erro: O usuário que você está tentando fazer login não pertence a nenhuma função.  Entre em contato com seu administrador.
+
+
+
+== Modificar domínios não confiáveis
+
+Você pode modificar um domínio não confiável quando quiser atualizar os endereços IP do controlador de domínio ou o nome de domínio totalmente qualificado (FQDN).
+
+*Sobre esta tarefa*
+
+Depois de modificar o FQDN, os ativos associados (hosts, usuários e grupos) podem não funcionar conforme o esperado.
+
+Para modificar um domínio não confiável, você pode usar a interface de usuário do SnapCenter ou cmdlets do PowerShell.
+
+*Passos*
+
+. No painel de navegação esquerdo, clique em *Configurações*.
+. Na página Configurações, clique em *Configurações globais*.
+. Na página Configurações globais, clique em *Configurações de domínio*.
+. Cliqueimage:../media/edit_icon.gif["Ícone de edição"] , e então forneça os seguintes detalhes:
++
+|===
+| Para este campo... | Faça isso... 
+
+
+ a| 
+FQDN de domínio
+ a| 
+Especifique o FQDN e clique em *Resolver*.
+
+
+
+ a| 
+Endereços IP do controlador de domínio
+ a| 
+Se o FQDN do domínio não for resolvível, especifique um ou mais endereços IP do controlador de domínio.
+
+|===
+. Clique em *OK*.
+
+
+
+
+== Cancelar registro de domínios não confiáveis do Active Directory
+
+Você pode cancelar o registro de um domínio não confiável do Active Directory se não quiser usar os ativos associados a esse domínio.
+
+.Antes de começar
+Você deve ter removido os hosts, usuários, grupos e credenciais associados ao domínio não confiável.
+
+*Sobre esta tarefa*
+
+* Depois que o domínio for cancelado no SnapCenter Server, os usuários desse domínio não poderão acessar o SnapCenter Server.
+* Se houver ativos associados (hosts, usuários e grupos), após cancelar o registro do domínio, os ativos não estarão operacionais.
+* Para cancelar o registro de um domínio não confiável, você pode usar a interface de usuário do SnapCenter ou os cmdlets do PowerShell.
+
+
+*Passos*
+
+. No painel de navegação esquerdo, clique em *Configurações*.
+. Na página Configurações, clique em *Configurações globais*.
+. Na página Configurações globais, clique em *Configurações de domínio*.
+. Na lista de domínios, selecione o domínio que você deseja cancelar o registro.
+. Cliqueimage:../media/delete_icon.gif["ícone de exclusão"] e clique em *OK*.
+

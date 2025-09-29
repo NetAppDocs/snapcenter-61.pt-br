@@ -1,0 +1,21 @@
+= Implantar certificado CA
+:allow-uri-read: 
+
+
+Se seu banco de dados ou sistema de arquivos estiver armazenado em máquinas virtuais (VMs), ou se você quiser proteger VMs e armazenamentos de dados, será necessário implantar o SnapCenter Plug-in for VMware vSphere .
+
+Para obter informações sobre como implantar, consulte https://docs.netapp.com/us-en/sc-plugin-vmware-vsphere/scpivs44_get_started_overview.html["Visão geral da implantação"^] .
+
+
+
+== Implantar certificado CA
+
+Para configurar o Certificado CA com o SnapCenter Plug-in for VMware vSphere, consulte https://kb.netapp.com/Advice_and_Troubleshooting/Data_Protection_and_Security/SnapCenter/How_to_create_and_or_import_an_SSL_certificate_to_SnapCenter_Plug-in_for_VMware_vSphere_(SCV)["Criar ou importar certificado SSL"^] .
+
+
+
+== Configurar o arquivo CRL
+
+O SnapCenter Plug-in for VMware vSphere procura os arquivos CRL em um diretório pré-configurado.  O diretório padrão dos arquivos CRL do SnapCenter Plug-in for VMware vSphere é _/opt/netapp/config/crl_.
+
+Você pode colocar mais de um arquivo CRL neste diretório.  Os certificados recebidos serão verificados em relação a cada CRL.

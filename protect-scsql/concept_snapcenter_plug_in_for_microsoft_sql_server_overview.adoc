@@ -1,0 +1,22 @@
+---
+permalink: protect-scsql/concept_snapcenter_plug_in_for_microsoft_sql_server_overview.html 
+sidebar: sidebar 
+keywords: SnapCenter Plug-in for Microsoft SQL Server 
+summary: O SnapCenter Plug-in para Microsoft SQL Server é um componente do lado do host do NetApp SnapCenter Software que permite o gerenciamento de proteção de dados com reconhecimento de aplicativo de bancos de dados do Microsoft SQL Server.  O plug-in para SQL Server automatiza as operações de backup, verificação, restauração e clonagem do banco de dados SQL Server no seu ambiente SnapCenter . 
+---
+= Visão geral do plug-in SnapCenter para Microsoft SQL Server
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+O SnapCenter Plug-in para Microsoft SQL Server é um componente do lado do host do NetApp SnapCenter Software que permite o gerenciamento de proteção de dados com reconhecimento de aplicativo de bancos de dados do Microsoft SQL Server.  O plug-in para SQL Server automatiza as operações de backup, verificação, restauração e clonagem do banco de dados SQL Server no seu ambiente SnapCenter .
+
+Quando o Plug-in para SQL Server estiver instalado, você poderá usar o SnapCenter com a tecnologia NetApp SnapMirror para criar cópias espelhadas de conjuntos de backup em outro volume e com a tecnologia NetApp SnapVault para executar a replicação de backup de disco para disco para fins de conformidade com padrões ou arquivamento.
+
+* Automatiza operações de backup, restauração e clonagem com reconhecimento de aplicativo para bancos de dados Microsoft SQL Server no seu ambiente SnapCenter .
+* Oferece suporte a bancos de dados Microsoft SQL Server em VMDK e LUNs de mapeamento de dispositivos brutos (RDM) quando você implanta o SnapCenter Plug-in for VMware vSphere e registra o plug-in com o SnapCenter
+* Suporta somente o provisionamento de compartilhamentos SMB.  Não há suporte para backup de bancos de dados SQL Server em compartilhamentos SMB.
+* Suporta a importação de backups do SnapManager para Microsoft SQL Server para o SnapCenter.
+

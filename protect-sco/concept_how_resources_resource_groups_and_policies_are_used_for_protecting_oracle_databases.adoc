@@ -1,0 +1,36 @@
+---
+permalink: protect-sco/concept_how_resources_resource_groups_and_policies_are_used_for_protecting_oracle_databases.html 
+sidebar: sidebar 
+keywords: SnapCenter Plug-in for Oracle Database 
+summary: Antes de usar o SnapCenter, é útil entender os conceitos básicos relacionados às operações de backup, clonagem e restauração que você deseja executar. 
+---
+= Como recursos, grupos de recursos e políticas são usados para proteger bancos de dados Oracle
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Antes de usar o SnapCenter, é útil entender os conceitos básicos relacionados às operações de backup, clonagem e restauração que você deseja executar.
+
+* Os recursos geralmente são bancos de dados Oracle no SnapCenter.
+* Um grupo de recursos SnapCenter é uma coleção de recursos em um host ou cluster.
++
+Ao executar uma operação em um grupo de recursos, você executa essa operação nos recursos definidos no grupo de recursos.
+
++
+Os grupos de recursos eram anteriormente conhecidos como conjuntos de dados.
+
+* As políticas especificam a frequência de backup, retenção de cópias, replicação, scripts e outras características das operações de proteção de dados.
++
+Ao criar um grupo de recursos, você seleciona uma ou mais políticas para esse grupo.  Você também pode selecionar uma política ao executar um backup sob demanda para um único recurso.  Você também pode executar backups agendados para recursos individuais e grupos de recursos.
+
+
+
+Pense em um grupo de recursos como definidor de _o que_ você quer proteger e quando quer proteger em termos de dia e hora.  Pense em uma política como a definição de _como_ você quer protegê-la.
+
+Se você estiver fazendo backup de todos os bancos de dados de um host, por exemplo, poderá criar um grupo de recursos que inclua todos os bancos de dados no host.  Você pode então anexar duas políticas ao grupo de recursos: uma política diária e uma política horária.  Ao criar o grupo de recursos e anexar as políticas, você pode configurar o grupo de recursos para executar um backup completo diariamente e outra programação que executa backups de log a cada hora.
+
+A imagem a seguir ilustra o relacionamento entre recursos, grupos de recursos e políticas para bancos de dados:
+
+image::../media/sco_resourcegroup_policy.gif[política de grupo de recursos]

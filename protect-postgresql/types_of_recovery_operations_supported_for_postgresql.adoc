@@ -1,0 +1,23 @@
+---
+permalink: protect-postgresql/types_of_recovery_operations_supported_for_postgresql.html 
+sidebar: sidebar 
+keywords: recovery operations 
+summary: O SnapCenter permite que você execute diferentes tipos de operações de recuperação para PostgreSQL. 
+---
+= Tipos de operações de recuperação suportadas para clusters PostgreSQL
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+O SnapCenter permite que você execute diferentes tipos de operações de recuperação para clusters PostgreSQL.
+
+* Recuperar o cluster até o estado mais recente
+* Recuperar o cluster até um ponto específico no tempo
++
+Você deve especificar a data e a hora da recuperação.
+
+
+
+O SnapCenter também oferece a opção Sem recuperação para clusters PostgreSQL.

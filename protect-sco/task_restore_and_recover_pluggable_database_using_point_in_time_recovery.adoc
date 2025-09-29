@@ -1,0 +1,130 @@
+---
+permalink: protect-sco/task_restore_and_recover_pluggable_database_using_point_in_time_recovery.html 
+sidebar: sidebar 
+keywords: PDB, pluggable database, restore, CDB, PITR, point-in-time recovery, RMAN 
+summary: 'Você pode restaurar e recuperar um banco de dados conectável (PDB) que foi corrompido ou descartado sem afetar os outros PDBs no banco de dados do contêiner (CDB).  O SnapCenter usa o RMAN para executar a recuperação pontual (PITR) do PDB.' 
+---
+= Restaurar e recuperar banco de dados plugável usando recuperação de ponto no tempo
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Você pode restaurar e recuperar um banco de dados conectável (PDB) que foi corrompido ou descartado sem afetar os outros PDBs no banco de dados do contêiner (CDB).  O SnapCenter usa o RMAN para executar a recuperação de ponto no tempo (PITR) do PDB.
+
+*Antes de começar*
+
+* Os backups necessários para executar o PITR de um PDB devem ser catalogados e montados.
++
+
+NOTE: Em uma configuração RAC, você deve fechar manualmente o PDB (alterando o estado para MONTADO) em todos os nós da configuração RAC.
+
+* Se você instalou o plug-in como um usuário não root, deverá atribuir manualmente as permissões de execução aos diretórios prescript e postscript.
+
+
+*Sobre esta tarefa*
+
+Durante a operação PITR, o RMAN cria uma instância auxiliar no destino auxiliar especificado.  O destino auxiliar pode ser um ponto de montagem ou um grupo de discos ASM.  Se houver espaço suficiente no local montado, você poderá reutilizar um dos locais montados em vez de um ponto de montagem dedicado.
+
+Você deve especificar a data e a hora ou SCN para executar o PITR do PDB.  O RMAN pode recuperar PDBs de LEITURA E GRAVAÇÃO, SOMENTE LEITURA ou descartados, incluindo arquivos de dados.
+
+Você pode restaurar e recuperar apenas:
+
+* um PDB de cada vez
+* um tablespace em um PDB
+* vários tablespaces do mesmo PDB
+
+
+
+NOTE: Em uma configuração RAC, você pode executar PITR de tablespaces de qualquer nó do RAC.
+
+*Passos*
+
+. No painel de navegação esquerdo, clique em *Recursos* e selecione o plug-in apropriado na lista.
+. Na página Recursos, selecione *Banco de dados* ou *Grupo de recursos* na lista *Exibir*.
+. Selecione o banco de dados do tipo instância única (multilocatário) na exibição de detalhes do banco de dados ou na exibição de detalhes do grupo de recursos.
++
+A página de topologia do banco de dados é exibida.
+
+. Na exibição Gerenciar cópias, selecione *Backups* dos sistemas de armazenamento primário ou secundário (espelhado ou replicado).
++
+Se o backup não estiver catalogado, você deve selecioná-lo e clicar em *Catálogo*.
+
+. Selecione o backup catalogado e clique em *image:../media/restore_icon.gif["ícone de restauração"] *.
+. Na página Escopo de restauração, execute as seguintes tarefas:
++
+.. Se você selecionou um backup de um banco de dados em um ambiente Real Application Clusters (RAC), selecione o nó RAC.
+.. Dependendo se você deseja restaurar o PDB ou os tablespaces em um PDB, execute uma das ações:
++
+|===
+
+
+| Se você quiser... | Passos... 
+
+
+ a| 
+Restaurar um PDB
+ a| 
+... Selecione *Bancos de dados conectáveis (PDBs)*.
+... Especifique o PDB que você deseja restaurar.
++
+
+NOTE: Não é possível executar PITR no banco de dados PDB$SEED.
+
+
+
+
+
+ a| 
+Restaurar tablespaces em um PDB
+ a| 
+... Selecione *Tablespaces de banco de dados conectáveis (PDB)*.
+... Especifique o PDB.
+... Especifique um único tablespace ou vários tablespaces que você deseja restaurar.
++
+
+NOTE: Não é possível executar PITR nos tablespaces SYSAUX, SYSTEM e UNDO.
+
+
+
+|===
+.. Selecione *Alterar estado do banco de dados, se necessário, para restauração e recuperação* para alterar o estado do banco de dados para o estado necessário para executar operações de restauração e recuperação.
+
+
+. Na página Escopo de Recuperação, execute uma das seguintes ações:
++
+** Se você quiser recuperar para um Número de Alteração do Sistema (SCN) específico, selecione *Até SCN* e especifique o SCN e o destino auxiliar.
+** Se você quiser recuperar para uma data e hora específicas, selecione *Data e Hora* e especifique a data, a hora e o destino auxiliar.
++
+O SnapCenter identifica, monta e cataloga o número ideal de backups de dados e logs necessários para executar o PITR com base no SCN especificado ou na data e hora selecionadas.
+
+
+
+. Na página PreOps, insira o caminho e os argumentos da prescrição que você deseja executar antes da operação de restauração.
++
+Você deve armazenar as prescrições no caminho /var/opt/snapcenter/spl/scripts ou em qualquer pasta dentro desse caminho.  Por padrão, o caminho /var/opt/snapcenter/spl/scripts é preenchido.  Se você criou alguma pasta dentro desse caminho para armazenar os scripts, você deve especificar essas pastas no caminho.
+
++
+Você também pode especificar o valor do tempo limite do script. O valor padrão é 60 segundos.
+
++
+O SnapCenter permite que você use as variáveis ​​de ambiente predefinidas ao executar o prescript e o postscript.link:../protect-sco/predefined-environment-variables-prescript-postscript-restore.html["Saber mais"^]
+
+. Na página PostOps, execute as seguintes etapas:
++
+.. Insira o caminho e os argumentos do postscript que você deseja executar após a operação de restauração.
++
+
+NOTE: Se a operação de restauração falhar, os postscripts não serão executados e as atividades de limpeza serão acionadas diretamente.
+
+.. Marque a caixa de seleção se desejar abrir o banco de dados após a recuperação.
++
+Em uma configuração RAC, o PDB será aberto somente no nó onde o banco de dados foi recuperado.  Você deve abrir manualmente o PDB recuperado em todos os outros nós da configuração do RAC.
+
+
+
+. Na página Notificação, na lista suspensa *Preferência de e-mail*, selecione os cenários nos quais você deseja enviar as notificações por e-mail.
+. Revise o resumo e clique em *Concluir*.
+. Monitore o progresso da operação clicando em *Monitorar* > *Trabalhos*.
+

@@ -1,0 +1,170 @@
+---
+permalink: admin/concept_monitor_jobs_schedules_events_and_logs.html 
+sidebar: sidebar 
+keywords: Monitor jobs, schedules, events, logs 
+summary: Você pode monitorar o progresso dos seus trabalhos, obter informações sobre trabalhos agendados e revisar eventos e logs na página Monitorar. 
+---
+= Monitorar trabalhos, agendamentos, eventos e registros
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Você pode monitorar o progresso dos seus trabalhos, obter informações sobre trabalhos agendados e revisar eventos e logs na página Monitorar.
+
+
+
+== Monitorar trabalhos
+
+Você pode visualizar informações sobre trabalhos de backup, clonagem, restauração e verificação do SnapCenter .  Você pode filtrar esta visualização com base na data de início e término, tipo de trabalho, grupo de recursos, política ou plug-in do SnapCenter . Você também pode obter detalhes adicionais e arquivos de log para trabalhos específicos.
+
+Você também pode monitorar trabalhos relacionados às operações do SnapMirror e do SnapVault .
+
+
+NOTE: Você pode monitorar somente os trabalhos que criou e que são relevantes para você, a menos que tenha a função de administrador do SnapCenter ou outra função de superusuário atribuída a você.
+
+Você pode executar as seguintes tarefas relacionadas aos trabalhos de monitoramento:
+
+* Monitore operações de backup, clonagem, restauração e verificação.
+* Veja detalhes e relatórios do trabalho.
+* Interromper uma tarefa agendada.
+
+
+
+
+=== Gerenciar tarefas de backup agendadas
+
+A partir do lançamento do SnapCenter 6.0.1, um novo parâmetro *JobConcurrencyThreshold* foi introduzido, definindo um limite para o número de trabalhos agendados que podem ser executados a qualquer momento.  Isso permite que você controle o número de backups que deseja executar com base na configuração de hardware do seu sistema.
+
+O valor padrão atribuído a *JobConcurrencyThreshold* é 0 e está desabilitado.  Você pode habilitar atribuindo um valor, caso observe degradação de desempenho durante a janela de backup agendada.
+
+
+NOTE: Se você habilitar *JobConcurrencyThreshold* para gerenciar trabalhos simultâneos, o SnapCenter não permitirá que você controle a ordem dos backups e os backups poderão não ser disparados no mesmo horário especificado no agendamento.
+
+.Passos
+. Defina o valor do parâmetro _JobConcurrencyThreshold_ localizado em _C:\Program Files\ NetApp\ SnapCenter WebApp\ SnapManager.Web.UI.dll.config_.
+. Recicle o pool de aplicativos do SnapCenter clicando em IIS > Pools de aplicativos > SnapCenter > Reiniciar.
+. Reinicie o serviço Web SnapCenter clicando em IIS > Sites > SnapCenter > Reiniciar.
+
+
+
+
+=== Gerenciar trabalhos obsoletos
+
+Trabalhos obsoletos são criados a partir de interrupções no SnapCenter ou de atualizações inadequadas de trabalhos.  A partir do lançamento do SnapCenter 6.0.1, um cronograma predefinido é introduzido para limpar esses trabalhos obsoletos que ficam presos por mais de 72 horas.  Você pode alterar a frequência da programação editando o parâmetro configurável *CleanUpStaleJobsIntervalHours*.
+
+Você pode acionar a limpeza sob demanda executando a programação em *Monitor* > *Agendamentos* > *SnapCenter_StaleJobCleanUp*.
+
+.Passos
+. Defina o valor do parâmetro _CleanUpStaleJobsIntervalHours_ localizado em _C:\Program Files\ NetApp\ SnapCenter WebApp\ SnapManager.Web.UI.dll.config_.
+. Recicle o pool de aplicativos do SnapCenter clicando em IIS > Pools de aplicativos > SnapCenter > Reiniciar.
+. Reinicie o serviço Web SnapCenter clicando em IIS > Sites > SnapCenter > Reiniciar.
+
+
+
+
+== Monitorar cronogramas
+
+Talvez você queira visualizar os cronogramas atuais para determinar quando a operação começa, quando foi executada pela última vez e quando será executada novamente.  Você também pode determinar o host no qual a operação é executada, juntamente com o grupo de recursos e informações de política da operação.
+
+*Passos*
+
+. No painel de navegação esquerdo, clique em *Monitor*.
+. Na página Monitor, clique em *Agendamentos*.
+. Selecione o grupo de recursos e o tipo de programação.
+. Veja a lista de operações programadas.
+
+
+
+
+== Monitorar eventos
+
+Você pode visualizar uma lista de eventos do SnapCenter no sistema, como quando um usuário cria um grupo de recursos ou quando o sistema inicia atividades, como a criação de um backup agendado.  Talvez você queira visualizar eventos para determinar se uma operação, como um backup ou uma restauração, está em andamento.
+
+*Sobre esta tarefa*
+
+Todas as informações do trabalho aparecem na página Eventos.  Por exemplo, quando um trabalho de backup é iniciado, um evento "`backup start`" aparece.  Quando o backup for concluído, um evento "`backup concluído`" será exibido.
+
+*Passos*
+
+. No painel de navegação esquerdo, clique em *Monitor*.
+. Na página Monitor, clique em *Eventos*.
+. (Opcional) Na caixa Filtro, insira a data de início ou término, a categoria do evento (como backup, grupo de recursos ou política) e o nível de gravidade e clique em *Aplicar*.  Como alternativa, insira caracteres na caixa de pesquisa.
+. Veja a lista de eventos.
+
+
+
+
+== Registros de monitoramento
+
+Você pode visualizar e baixar logs do SnapCenter Server, logs do agente de host do SnapCenter e logs de plug-ins.  Talvez você queira visualizar os logs para ajudar na solução de problemas.
+
+*Sobre esta tarefa*
+
+Você pode filtrar os logs para mostrar apenas um nível de gravidade de log específico:
+
+* Depurar
+* Informações
+* Avisar
+* Erro
+* Fatal
+
+
+Você também pode obter logs de nível de tarefa, por exemplo, logs que ajudam a solucionar o motivo de uma falha de tarefa de backup.  Para logs de nível de trabalho, use a opção *Monitor* > *Jobs*.
+
+*Passos*
+
+. No painel de navegação esquerdo, clique em *Monitor*.
+. Na página Trabalhos, selecione um trabalho e clique em Baixar logs.
++
+A pasta compactada baixada contém os logs de trabalho e os logs comuns.  O nome da pasta compactada contém o ID do trabalho e o tipo de trabalho selecionado.
+
+. Na página Monitor, clique em *Logs*.
+. Selecione o tipo de log, host e instância.
++
+Se você selecionar o tipo de log como *plugin*, poderá selecionar um host ou um plug-in do SnapCenter . Isso não é possível se o tipo de log for *servidor*.
+
+. Para filtrar os logs por uma fonte, mensagem ou nível de log específico, clique no ícone de filtro na parte superior do título da coluna.
++
+Para mostrar todos os logs, escolha *Maior ou igual a* como `Debug` nível.
+
+. Clique em *Atualizar*.
+. Veja a lista de logs.
+. Clique em *Download* para baixar os logs.
++
+A pasta compactada baixada contém os logs de trabalho e os logs comuns.  O nome da pasta compactada contém o ID do trabalho e o tipo de trabalho selecionado.
+
+
+
+Em configurações grandes para desempenho ideal, você deve definir as configurações de log do SnapCenter para o nível mínimo usando o cmdlet do PowerShell.
+
+`Set-SmLogSettings -LogLevel All -MaxFileSize 10MB -MaxSizeRollBackups 10 -JobLogsMaxFileSize 10MB -Server`
+
+
+NOTE: Para acessar informações de integridade ou configuração após a conclusão de um trabalho de failover, execute o cmdlet `Get-SmRepositoryConfig` .
+
+
+
+== Remover trabalhos e logs do SnapCenter
+
+Você pode remover trabalhos e logs de backup, restauração, clonagem e verificação do SnapCenter.  O SnapCenter armazena logs de tarefas bem-sucedidas e com falha indefinidamente, a menos que você os remova.  Talvez você queira removê-los para reabastecer o armazenamento.
+
+*Sobre esta tarefa*
+
+Não deve haver nenhuma tarefa em operação no momento.  Você pode remover um trabalho específico fornecendo um ID de trabalho ou pode remover trabalhos dentro de um período especificado.
+
+Não é necessário colocar o host no modo de manutenção para remover trabalhos.
+
+*Passos*
+
+. Inicie o PowerShell.
+. No prompt de comando, digite: `Open-SMConnection`
+. No prompt de comando, digite: `Remove-SmJobs`
+. No painel de navegação esquerdo, clique em *Monitor*.
+. Na página Monitor, clique em *Trabalhos*.
+. Na página Trabalhos, revise o status do trabalho.
+
+
+.Informações relacionadas
+As informações sobre os parâmetros que podem ser usados com o cmdlet e suas descrições podem ser obtidas executando _Get-Help command_name_. Alternativamente, você também pode consultar o https://docs.netapp.com/us-en/snapcenter-cmdlets/index.html["Guia de referência do cmdlet do software SnapCenter"^] .

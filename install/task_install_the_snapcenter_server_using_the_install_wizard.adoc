@@ -1,0 +1,189 @@
+---
+permalink: install/task_install_the_snapcenter_server_using_the_install_wizard.html 
+sidebar: sidebar 
+keywords: install, snapcenter software, install wizard, features enabled 
+summary: Você pode executar o executável do instalador do SnapCenter Server para instalar o SnapCenter Server. 
+---
+= Instalar o SnapCenter Server no host Windows
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Você pode executar o executável do instalador do SnapCenter Server para instalar o SnapCenter Server.
+
+Opcionalmente, você pode executar vários procedimentos de instalação e configuração usando cmdlets do PowerShell.  Você deve usar o PowerShell 7.4.2 ou posterior.
+
+
+NOTE: A instalação silenciosa do SnapCenter Server a partir da linha de comando não é suportada.
+
+.Antes de começar
+* O host do SnapCenter Server deve estar atualizado com as atualizações do Windows, sem reinicializações pendentes do sistema.
+* Você deve ter certeza de que o MySQL Server não está instalado no host onde você planeja instalar o SnapCenter Server.
+* Você deve ter habilitado a depuração do instalador do Windows.
++
+Consulte o site da Microsoft para obter informações sobre como habilitar https://support.microsoft.com/kb/223300["Registro do instalador do Windows"^] .
+
++
+
+NOTE: Você não deve instalar o SnapCenter Server em um host que tenha o Microsoft Exchange Server, o Active Directory ou servidores de nomes de domínio.
+
+
+
+.Passos
+. Baixe o pacote de instalação do SnapCenter Server em https://mysupport.netapp.com/site/products/all/details/snapcenter/downloads-tab["Site de suporte da NetApp"^] .
+. Inicie a instalação do SnapCenter Server clicando duas vezes no arquivo .exe baixado.
++
+Após iniciar a instalação, todas as pré-verificações são executadas e, se os requisitos mínimos não forem atendidos, mensagens de erro ou aviso apropriadas são exibidas.
+
++
+Você pode ignorar as mensagens de aviso e prosseguir com a instalação; no entanto, os erros deverão ser corrigidos.
+
+. Revise os valores pré-preenchidos necessários para a instalação do SnapCenter Server e modifique-os, se necessário.
++
+Você não precisa especificar a senha para o banco de dados do repositório do MySQL Server.  Durante a instalação do SnapCenter Server, a senha é gerada automaticamente.
+
++
+
+NOTE: O caractere especial "`%`" is not supported in the custom path for the repository database. If you include "` %`" no caminho, a instalação falha.
+
+. Clique em *Instalar agora*.
++
+Se você tiver especificado algum valor inválido, mensagens de erro apropriadas serão exibidas.  Você deve inserir novamente os valores e então iniciar a instalação.
+
++
+
+NOTE: Se você clicar no botão *Cancelar*, a etapa que está sendo executada será concluída e, em seguida, iniciará a operação de reversão.  O SnapCenter Server será completamente removido do host.
+
++
+Entretanto, se você clicar em *Cancelar* quando as operações "Reinicialização do site do SnapCenter Server" ou "Aguardando o início do SnapCenter Server" estiverem sendo executadas, a instalação prosseguirá sem cancelar a operação.
+
++
+Os arquivos de log são sempre listados (os mais antigos primeiro) na pasta %temp% do usuário administrador.  Se você quiser redirecionar os locais de log, inicie a instalação do SnapCenter Server no prompt de comando executando:``C:\installer_location\installer_name.exe /log"C:\"``
+
+
+
+
+
+== Recursos habilitados no host Windows durante a instalação
+
+O instalador do SnapCenter Server habilita os recursos e funções do Windows no seu host Windows durante a instalação.  Elas podem ser interessantes para solução de problemas e manutenção do sistema host.
+
+|===
+| Categoria | Recurso 
+
+
+ a| 
+Servidor Web
+ a| 
+* Serviços de Informação da Internet
+* Serviços da World Wide Web
+* Recursos HTTP comuns
++
+** Documento Padrão
+** Navegação de diretório
+** Erros HTTP
+** Redirecionamento HTTP
+** Conteúdo estático
+** Publicação WebDAV
+
+
+* Saúde e Diagnóstico
++
+** Registro personalizado
+** Registro HTTP
+** Ferramentas de registro
+** Monitor de Solicitação
+** Rastreamento
+
+
+* Recursos de desempenho
++
+** Compressão de conteúdo estático
+
+
+* Segurança
++
+** Segurança IP
+** Autenticação Básica
+** Suporte centralizado para certificado SSL
+** Autenticação de mapeamento de certificado de cliente
+** Autenticação de mapeamento de certificado do cliente IIS
+** Restrições de IP e domínio
+** Filtragem de solicitações
+** Autorização de URL
+** Autenticação do Windows
+
+
+* Recursos de desenvolvimento de aplicativos
++
+** Extensibilidade .NET 4.5
+** Inicialização do aplicativo
+** Pacote de hospedagem do ASP.NET Core Runtime 8.0.12 (e todos os patches 8.0.x subsequentes)
+** Inclusões do lado do servidor
+** Protocolo WebSocket
+
+
+* Ferramentas de Gestão
++
+** Console de gerenciamento do IIS
+
+
+
+
+
+
+ a| 
+Scripts e ferramentas de gerenciamento do IIS
+ a| 
+* Serviço de Gerenciamento do IIS
+* Ferramentas de gerenciamento da Web
+
+
+
+
+ a| 
++Recursos do .NET Framework 8.0.12+
+ a| 
+* Pacote de hospedagem do ASP.NET Core Runtime 8.0.12 (e todos os patches 8.0.x subsequentes)
+* Ativação HTTP do Windows Communication Foundation (WCF)45
++
+** Ativação TCP
+** Ativação HTTP
+
+
+
+
+Para obter informações específicas sobre solução de problemas do .NET, consulte https://kb.netapp.com/Advice_and_Troubleshooting/Data_Protection_and_Security/SnapCenter/SnapCenter_upgrade_or_install_fails_with_%22This_KB_is_not_related_to_the_OS%22["A atualização ou instalação do SnapCenter falha em sistemas legados que não têm conectividade com a Internet"^] .
+
+
+
+ a| 
+Enfileiramento de mensagens
+ a| 
+* Serviços de enfileiramento de mensagens
++
+
+NOTE: Certifique-se de que nenhum outro aplicativo use o serviço MSMQ que o SnapCenter cria e gerencia.
+
+* RabbitMQ
+* Erlang
+
+
+
+
+ a| 
+Serviço de Ativação de Processos do Windows
+ a| 
+* Modelo de Processo
+
+
+
+
+ a| 
+APIs de configuração
+ a| 
+Todos
+
+|===

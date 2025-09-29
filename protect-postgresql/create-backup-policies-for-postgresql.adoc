@@ -1,0 +1,153 @@
+---
+permalink: protect-postgresql/create-backup-policies-for-postgresql.html 
+sidebar: sidebar 
+keywords: SnapCenter Plug-in for PostgreSQL 
+summary: Antes de usar o SnapCenter para fazer backup de recursos do cluster PostgreSQL, você deve criar uma política de backup para o recurso ou grupo de recursos do qual deseja fazer backup.  Uma política de backup é um conjunto de regras que regem como você gerencia, agenda e mantém backups. 
+---
+= Criar políticas de backup para PostgreSQL
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Antes de usar o SnapCenter para fazer backup de recursos do PostgreSQL, você deve criar uma política de backup para o recurso ou grupo de recursos que deseja fazer backup.  Uma política de backup é um conjunto de regras que regem como você gerencia, agenda e mantém backups.
+
+.Antes de começar
+* Você deve ter definido sua estratégia de backup.
++
+Para obter detalhes, consulte as informações sobre como definir uma estratégia de proteção de dados para clusters PostgreSQL.
+
+* Você deve ter se preparado para a proteção de dados concluindo tarefas como instalar o SnapCenter, adicionar hosts, configurar conexões do sistema de armazenamento e adicionar recursos.
+* O administrador do SnapCenter deve ter atribuído as SVMs para os volumes de origem e destino a você se estiver replicando instantâneos para um espelho ou cofre.
++
+Além disso, você pode especificar configurações de replicação, script e aplicativo na política.  Essas opções economizam tempo quando você deseja reutilizar a política para outro grupo de recursos.
+
+
+
+.Sobre esta tarefa
+* SnapLock
++
+** Se a opção 'Manter as cópias de backup por um número específico de dias' for selecionada, o período de retenção do SnapLock deverá ser menor ou igual aos dias de retenção mencionados.
+** Especificar um período de bloqueio de instantâneo impede a exclusão dos instantâneos até que o período de retenção expire.  Isso pode levar à retenção de um número maior de instantâneos do que a contagem especificada na política.
+** Para o ONTAP 9.12.1 e versões anteriores, os clones criados a partir dos snapshots do SnapLock Vault como parte da restauração herdarão o tempo de expiração do SnapLock Vault. O administrador de armazenamento deve limpar manualmente os clones após o tempo de expiração do SnapLock .
+
+
+
+
+.Passos
+. No painel de navegação esquerdo, clique em *Configurações*.
+. Na página Configurações, clique em *Políticas*.
+. Clique em *Novo*.
+. Na página Nome, insira o nome e os detalhes da política.
+. Na página Tipo de política, faça o seguinte:
++
+.. Selecione o tipo de armazenamento.
+.. Na seção *Configurações de backup personalizadas*, forneça quaisquer configurações de backup específicas que devem ser passadas ao plug-in no formato chave-valor.
++
+Você pode fornecer vários valores-chave a serem passados ao plug-in.
+
+
+
+. Na página Backup e Replicação, execute as seguintes ações:
++
+.. Especifique a frequência da programação selecionando *Sob demanda*, *Por hora*, *Diariamente*, *Semanalmente* ou *Mensalmente*.
++
+
+NOTE: Você pode especificar o agendamento (data de início, data de término e frequência) para a operação de backup ao criar um grupo de recursos.  Isso permite que você crie grupos de recursos que compartilham a mesma política e frequência de backup, mas também permite que você atribua diferentes agendamentos de backup a cada política.
+
++
+
+NOTE: Se você agendou para 2h00, a programação não será acionada durante o horário de verão (DST).
+
+.. Na seção Configurações de instantâneo, especifique as configurações de retenção para o tipo de backup e o tipo de agendamento selecionado na página *Tipo de backup*:
++
+|===
+| Se você quiser... | Então... 
+
+
+ a| 
+Mantenha um certo número de Snapshots
+ a| 
+Selecione *Cópias a serem mantidas* e especifique o número de Snapshots que você deseja manter.
+
+Se o número de Snapshots exceder o número especificado, os Snapshots serão excluídos, com as cópias mais antigas sendo excluídas primeiro.
+
+
+NOTE: Você deve definir a contagem de retenção como 2 ou mais se planeja habilitar a replicação do SnapVault .  Se você definir a contagem de retenção como 1, a operação de retenção poderá falhar porque o primeiro Snapshot será o Snapshot de referência para o relacionamento SnapVault até que um Snapshot mais recente seja replicado para o destino.
+
+
+NOTE: O valor máximo de retenção é 1018. Os backups falharão se a retenção for definida como um valor maior do que o suportado pela versão do ONTAP .
+
+
+
+ a| 
+Mantenha os Snapshots por um certo número de dias
+ a| 
+Selecione *Manter cópias por* e especifique o número de dias pelos quais você deseja manter os Snapshots antes de excluí-los.
+
+
+
+ a| 
+Período de bloqueio de cópia de instantâneo
+ a| 
+Selecione *Período de bloqueio de cópia de instantâneo* e especifique dias, meses ou anos.
+
+O período de retenção do SnapLock deve ser inferior a 100 anos.
+
+|===
+
+
+. Selecione um rótulo de política.
++
+
+NOTE: Você pode atribuir rótulos SnapMirror a snapshots primários para replicação remota, permitindo que os snapshots primários descarreguem a operação de replicação de snapshots do SnapCenter para sistemas secundários ONTAP . Isso pode ser feito sem habilitar a opção SnapMirror ou SnapVault na página de política.
+
+. Na seção Selecionar opções de replicação secundária, selecione uma ou ambas as seguintes opções de replicação secundária:
++
+|===
+| Para este campo... | Faça isso... 
+
+
+ a| 
+*Atualize o SnapMirror após criar uma cópia local do Snapshot*
+ a| 
+Selecione este campo para criar cópias espelhadas dos conjuntos de backup em outro volume (replicação SnapMirror ).
+
+Se o relacionamento de proteção no ONTAP for do tipo Mirror and Vault e se você selecionar apenas esta opção, o Snapshot criado no primário não será transferido para o destino, mas será listado no destino.  Se este Snapshot for selecionado no destino para executar uma operação de restauração, a seguinte mensagem de erro será exibida: O local secundário não está disponível para o backup em cofre/espelho selecionado.
+
+Durante a replicação secundária, o tempo de expiração do SnapLock carrega o tempo de expiração do SnapLock primário.
+
+Clicar no botão *Atualizar* na página Topologia atualiza o tempo de expiração do SnapLock secundário e primário que são recuperados do ONTAP.
+
+Ver link:view-postgresql-cluster-backups-and-clones-in-the-topology-page.html["Visualize backups e clones relacionados a recursos do PostgreSQL na página Topologia"] .
+
+
+
+ a| 
+*Atualize o SnapVault após criar uma cópia local do Snapshot*
+ a| 
+Selecione esta opção para executar a replicação de backup de disco para disco (backups do SnapVault ).
+
+Durante a replicação secundária, o tempo de expiração do SnapLock carrega o tempo de expiração do SnapLock primário.  Clicar no botão *Atualizar* na página Topologia atualiza o tempo de expiração do SnapLock secundário e primário que são recuperados do ONTAP.
+
+Quando o SnapLock é configurado somente no secundário do ONTAP conhecido como SnapLock Vault, clicar no botão *Atualizar* na página Topologia atualiza o período de bloqueio no secundário recuperado do ONTAP.
+
+Para obter mais informações sobre o SnapLock Vault, consulte Confirmar instantâneos para WORM em um destino de cofre
+
+Ver link:view-postgresql-cluster-backups-and-clones-in-the-topology-page.html["Visualize backups e clones relacionados a recursos do PostgreSQL na página Topologia"] .
+
+
+
+ a| 
+*Erro na contagem de novas tentativas*
+ a| 
+Insira o número máximo de tentativas de replicação que podem ser permitidas antes que a operação seja interrompida.
+
+|===
++
+
+NOTE: Você deve configurar a política de retenção do SnapMirror no ONTAP para o armazenamento secundário para evitar atingir o limite máximo de Snapshots no armazenamento secundário.
+
+. Revise o resumo e clique em *Concluir*.
+

@@ -1,0 +1,118 @@
+---
+permalink: install/task_register_untrusted_active_directory_domains.html 
+sidebar: sidebar 
+keywords: Active Directory 
+summary: Você deve registrar o Active Directory com o SnapCenter Server para gerenciar hosts, usuários e grupos de vários domínios não confiáveis ​​do Active Directory. 
+---
+= Registrar domínios não confiáveis do Active Directory
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Você deve registrar o Active Directory com o SnapCenter Server para gerenciar hosts, usuários e grupos de vários domínios não confiáveis ​​do Active Directory.
+
+.Antes de começar
+*Protocolos LDAP e LDAPS*
+
+* Você pode registrar domínios não confiáveis do Active Directory usando o protocolo LDAP ou LDAPS.
+* Você deve ter habilitado a comunicação bidirecional entre os hosts do plug-in e o SnapCenter Server.
+* A resolução de DNS deve ser configurada do SnapCenter Server para os hosts de plug-in e vice-versa.
+
+
+*Protocolo LDAP*
+
+* O nome de domínio totalmente qualificado (FQDN) deve ser resolvível no SnapCenter Server.
++
+Você pode registrar um domínio não confiável com o FQDN.  Se o FQDN não puder ser resolvido no SnapCenter Server, você poderá registrar com um endereço IP de controlador de domínio, e isso poderá ser resolvido no SnapCenter Server.
+
+
+
+*Protocolo LDAPS*
+
+* Os certificados CA são necessários para que o LDAPS forneça criptografia de ponta a ponta durante a comunicação do diretório ativo.
++
+link:task_configure_CA_client_certificate_for_LDAPS.html["Configurar certificado de cliente CA para LDAPS"]
+
+* Os nomes de host do controlador de domínio (DCHostName) devem ser acessíveis pelo SnapCenter Server.
+
+
+*Sobre esta tarefa*
+
+* Você pode usar a interface de usuário do SnapCenter , os cmdlets do PowerShell ou a API REST para registrar um domínio não confiável.
+
+
+*Passos*
+
+. No painel de navegação esquerdo, clique em *Configurações*.
+. Na página Configurações, clique em *Configurações globais*.
+. Na página Configurações globais, clique em *Configurações de domínio*.
+. Cliqueimage:../media/add_policy_from_resourcegroup.gif["adicionar grupo de recursos de formulário de política"] para registrar um novo domínio.
+. Na página Registrar novo domínio, selecione *LDAP* ou *LDAPS*.
++
+.. Se você selecionar *LDAP*, especifique as informações necessárias para registrar o domínio não confiável para LDAP:
++
+|===
+| Para este campo... | Faça isso... 
+
+
+ a| 
+Nome de domínio
+ a| 
+Especifique o nome NetBIOS para o domínio.
+
+
+
+ a| 
+FQDN de domínio
+ a| 
+Especifique o FQDN e clique em *Resolver*.
+
+
+
+ a| 
+Endereços IP do controlador de domínio
+ a| 
+Se o FQDN do domínio não puder ser resolvido no SnapCenter Server, especifique um ou mais endereços IP do controlador de domínio.
+
+Para obter mais informações, consulte  https://kb.netapp.com/Advice_and_Troubleshooting/Data_Protection_and_Security/SnapCenter/SnapCenter_does_not_allow_to_add_Domain_Controller_IP_for_untrusted_domain_from_GUI["Adicionar IP do controlador de domínio para domínio não confiável da GUI"^] .
+
+|===
+.. Se você selecionar *LDAPS*, especifique as informações necessárias para registrar o domínio não confiável para LDAPS:
++
+|===
+| Para este campo... | Faça isso... 
+
+
+ a| 
+Nome de domínio
+ a| 
+Especifique o nome NetBIOS para o domínio.
+
+
+
+ a| 
+FQDN de domínio
+ a| 
+Especifique o FQDN.
+
+
+
+ a| 
+Nomes de controladores de domínio
+ a| 
+Especifique um ou mais nomes de controladores de domínio e clique em *Resolver*.
+
+
+
+ a| 
+Endereços IP do controlador de domínio
+ a| 
+Se os nomes dos controladores de domínio não puderem ser resolvidos pelo SnapCenter Server, você deverá retificar as resoluções de DNS.
+
+|===
+
+
+. Clique em *OK*.
+

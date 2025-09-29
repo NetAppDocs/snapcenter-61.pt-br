@@ -1,0 +1,47 @@
+---
+permalink: protect-db2/discover-the-databases-automatically.html 
+sidebar: sidebar 
+keywords: credentials 
+summary: Os recursos são bancos de dados IBM Db2 no host Linux que são gerenciados pelo SnapCenter.  Você pode adicionar esses recursos a grupos de recursos para executar operações de proteção de dados depois de descobrir os bancos de dados IBM Db2 que estão disponíveis. 
+---
+= Descubra os bancos de dados automaticamente
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Os recursos são bancos de dados IBM Db2 no host Linux que são gerenciados pelo SnapCenter.  Você pode adicionar os recursos aos grupos de recursos para executar operações de proteção de dados depois de descobrir os bancos de dados IBM Db2 que estão disponíveis.
+
+.Antes de começar
+* Você já deve ter concluído tarefas como instalar o SnapCenter Server, adicionar hosts e configurar as conexões do sistema de armazenamento.
+* O plug-in SnapCenter para IBM Db2 não oferece suporte à descoberta automática de recursos que residem em ambientes virtuais RDM/VMDK.  Você deve fornecer as informações de armazenamento para ambientes virtuais ao adicionar os bancos de dados manualmente.
+
+
+.Sobre esta tarefa
+* Após instalar o plug-in, todos os bancos de dados naquele host Linux são descobertos automaticamente e exibidos na página Recursos.
+* Somente bancos de dados são descobertos automaticamente.
+
+
+Os recursos descobertos automaticamente não podem ser modificados ou excluídos.
+
+.Passos
+. No painel de navegação esquerdo, clique em *Recursos* e selecione o Plug-in para IBM Db2 na lista.
+. Na página Recursos, selecione o tipo de recurso na lista Exibir.
+. (Opcional) Clique em *image:../media/filter_icon.gif["ícone de filtro"] * e, em seguida, selecione o nome do host.
++
+Você pode então clicar em *image:../media/filter_icon.gif["ícone de filtro"] * para fechar o painel de filtro.
+
+. Clique em *Atualizar recursos* para descobrir os recursos disponíveis no host.
++
+Os recursos são exibidos junto com informações como tipo de recurso, nome do host, grupos de recursos associados, tipo de backup, políticas e status geral.
+
++
+** Se o banco de dados estiver em um armazenamento NetApp e não estiver protegido, Não protegido será exibido na coluna Status geral.
+** Se o banco de dados estiver em um sistema de armazenamento NetApp e protegido, e se nenhuma operação de backup for realizada, Backup não executado será exibido na coluna Status geral.  Caso contrário, o status mudará para Falha no backup ou Backup bem-sucedido com base no último status do backup.
+
+
+
+
+
+IMPORTANT: Você deve atualizar os recursos se os bancos de dados forem renomeados fora do SnapCenter.

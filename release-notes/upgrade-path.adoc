@@ -1,0 +1,60 @@
+---
+permalink: release-notes/upgrade-path.html 
+sidebar: sidebar 
+keywords: upgrade paths, supported, upgrade to SnapCenter 
+summary: Os caminhos de atualização suportados pelo SnapCenter. 
+---
+= Caminhos de atualização suportados para SnapCenter
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+O caminho de atualização ajuda você a entender quais versões anteriores do SnapCenter você pode atualizar para as versões mais recentes do SnapCenter e quais versões dos plug-ins são suportadas.
+
+|===
+| Se você estiver na versão SnapCenter Server... | Você pode atualizar diretamente o SnapCenter Server para... | Versões de plug-in suportadas 
+
+
+.3+| 5,0 | 6,0  a| 
+* 5,0
+* 6,0
+
+
+
+
+| 6.0.1  a| 
+* 6.0.1
+
+
+
+
+| 6,1  a| 
+* 6,1
+
+
+
+
+.2+| 6,0  a| 
+6.0.1
+ a| 
+* 6,0
+* 6.0.1
+
+
+
+
+| 6,1  a| 
+* 6,1
+
+
+
+
+| 6.0.1 | 6,1  a| 
+* 6.0.1
+* 6,1
+
+
+|===
+Para obter informações sobre como atualizar o SnapCenter Plug-in for VMware vSphere, consulte https://docs.netapp.com/us-en/sc-plugin-vmware-vsphere/scpivs44_upgrade.html["Atualizar o SnapCenter Plug-in for VMware vSphere"^] .

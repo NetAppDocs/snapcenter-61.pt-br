@@ -1,0 +1,31 @@
+---
+permalink: protect-sco/task_split_clone_of_a_pluggable_database.html 
+sidebar: sidebar 
+keywords: split, PDB, cloned PDB 
+summary: 'Você pode usar o SnapCenter para dividir um banco de dados plugável clonado (PDB).' 
+---
+= Clone dividido de um banco de dados plugável
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Você pode usar o SnapCenter para dividir um banco de dados plugável clonado (PDB).
+
+*Sobre esta tarefa*
+
+Se você criou um backup do CDB de destino onde o PDB foi clonado, quando você dividir o clone do PDB, o PDB clonado também será removido de todos os backups do CDB de destino que contém o PDB clonado.
+
+
+NOTE: Os clones do PDB não são exibidos na visualização de inventário ou recursos.
+
+*Passos*
+
+. No painel de navegação esquerdo, clique em *Recursos* e selecione o plug-in apropriado na lista.
+. Selecione o banco de dados do contêiner de origem (CDB) na exibição de recursos ou grupo de recursos.
+. Na exibição Gerenciar cópias, selecione *Clones* dos sistemas de armazenamento primário ou secundário (espelhado ou replicado).
+. Selecione o clone PDB (targetCDB:PDBClone) e clique emimage:../media/split_clone.gif["clone dividido"] .
+. Revise o tamanho estimado do clone que será dividido e o espaço necessário disponível no agregado e clique em *Iniciar*.
+. Monitore o progresso da operação clicando em *Monitorar* > *Trabalhos*.
+

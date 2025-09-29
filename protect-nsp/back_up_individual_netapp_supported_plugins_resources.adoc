@@ -1,0 +1,226 @@
+---
+permalink: protect-nsp/back_up_individual_netapp_supported_plugins_resources.html 
+sidebar: sidebar 
+keywords: backup, NetApp supported plug-ins, NetApp supported plug-ins, MongoDB, ORASCPM, Oracle Applications, SAP ASE, SAP MaxDB, Storage plug-in 
+summary: Se um recurso de plug-in individual compatível com NetApp não fizer parte de nenhum grupo de recursos, você poderá fazer backup do recurso na página Recursos.  Você pode fazer backup do recurso sob demanda ou, se o recurso tiver uma política anexada e um agendamento configurado, os backups ocorrerão automaticamente de acordo com o agendamento. 
+---
+= Faça backup de recursos individuais de plug-ins suportados pela NetApp
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Se um recurso de plug-in individual compatível com NetApp não fizer parte de nenhum grupo de recursos, você poderá fazer backup do recurso na página Recursos.  Você pode fazer backup do recurso sob demanda ou, se o recurso tiver uma política anexada e um agendamento configurado, os backups ocorrerão automaticamente de acordo com o agendamento.
+
+.Antes de começar
+* Você deve ter criado uma política de backup.
+* Se você quiser fazer backup de um recurso que tenha um relacionamento SnapMirror com um armazenamento secundário, a função ONTAP atribuída ao usuário do armazenamento deve incluir o privilégio "`snapmirror all`".  Entretanto, se você estiver usando a função "`vsadmin`", o privilégio "`snapmirror all`" não será necessário.
+
+
+[role="tabbed-block"]
+====
+.Interface do usuário do SnapCenter
+--
+.Passos
+. No painel de navegação esquerdo, clique em *Recursos* e selecione o plug-in apropriado na lista.
+. Na página Recursos, filtre os recursos da lista suspensa *Exibir* com base no tipo de recurso.
++
+Cliqueimage:../media/filter_icon.gif["ícone de filtro"] e selecione o nome do host e o tipo de recurso para filtrar os recursos.  Você pode então clicarimage:../media/filter_icon.gif["ícone de filtro"] para fechar o painel de filtro.
+
+. Clique no recurso que você deseja fazer backup.
+. Na página Recurso, se desejar usar um nome personalizado, marque a caixa de seleção *Usar formato de nome personalizado para cópia do Snapshot* e insira um formato de nome personalizado para o nome do Snapshot.
++
+Por exemplo, _customtext_policy_hostname_ ou _resource_hostname_.  Por padrão, um registro de data e hora é anexado ao nome do Snapshot.
+
+. Na página Configurações do aplicativo, faça o seguinte:
++
+.. Clique na seta *Backups* para definir opções adicionais de backup:
++
+Habilite o backup do grupo de consistência, se necessário, e execute as seguintes tarefas:
+
++
+|===
+| Para este campo... | Faça isso... 
+
+
+ a| 
+Permitir tempo de espera para que a operação do Consistency Group Snapshot seja concluída
+ a| 
+Selecione Urgente, Médio ou Relaxado para especificar o tempo de espera para a conclusão da operação de Snapshot.
+
+Urgente = 5 segundos, Médio = 7 segundos e Relaxado = 20 segundos.
+
+
+
+ a| 
+Desativar sincronização WAFL
+ a| 
+Selecione esta opção para evitar forçar um ponto de consistência WAFL .
+
+|===
++
+image:../media/application_settings.gif["Página de configurações do aplicativo"]
+
+.. Clique na seta *Scripts* para executar comandos pré e pós para operações de inatividade, instantâneo e ativação/desativação.  Você também pode executar pré-comandos antes de sair da operação de backup.
++
+Prescrições e pós-escritos são executados no SnapCenter Server.
+
+.. Clique na seta *Configurações personalizadas* e insira os pares de valores personalizados necessários para todos os trabalhos que usam este recurso.
+.. Clique na seta *Ferramenta de Cópia de Instantâneo* para selecionar a ferramenta para criar Instantâneos:
++
+|===
+| Se você quiser... | Então... 
+
+
+ a| 
+SnapCenter para tirar um instantâneo de nível de armazenamento
+ a| 
+Selecione * SnapCenter sem consistência do sistema de arquivos*.
+
+
+
+ a| 
+SnapCenter para usar o plug-in para Windows para colocar o sistema de arquivos em um estado consistente e, em seguida, tirar um instantâneo
+ a| 
+Selecione * SnapCenter com consistência do sistema de arquivos*.
+
+
+
+ a| 
+Para inserir o comando para criar um Snapshot
+ a| 
+Selecione *Outro* e insira o comando para criar um Snapshot.
+
+|===
+
+
+. Na página Políticas, execute as seguintes etapas:
++
+.. Selecione uma ou mais políticas na lista suspensa.
++
+
+NOTE: Você também pode criar uma política clicando emimage:../media/add_policy_from_resourcegroup.gif["Adicionar ícone"] .
+
++
+Na seção Configurar agendamentos para políticas selecionadas, as políticas selecionadas são listadas.
+
+.. Cliqueimage:../media/add_policy_from_resourcegroup.gif["Adicionar ícone"] na coluna Configurar agendamentos da política para a qual você deseja configurar um agendamento.
+.. Na caixa de diálogo Adicionar agendamentos para a política _nome_da_política_, configure o agendamento e clique em *OK*.
++
+Onde _policy_name_ é o nome da política que você selecionou.
+
++
+Os agendamentos configurados são listados na coluna Agendamentos Aplicados.
+
+
+
+. Na página Notificação, na lista suspensa *Preferência de e-mail*, selecione os cenários nos quais você deseja enviar os e-mails.
++
+Você também deve especificar os endereços de e-mail do remetente e do destinatário, e o assunto do e-mail.  O SMTP também deve ser configurado em *Configurações* > *Configurações globais*.
+
+. Revise o resumo e clique em *Concluir*.
++
+A página de topologia de recursos é exibida.
+
+. Clique em *Fazer backup agora*.
+. Na página Backup, execute as seguintes etapas:
++
+.. Se você aplicou várias políticas ao recurso, na lista suspensa *Política*, selecione a política que deseja usar para backup.
++
+Se a política selecionada para o backup sob demanda estiver associada a um agendamento de backup, os backups sob demanda serão retidos com base nas configurações de retenção especificadas para o tipo de agendamento.
+
+.. Clique em *Backup*.
+
+
+. Monitore o progresso da operação clicando em *Monitorar* > *Trabalhos*.
+
+
+--
+.Cmdlets do PowerShell
+--
+.Passos
+. Inicie uma sessão de conexão com o SnapCenter Server para um usuário especificado usando o cmdlet Open-SmConnection.
++
+[listing]
+----
+Open-smconnection  -SMSbaseurl  https:\\snapctr.demo.netapp.com:8146\
+----
++
+O prompt de nome de usuário e senha é exibido.
+
+. Adicione recursos usando o cmdlet Add-SmResources.
++
+Este exemplo adiciona recursos:
+
++
+[listing]
+----
+Add-SmResource -HostName 'scc55.sccore.test.com' -PluginCode 'DummyPlugin' -ResourceName QDBVOL1 -ResourceType Database -StorageFootPrint ( @{"VolumeName"="qtree_vol1_scc55_sccore_test_com";"QTREENAME"="qtreeVol1";"StorageSystem"="vserver_scauto_primary"}) -Instance QTREE1
+----
+. Crie uma política de backup usando o cmdlet Add-SmPolicy.
++
+Este exemplo cria uma nova política de backup:
+
++
+[listing]
+----
+Add-SMPolicy -PolicyName 'test2' -PolicyType 'Backup' -PluginPolicyType DummyPlugin  -description 'testPolicy'
+----
+. Adicione um novo grupo de recursos ao SnapCenter usando o cmdlet Add-SmResourceGroup.
++
+Este exemplo cria um novo grupo de recursos com a política e os recursos especificados:
+
++
+[listing]
+----
+Add-SmResourceGroup -ResourceGroupName 'Verify_Backup_on_Multiple_Qtree_different_vserver_windows' -Resources @(@{"Host"="scc55.sccore.test.com";"Uid"="QTREE2";"PluginName"="DummyPlugin"},@{"Host"="scc55.sccore.test.com";"Uid"="QTREE";"PluginName"="DummyPlugin"}) -Policies test2 -plugincode 'DummyPlugin' -usesnapcenterwithoutfilesystemconsistency
+----
+. Inicie uma nova tarefa de backup usando o cmdlet New-SmBackup.
++
+[listing]
+----
+New-SMBackup -DatasetName Verify_Backup_on_Multiple_Qtree_different_vserver_windows -Policy test2
+----
+. Visualize o status do trabalho de backup usando o cmdlet Get-SmBackupReport.
++
+Este exemplo exibe um relatório de resumo de todos os trabalhos que foram executados na data especificada:
+
++
+[listing]
+----
+Get-SmBackupReport -JobId 149
+
+BackedUpObjects           : {QTREE2, QTREE}
+FailedObjects             : {}
+IsScheduled               : False
+HasMetadata               : False
+SmBackupId                : 1
+SmJobId                   : 149
+StartDateTime             : 1/15/2024 1:35:17 AM
+EndDateTime               : 1/15/2024 1:36:19 AM
+Duration                  : 00:01:02.4265750
+CreatedDateTime           : 1/15/2024 1:35:51 AM
+Status                    : Completed
+ProtectionGroupName       : Verify_Backup_on_Multiple_Qtree_different_vserver_windows
+SmProtectionGroupId       : 1
+PolicyName                : test2
+SmPolicyId                : 4
+BackupName                : Verify_Backup_on_Multiple_Qtree_different_vserver_windows_scc55_01-15-2024_01.35.17.4467
+VerificationStatus        : NotApplicable
+VerificationStatuses      :
+SmJobError                :
+BackupType                : SCC_BACKUP
+CatalogingStatus          : NotApplicable
+CatalogingStatuses        :
+ReportDataCreatedDateTime :
+PluginCode                : SCC
+PluginName                : DummyPlugin
+PluginDisplayName         : DummyPlugin
+JobTypeId                 :
+JobHost                   : scc55.sccore.test.com
+----
+
+
+--
+====

@@ -1,0 +1,23 @@
+---
+permalink: protect-scsql/concept_backup_retention_options_for_plugin_for_sql.html 
+sidebar: sidebar 
+keywords: Backup retention options 
+summary: Você pode escolher o número de dias pelos quais deseja manter cópias de backup ou especificar o número de cópias de backup que deseja manter, até um máximo ONTAP de 255 cópias.  Por exemplo, sua organização pode exigir que você mantenha 10 dias de cópias de backup ou 130 cópias de backup. 
+---
+= Opções de retenção de backup para o Plug-in para SQL Server
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Você pode escolher o número de dias pelos quais deseja manter cópias de backup ou especificar o número de cópias de backup que deseja manter, até um máximo ONTAP de 255 cópias.  Por exemplo, sua organização pode exigir que você mantenha 10 dias de cópias de backup ou 130 cópias de backup.
+
+Ao criar uma política, você pode especificar as opções de retenção para o tipo de backup e o tipo de agendamento.
+
+Se você configurar a replicação do SnapMirror , a política de retenção será espelhada no volume de destino.
+
+O SnapCenter exclui os backups retidos que têm rótulos de retenção que correspondem ao tipo de agendamento.  Se o tipo de agendamento foi alterado para o recurso ou grupo de recursos, os backups com o rótulo de tipo de agendamento antigo ainda poderão permanecer no sistema.
+
+
+NOTE: Para retenção de cópias de backup a longo prazo, você deve usar o backup SnapVault .

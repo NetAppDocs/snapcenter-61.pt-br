@@ -1,0 +1,69 @@
+---
+permalink: admin/concept_manage_ems_data_collection.html 
+sidebar: sidebar 
+keywords: EMS data collection 
+summary: 'Você pode agendar e gerenciar a coleta de dados do Sistema de Gerenciamento de Eventos (EMS) usando cmdlets do PowerShell.  A coleta de dados do EMS envolve a coleta de detalhes sobre o SnapCenter Server, os pacotes de plug-in SnapCenter instalados, os hosts e informações semelhantes e, em seguida, o envio para uma máquina virtual de armazenamento ONTAP especificada (SVM).' 
+---
+= Gerenciar coleta de dados de EMS
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Você pode agendar e gerenciar a coleta de dados do Sistema de Gerenciamento de Eventos (EMS) usando cmdlets do PowerShell.  A coleta de dados do EMS envolve a coleta de detalhes sobre o SnapCenter Server, os pacotes de plug-in SnapCenter instalados, os hosts e informações semelhantes e, em seguida, o envio para uma máquina virtual de armazenamento ONTAP (SVM) especificada.
+
+
+NOTE: A utilização da CPU do sistema é alta quando a tarefa de coleta de dados está em andamento.  A utilização da CPU permanece alta enquanto a operação progride, independentemente do tamanho dos dados.
+
+
+
+== Interrompa a coleta de dados do EMS
+
+A coleta de dados do EMS é ativada por padrão e é executada a cada sete dias após a data de instalação.  Você pode desabilitar a coleta de dados a qualquer momento usando o cmdlet do PowerShell _Disable-SmDataCollectionEMS_.
+
+.Passos
+. Em uma linha de comando do PowerShell, estabeleça uma sessão com o SnapCenter digitando _Open-SmConnection_.
+. Desabilite a coleta de dados do EMS digitando _Disable-SmDataCollectionEms_.
+
+
+
+
+== Iniciar coleta de dados do EMS
+
+A coleta de dados do EMS é habilitada por padrão e está programada para ser executada a cada sete dias a partir da data de instalação.  Se você o desativou, poderá iniciar a coleta de dados do EMS novamente usando o cmdlet _Enable-SmDataCollectionEMS_.
+
+A permissão generate-autosupport-log do evento NetApp ONTAP foi concedida ao usuário da máquina virtual de armazenamento (SVM).
+
+.Passos
+. Em uma linha de comando do PowerShell, estabeleça uma sessão com o SnapCenter digitando _Open-SmConnection_.
+. Habilite a coleta de dados do EMS inserindo _Enable-SmDataCollectionEMS_.
+
+
+
+
+== Alterar cronograma de coleta de dados do EMS e SVM de destino
+
+Você pode usar cmdlets do PowerShell para alterar o cronograma de coleta de dados do EMS ou a máquina virtual de armazenamento de destino (SVM).
+
+.Passos
+. Em uma linha de comando do PowerShell, para estabelecer uma sessão com o SnapCenter, insira o cmdlet _Open-SmConnection_.
+. Para alterar o destino da coleta de dados do EMS, insira o cmdlet _Set-SmDataCollectionEmsTarget_.
+. Para alterar o cronograma de coleta de dados do EMS, insira o cmdlet _Set-SmDataCollectionEmsSchedule_.
+
+
+
+
+== Monitorar o status da coleta de dados do EMS
+
+Você pode monitorar o status da coleta de dados do EMS usando vários cmdlets do PowerShell.  Você pode obter informações sobre o cronograma, o destino da máquina virtual de armazenamento (SVM) e o status.
+
+.Passos
+. Em uma linha de comando do PowerShell, estabeleça uma sessão com o SnapCenter digitando _Open-SmConnection_.
+. Recupere informações sobre o cronograma de coleta de dados do EMS inserindo _Get-SmDataCollectionEmsSchedule_.
+. Recupere informações sobre o status da coleta de dados do EMS inserindo _Get-SmDataCollectionEmsStatus_.
+. Recupere informações sobre o alvo de coleta de dados do EMS inserindo _Get-SmDataCollectionEmsTarget_.
+
+
+.Informações relacionadas
+As informações sobre os parâmetros que podem ser usados com o cmdlet e suas descrições podem ser obtidas executando _Get-Help command_name_. Alternativamente, você também pode consultar o https://docs.netapp.com/us-en/snapcenter-cmdlets/index.html["Guia de referência do cmdlet do software SnapCenter"^] .

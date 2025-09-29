@@ -1,0 +1,61 @@
+---
+permalink: admin/task_manage_rbac.html 
+sidebar: sidebar 
+keywords: modify RBAC, role, users, groups 
+summary: O SnapCenter permite que você modifique funções, usuários e grupos. 
+---
+= Gerenciar RBAC
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+O SnapCenter permite que você modifique funções, usuários e grupos.
+
+
+
+== Modificar uma função
+
+Você pode modificar uma função do SnapCenter para remover usuários ou grupos e alterar as permissões associadas à função.  É especialmente útil modificar funções quando você deseja alterar ou eliminar as permissões usadas por uma função inteira.
+
+.Antes de começar
+Você deve ter efetuado login com a função "SnapCenterAdmin".
+
+
+NOTE: Você não pode modificar ou remover permissões para a função SnapCenterAdmin.
+
+*Passos*
+
+. No painel de navegação esquerdo, clique em *Configurações*.
+. Na página Configurações, clique em *Funções*.
+. No campo Nome da função, clique na função que deseja modificar.
+. Selecione *Todos os membros desta função podem ver os objetos de outros membros* para permitir que outros membros da função vejam recursos como volumes e hosts depois de atualizarem a lista de recursos.
++
+Desmarque esta opção se não quiser que os membros desta função vejam objetos aos quais outros membros estão atribuídos.
+
++
+
+NOTE: Quando esta opção está habilitada, não é necessário atribuir aos usuários acesso a objetos ou recursos se eles pertencerem à mesma função que o usuário que criou os objetos ou recursos.
+
+. Na página Detalhes da função, altere as permissões ou cancele a atribuição dos membros conforme necessário.
+. Clique em *Enviar*.
+
+
+
+
+== Modificar usuários e grupos
+
+Você pode modificar usuários ou grupos do SnapCenter para alterar suas funções e ativos.
+
+.Antes de começar
+Você deve estar logado como administrador do SnapCenter .
+
+*Passos*
+
+. No painel de navegação esquerdo, clique em *Configurações*.
+. Na página Configurações, clique em *Usuários e acesso*.
+. Na lista Nome do usuário ou grupo, clique no usuário ou grupo que você deseja modificar.
+. Na página de detalhes do Usuário ou Grupo, altere funções e ativos.
+. Clique em *Enviar*.
+

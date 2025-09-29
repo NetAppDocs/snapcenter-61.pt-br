@@ -1,0 +1,15 @@
+= 
+:allow-uri-read: 
+
+
+O painel Atividade exibe as cinco operações mais recentes realizadas.  O painel Atividade também exibe quando a operação foi iniciada e o status da operação.
+
+O painel Atividade exibe informações sobre operações de backup, restauração, clonagem e backup agendado.
+
+.Passos
+. No painel de navegação esquerdo, clique em *Recursos* e selecione o plug-in apropriado na lista.
+. Cliqueimage:../media/activity_pane_icon.gif["ícone do painel de atividades"] no painel Atividade para visualizar as cinco operações mais recentes.
++
+Quando você clica em uma das operações, os detalhes da operação são listados na página *Detalhes do trabalho*.
+
+

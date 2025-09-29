@@ -1,0 +1,27 @@
+---
+permalink: protect-sce/concept_requirements_for_restoring_an_exchange_database.html 
+sidebar: sidebar 
+keywords: restoring an Exchange database 
+summary: Antes de restaurar um banco de dados do Exchange Server a partir de um backup do SnapCenter Plug-in para Microsoft Exchange Server, você deve garantir que vários requisitos sejam atendidos. 
+---
+= Requisitos para restaurar um banco de dados do Exchange
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Antes de restaurar um banco de dados do Exchange Server a partir de um backup do SnapCenter Plug-in para Microsoft Exchange Server, você deve garantir que vários requisitos sejam atendidos.
+
+
+NOTE: Para usar a funcionalidade de restauração completamente, você deve atualizar o SnapCenter Server e o SnapCenter Plug-in para o banco de dados do Exchange para 4.6.
+
+* O Exchange Server deve estar online e em execução antes que você possa restaurar um banco de dados.
+* Os bancos de dados devem existir no Exchange Server.
++
+
+NOTE: Não há suporte para restauração de bancos de dados excluídos.
+
+* Os agendamentos do SnapCenter para o banco de dados devem ser suspensos.
+* O SnapCenter Server e o host do SnapCenter Plug-in para Microsoft Exchange Server devem estar conectados ao armazenamento primário e secundário que contém os backups que você deseja restaurar.
+

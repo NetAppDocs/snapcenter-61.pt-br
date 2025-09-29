@@ -1,0 +1,28 @@
+---
+permalink: protect-nsp/netapp_supported_plugins_overview.html 
+sidebar: sidebar 
+keywords: NetApp supported plug-ins, MongoDB, ORASCPM, Oracle Applications, SAP ASE, SAP MaxDB, Storage plug-in 
+summary: Você pode desenvolver plug-ins compatíveis com o NetApp para aplicativos que você usa e, em seguida, usar o SnapCenter para fazer backup, restaurar ou clonar esses aplicativos.  Assim como outros plug-ins do SnapCenter , seus plug-ins compatíveis com o NetApp atuam como componentes do lado do host do NetApp SnapCenter Software, permitindo a proteção de dados com reconhecimento de aplicativo e o gerenciamento de recursos. 
+---
+= Visão geral dos plug-ins suportados pela NetApp
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Você pode usar os plug-ins suportados NetApp , como MongoDB, ORASCPM (Oracle Applications), SAP ASE, SAP MaxDB e plug-in de armazenamento para os aplicativos que você usa e, em seguida, usar o SnapCenter para fazer backup, restaurar ou clonar esses aplicativos.  Os plug-ins suportados NetApp atuam como componentes do lado do host do NetApp SnapCenter Software, permitindo a proteção de dados com reconhecimento de aplicativo e o gerenciamento de recursos.
+
+Quando os plug-ins suportados NetApp estiverem instalados, você poderá usar o SnapCenter com a tecnologia NetApp SnapMirror para criar cópias espelhadas de conjuntos de backup em outro volume e usar a tecnologia NetApp SnapVault para executar a replicação de backup de disco para disco.  Os plug-ins suportados pela NetApp podem ser usados ​​em ambientes Windows e Linux.
+
+
+NOTE: O SnapCenterCLI não oferece suporte a comandos de plug-ins suportados NetApp .
+
+A NetApp fornece o plug-in de armazenamento para executar operações de proteção de dados do volume de dados no armazenamento ONTAP usando a estrutura de plug-in integrada ao SnapCenter.
+
+Você pode instalar os plug-ins suportados pela NetApp na página Adicionar Host.
+
+link:add_hosts_and_install_plug_in_packages_on_remote_hosts.html["Adicione hosts e instale pacotes de plug-ins em hosts remotos."^]
+
+
+NOTE: A política de suporte do SnapCenter cobrirá o suporte para a estrutura do plug-in, o mecanismo principal e as APIs associadas.  O suporte não cobrirá o código-fonte do plug-in e os scripts associados criados na estrutura do plug-in.

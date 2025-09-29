@@ -1,0 +1,93 @@
+---
+sidebar: sidebar 
+permalink: sc-automation/concept_basic_operational_characteristics.html 
+keywords: request and response, object identifiers, synchronous, asynchronous 
+summary: Embora o REST estabeleça um conjunto comum de tecnologias e práticas recomendadas, os detalhes de cada API podem variar de acordo com as escolhas de design. 
+---
+= Características operacionais básicas
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Embora o REST estabeleça um conjunto comum de tecnologias e práticas recomendadas, os detalhes de cada API podem variar de acordo com as escolhas de design.
+
+
+
+== Transação de API de solicitação e resposta
+
+Cada chamada da API REST é realizada como uma solicitação HTTP ao sistema SnapCenter Server, que gera uma resposta associada ao cliente.  Este par de solicitação e resposta é considerado uma transação de API.
+
+Antes de usar a API, você deve estar familiarizado com as variáveis de entrada disponíveis para controlar uma solicitação e o conteúdo da saída da resposta.
+
+
+
+== Suporte para operações CRUD
+
+Cada um dos recursos disponíveis por meio da API REST do SnapCenter é acessado com base no modelo CRUD:
+
+* Criar
+* Ler
+* Atualizar
+* Excluir
+
+
+Para alguns recursos, apenas um subconjunto das operações é suportado.
+
+
+
+== Identificadores de objetos
+
+Cada instância de recurso ou objeto recebe um identificador exclusivo quando é criado. Na maioria dos casos, o identificador é um UUID de 128 bits.  Esses identificadores são globalmente exclusivos dentro de um SnapCenter Server específico.
+
+Após emitir uma chamada de API que cria uma nova instância de objeto, uma URL com o ID associado é retornada ao chamador no cabeçalho de localização da resposta HTTP. Você pode extrair o identificador e usá-lo em chamadas subsequentes ao se referir à instância do recurso.
+
+
+IMPORTANT: O conteúdo e a estrutura interna dos identificadores de objeto podem mudar a qualquer momento. Você deve usar os identificadores somente nas chamadas de API aplicáveis, conforme necessário, ao se referir aos objetos associados.
+
+
+
+== Instâncias e coleções de objetos
+
+Dependendo do caminho do recurso e do método HTTP, uma chamada de API pode ser aplicada a uma instância de objeto específica ou a uma coleção de objetos.
+
+
+
+== Operações síncronas e assíncronas
+
+O SnapCenter executa uma solicitação HTTP recebida de um cliente de forma síncrona ou assíncrona.
+
+
+
+=== Processamento síncrono
+
+O SnapCenter executa a solicitação imediatamente e responde com um código de status HTTP 200 ou 201 se for bem-sucedido.
+
+Cada solicitação usando o método GET é sempre realizada de forma síncrona.  Além disso, as solicitações que usam POST são projetadas para serem executadas de forma síncrona se a previsão for de que sejam concluídas em menos de dois segundos.
+
+
+
+=== Processamento assíncrono
+
+Se uma solicitação assíncrona for válida, o SnapCenter criará uma tarefa em segundo plano para processar a solicitação e um objeto de trabalho para ancorar a tarefa.  O código de status HTTP 202 é retornado ao chamador junto com o objeto de trabalho.  Você deve recuperar o estado do trabalho para determinar o sucesso ou o fracasso.
+
+Solicitações que usam os métodos POST e DELETE são projetadas para serem executadas de forma assíncrona se a previsão é de que levem mais de dois segundos para serem concluídas.
+
+
+
+== Segurança
+
+A segurança fornecida com a API REST é baseada principalmente nos recursos de segurança existentes disponíveis com o SnapCenter.  A seguinte segurança é usada pela API:
+
+
+
+=== Segurança da Camada de Transporte
+
+Todo o tráfego enviado pela rede entre o SnapCenter Server e o cliente normalmente é criptografado usando TLS, com base nas configurações do SnapCenter .
+
+
+
+=== Autenticação HTTP
+
+No nível HTTP, a autenticação básica é usada para as transações da API.  Um cabeçalho HTTP com o nome de usuário e a senha em uma string base64 é adicionado a cada solicitação.

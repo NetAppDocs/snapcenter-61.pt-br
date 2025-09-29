@@ -1,0 +1,70 @@
+---
+permalink: protect-sco/task_monitor_oracle_database_backup_operations.html 
+sidebar: sidebar 
+keywords: SnapCenter Server, monitor, backup, activity pane, data protection 
+summary: Você pode monitorar o progresso de diferentes operações de backup usando a página Tarefas do SnapCenter .  Talvez você queira verificar o progresso para determinar quando ele foi concluído ou se há algum problema. 
+---
+= Monitorar backup do banco de dados Oracle
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Aprenda a monitorar o progresso das operações de backup e proteção de dados.
+
+
+
+== Monitorar operações de backup do banco de dados Oracle
+
+Você pode monitorar o progresso de diferentes operações de backup usando a página SnapCenterJobs.  Talvez você queira verificar o progresso para determinar quando ele foi concluído ou se há algum problema.
+
+.Sobre esta tarefa
+Os seguintes ícones aparecem na página Trabalhos e indicam o estado correspondente das operações:
+
+* image:../media/progress_icon.gif["Ícone em andamento"]Em andamento
+* image:../media/success_icon.gif["Ícone concluído"]Concluído com sucesso
+* image:../media/failed_icon.gif["Ícone de falha"]Fracassado
+* image:../media/warning_icon.gif["Concluído com ícone de avisos"]Concluído com avisos ou não pôde ser iniciado devido a avisos
+* image:../media/verification_job_in_queue.gif["O trabalho de verificação está na fila"]Na fila
+* image:../media/cancel_icon.gif["Ícone de cancelamento"]Cancelado
+
+
+.Passos
+. No painel de navegação esquerdo, clique em *Monitor*.
+. Na página Monitor, clique em *Trabalhos*.
+. Na página Trabalhos, execute as seguintes etapas:
++
+.. Cliqueimage:../media/filter_icon.gif["ícone de filtro"] para filtrar a lista de modo que somente as operações de backup sejam listadas.
+.. Especifique as datas de início e término.
+.. Na lista suspensa *Tipo*, selecione *Backup*.
+.. No menu suspenso *Status*, selecione o status do backup.
+.. Clique em *Aplicar* para visualizar as operações concluídas com sucesso.
+
+
+. Selecione uma tarefa de backup e clique em *Detalhes* para visualizar os detalhes da tarefa.
++
+
+NOTE: Embora o status do trabalho de backup seja exibidoimage:../media/success_icon.gif["Ícone concluído"] , ao clicar em detalhes do trabalho, você poderá ver que algumas das tarefas filhas da operação de backup ainda estão em andamento ou marcadas com sinais de alerta.
+
+. Na página Detalhes do trabalho, clique em *Exibir registros*.
++
+O botão *Exibir logs* exibe os logs detalhados da operação selecionada.
+
+
+
+
+
+== Monitore as operações de proteção de dados no painel Atividade
+
+O painel Atividade exibe as cinco operações mais recentes realizadas.  O painel Atividade também exibe quando a operação foi iniciada e o status da operação.
+
+O painel Atividade exibe informações sobre operações de backup, restauração, clonagem e backup agendado.
+
+.Passos
+. No painel de navegação esquerdo, clique em *Recursos* e selecione o plug-in apropriado na lista.
+. Cliqueimage:../media/activity_pane_icon.gif["ícone do painel de atividades"] no painel Atividade para visualizar as cinco operações mais recentes.
++
+Quando você clica em uma das operações, os detalhes da operação são listados na página *Detalhes do trabalho*.
+
+

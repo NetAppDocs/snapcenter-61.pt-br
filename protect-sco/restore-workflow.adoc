@@ -1,0 +1,18 @@
+---
+permalink: protect-sco/restore-workflow.html 
+sidebar: sidebar 
+keywords: restore, workflow 
+summary: O fluxo de trabalho de restauração inclui planejamento, execução de operações de restauração e monitoramento das operações. 
+---
+= Fluxo de trabalho de restauração
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+O fluxo de trabalho de restauração inclui planejamento, execução de operações de restauração e monitoramento das operações.
+
+O fluxo de trabalho a seguir mostra a sequência na qual você deve executar a operação de restauração:
+
+image::../media/all_plug_ins_restore_workflow.gif[fluxo de trabalho de restauração de todos os plug-ins]

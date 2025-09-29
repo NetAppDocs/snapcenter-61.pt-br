@@ -1,0 +1,48 @@
+---
+permalink: protect-azure/restore-recover-sql-backups.html 
+sidebar: sidebar 
+keywords: SnapCenter Plug-in for SQL Server Database, restore, recover 
+summary: Você pode usar o SnapCenter para restaurar e recuperar dados de um ou mais backups. 
+---
+= Restaurar e recuperar bancos de dados SQL Server
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Você pode usar o SnapCenter para restaurar bancos de dados SQL Server com backup.  A restauração do banco de dados é um processo multifásico que copia todos os dados e páginas de log de um backup especificado do SQL Server para um banco de dados especificado.
+
+.Sobre esta tarefa
+Você deve garantir que a instância de destino para restauração esteja configurada com um usuário do Active Directory que pertença ao domínio do Active Directory do SMB AD e tenha permissões para definir as permissões de arquivo adequadamente.  Você deve configurar as credenciais no SnapCenter no nível da instância.
+
+A autenticação SQL para instância de destino não será suportada para configurações SMB.  A instância de destino deve ser configurada no SnapCenter com o usuário do Active Directory tendo as permissões necessárias.
+
+Se a conta de serviço do SnapCenter Plug-in não for um usuário do Active Directory, ao executar a restauração no host alternativo, será necessário o usuário que tem controle total sobre os volumes de origem para que ele possa ser representado e executar a operação necessária.
+
+.Passos
+. No painel de navegação esquerdo, clique em *Recursos* e selecione o plug-in apropriado na lista.
+. Na página Recursos, selecione *Banco de dados* ou *Grupo de recursos* na lista Exibir.
+. Selecione o banco de dados ou o grupo de recursos na lista.
+. Na exibição Gerenciar cópias, selecione *Backups* do sistema de armazenamento.
+. Selecione o backup da tabela e clique emimage:../media/restore_icon.gif["ícone de restauração"] ícone.
+. Na página Escopo de restauração, selecione uma das seguintes opções:
++
+.. Selecione *Restaurar o banco de dados para o mesmo host onde o backup foi criado* se quiser restaurar o banco de dados para o mesmo servidor SQL onde os backups foram feitos.
+.. Selecione *Restaurar o banco de dados em um host alternativo* se desejar que o banco de dados seja restaurado em um servidor SQL diferente no mesmo host ou em um host diferente onde os backups são feitos.
+
+
+. Na página Escopo de Recuperação, selecione uma das seguintes opções:
++
+.. Selecione *Nenhum* quando precisar restaurar apenas o backup completo, sem nenhum log.
+.. Selecione a operação de restauração de backup atualizada *Todos os backups de log* para restaurar todos os backups de log disponíveis após o backup completo.
+.. Selecione *Por backups de log* para executar uma operação de restauração pontual, que restaura o banco de dados com base nos logs de backup até o log de backup com a data selecionada.
+.. Selecione *Por data específica até* para especificar a data e a hora após as quais os logs de transações não serão aplicados ao banco de dados restaurado.
+.. Se você selecionou *Todos os backups de log*, *Por backups de log* ou *Por data específica até* e os logs estiverem localizados em um local personalizado, selecione *Usar diretório de log personalizado* e especifique o local do log.
+
+
+. Na página Pré-operatório e Pós-operatório, especifique os detalhes necessários.
+. Na página Notificação, na lista suspensa *Preferência de e-mail*, selecione os cenários nos quais você deseja enviar os e-mails.
+. Revise o resumo e clique em *Concluir*.
+. Monitore o processo de restauração usando a página *Monitor* > *Tarefas*.
+

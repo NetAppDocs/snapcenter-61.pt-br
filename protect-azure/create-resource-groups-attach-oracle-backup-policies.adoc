@@ -1,0 +1,73 @@
+---
+permalink: protect-azure/create-resource-groups-attach-oracle-backup-policies.html 
+sidebar: sidebar 
+keywords: resource groups, attach policies, snapcenter, Oracle, backup polices, schedule 
+summary: Um grupo de recursos é o contêiner ao qual você deve adicionar recursos que deseja fazer backup e proteger. 
+---
+= Crie grupos de recursos e anexe políticas de backup do Oracle
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Um grupo de recursos é o contêiner ao qual você deve adicionar recursos que deseja fazer backup e proteger.
+
+Um grupo de recursos permite que você faça backup de todos os dados associados a um determinado aplicativo simultaneamente.  Um grupo de recursos é necessário para qualquer trabalho de proteção de dados.  Você também deve anexar uma ou mais políticas ao grupo de recursos para definir o tipo de trabalho de proteção de dados que deseja executar.
+
+.Passos
+. No painel de navegação esquerdo, clique em *Recursos* e selecione o plug-in apropriado na lista.
+. Na página Recursos, clique em *Novo Grupo de Recursos*.
+. Na página Nome, execute as seguintes ações:
++
+|===
+| Para este campo... | Faça isso... 
+
+
+ a| 
+Nome
+ a| 
+Insira um nome para o grupo de recursos.
+
+
+
+ a| 
+Etiquetas
+ a| 
+Insira um ou mais rótulos que ajudarão você a pesquisar posteriormente o grupo de recursos.
+
+
+
+ a| 
+Use formato de nome personalizado para cópia do Snapshot
+ a| 
+Marque esta caixa de seleção e insira um formato de nome personalizado que você deseja usar para o nome do Snapshot.
+
+
+
+ a| 
+Destino do arquivo de log de arquivamento
+ a| 
+Especifique os destinos dos arquivos de log de arquivamento.
+
+|===
+. Na página Recursos, selecione um nome de host na lista suspensa *Host* e o tipo de recurso na lista suspensa *Tipo de recurso*.
+. Selecione os recursos na seção *Recursos disponíveis* e clique na seta para a direita para movê-los para a seção *Recursos selecionados*.
+. Na página Políticas, execute as seguintes etapas:
++
+.. Selecione uma ou mais políticas na lista suspensa.
+.. Na coluna Configurar agendamentos, clique em *image:../media/add_policy_from_resourcegroup.gif["adicionar grupo de recursos de formulário de política"] * para a política que você deseja configurar.
+.. Na caixa de diálogo Adicionar agendamentos para a política _nome_da_política_, configure o agendamento e clique em *OK*.
+
+
+. Na página Verificação, execute as seguintes etapas:
++
+.. Selecione o servidor de verificação.
+.. Selecione a política para a qual deseja configurar seu cronograma de verificação e clique em *image:../media/add_policy_from_resourcegroup.gif["adicionar grupo de recursos de formulário de política"] .
+.. Selecione *Executar verificação após backup* ou *Executar verificação agendada*.
+.. Clique em *OK*.
+
+
+. Na página Notificação, na lista suspensa *Preferência de e-mail*, selecione os cenários nos quais você deseja enviar os e-mails.
+. Revise o resumo e clique em *Concluir*.
+

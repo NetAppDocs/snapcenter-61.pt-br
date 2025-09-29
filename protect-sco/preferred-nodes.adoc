@@ -1,0 +1,42 @@
+---
+permalink: protect-sco/preferred-nodes.html 
+sidebar: sidebar 
+keywords: oracle databases discover 
+summary: Como o SnapCenter descobre bancos de dados Oracle. 
+---
+= Nós preferenciais na configuração do RAC
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Na configuração do Oracle Real Application Clusters (RAC), você pode especificar os nós preferenciais que o SnapCenter usa para executar a operação de backup.  Se você não especificar o nó preferencial, o SnapCenter atribuirá automaticamente um nó como o nó preferencial e o backup será criado nesse nó.
+
+Os nós preferenciais podem ser um ou todos os nós do cluster onde as instâncias do banco de dados RAC estão presentes.  A operação de backup é acionada somente nesses nós preferenciais na ordem de preferência.
+
+.Exemplo
+O banco de dados RAC cdbrac tem três instâncias: cdbrac1 no nó 1, cdbrac2 no nó 2 e cdbrac3 no nó 3.
+
+As instâncias node1 e node2 são configuradas para serem os nós preferenciais, com node2 como a primeira preferência e node1 como a segunda preferência.  Quando você executa uma operação de backup, a operação é tentada primeiro no nó2 porque é o primeiro nó preferencial.
+
+Se o node2 não estiver no estado para fazer backup, o que pode ocorrer por vários motivos, como o agente do plug-in não estar em execução no host, a instância do banco de dados no host não estar no estado necessário para o tipo de backup especificado ou a instância do banco de dados no node2 em uma configuração FlexASM não estar sendo atendida pela instância do ASM local; a operação será tentada no node1.
+
+O node3 não será usado para backup porque não está na lista de nós preferenciais.
+
+
+
+== Configuração do Flex ASM
+
+Em uma configuração do Flex ASM, os nós Leaf não serão listados como nós preferenciais se a cardinalidade for menor que o número de nós no cluster RAC.  Se houver alguma alteração nas funções dos nós do cluster Flex ASM, você deverá descobri-las manualmente para que os nós preferenciais sejam atualizados.
+
+
+
+== Estado do banco de dados necessário
+
+As instâncias do banco de dados RAC nos nós preferenciais devem estar no estado necessário para que o backup seja concluído com sucesso:
+
+* Uma das instâncias do banco de dados RAC nos nós preferenciais configurados deve estar no estado aberto para criar um backup online.
+* Uma das instâncias do banco de dados RAC nos nós preferenciais configurados deve estar no estado de montagem, e todas as outras instâncias, incluindo outros nós preferenciais, devem estar no estado de montagem ou inferior para criar um backup de montagem offline.
+* As instâncias do banco de dados RAC podem estar em qualquer estado, mas você deve especificar os nós preferenciais para criar um backup de desligamento offline.
+

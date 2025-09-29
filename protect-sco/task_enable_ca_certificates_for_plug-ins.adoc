@@ -1,0 +1,42 @@
+---
+permalink: protect-sco/task_enable_ca_certificates_for_plug-ins.html 
+sidebar: sidebar 
+keywords: SnapCenter, enable ca certificate, ca certificate 
+summary: Você deve configurar os certificados CA e implantá-los no host do plug-in Oracle. 
+---
+= Habilitar certificados CA para plug-ins
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Você deve configurar os certificados CA e implantá-los no SnapCenter Server e nos hosts de plug-in correspondentes.  Você deve habilitar a validação do certificado CA para os plug-ins.
+
+.Antes de começar
+* Você pode habilitar ou desabilitar os certificados da CA usando o cmdlet run _Set-SmCertificateSettings_.
+* Você pode exibir o status do certificado para os plug-ins usando _Get-SmCertificateSettings_.
+
+
+As informações sobre os parâmetros que podem ser usados com o cmdlet e suas descrições podem ser obtidas executando _Get-Help command_name_. Alternativamente, você também pode consultar o https://docs.netapp.com/us-en/snapcenter-cmdlets/index.html["Guia de referência do cmdlet do software SnapCenter"^] .
+
+.Passos
+. No painel de navegação esquerdo, clique em *Hosts*.
+. Na página Hosts, clique em *Hosts gerenciados*.
+. Selecione hosts de plug-in únicos ou múltiplos.
+. Clique em *Mais opções*.
+. Selecione *Ativar validação de certificado*.
+
+
+.Depois que você terminar
+A guia Hosts gerenciados exibe um cadeado e a cor do cadeado indica o status da conexão entre o SnapCenter Server e o host do plug-in.
+
+* *image:../media/enable_ca_issues_icon.png["O certificado CA não está habilitado nem atribuído ao ícone do host do plug-in"] * indica que o certificado CA não está habilitado nem atribuído ao host do plug-in.
+* *image:../media/enable_ca_good_icon.png["Ícone de certificado CA validado com sucesso"] * indica que o certificado CA foi validado com sucesso.
+* *image:../media/enable_ca_failed_icon.png["Ícone de certificado CA não pôde ser validado"] * indica que o certificado CA não pôde ser validado.
+* *image:../media/enable_ca_undefined_icon.png["o ícone de informações de conexão não pôde ser recuperado"] * indica que as informações de conexão não puderam ser recuperadas.
++
+
+NOTE: Quando o status é amarelo ou verde, as operações de proteção de dados foram concluídas com sucesso.
+
+

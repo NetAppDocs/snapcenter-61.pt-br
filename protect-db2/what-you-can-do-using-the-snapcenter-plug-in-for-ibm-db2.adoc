@@ -1,0 +1,23 @@
+---
+permalink: protect-db2/what-you-can-do-using-the-snapcenter-plug-in-for-ibm-db2.html 
+sidebar: sidebar 
+keywords: SnapCenter Plug-in for IBM Db2 
+summary: Ao instalar o Plug-in para IBM Db2 em seu ambiente, você pode usar o SnapCenter para fazer backup, restaurar e clonar o IBM Db2 e seus recursos.  Você também pode executar tarefas de suporte a essas operações. 
+---
+= O que você pode fazer usando o plug-in SnapCenter para IBM Db2
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Ao instalar o Plug-in para IBM Db2 Database em seu ambiente, você pode usar o SnapCenter para fazer backup, restaurar e clonar bancos de dados IBM Db2 e seus recursos.  Você também pode executar tarefas de suporte a essas operações.
+
+* Adicionar bancos de dados.
+* Crie backups.
+* Restaurar a partir de backups.
+* Clonar backups.
+* Agende operações de backup.
+* Monitore operações de backup, restauração e clonagem.
+* Visualize relatórios de operações de backup, restauração e clonagem.
+

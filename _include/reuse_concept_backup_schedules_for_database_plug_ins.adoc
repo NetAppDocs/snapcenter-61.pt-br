@@ -1,0 +1,21 @@
+= 
+:allow-uri-read: 
+
+
+A frequência de backup (tipo de agendamento) é especificada nas políticas; um agendamento de backup é especificado na configuração do grupo de recursos.  O fator mais crítico na determinação da frequência ou programação de backup é a taxa de alteração do recurso e a importância dos dados.  Você pode fazer backup de um recurso muito utilizado a cada hora, enquanto pode fazer backup de um recurso raramente utilizado uma vez por dia.  Outros fatores incluem a importância do recurso para sua organização, seu Acordo de Nível de Serviço (SLA) e seu Objetivo de Ponto de Recuperação (RPO).
+
+Um SLA define o nível de serviço esperado e aborda muitas questões relacionadas ao serviço, incluindo a disponibilidade e o desempenho do serviço.  Um RPO define a estratégia para a idade dos arquivos que devem ser recuperados do armazenamento de backup para que as operações regulares sejam retomadas após uma falha.  O SLA e o RPO contribuem para a estratégia de proteção de dados.
+
+Mesmo para um recurso muito utilizado, não há necessidade de executar um backup completo mais de uma ou duas vezes por dia.  Por exemplo, backups regulares do log de transações podem ser suficientes para garantir que você tenha os backups necessários.  Quanto mais você fizer backup dos seus bancos de dados, menos logs de transações o SnapCenter terá que usar no momento da restauração, o que pode resultar em operações de restauração mais rápidas.
+
+Os agendamentos de backup têm duas partes, conforme a seguir:
+
+* Frequência de backup
++
+A frequência de backup (com que frequência os backups devem ser realizados), chamada de _tipo de agendamento_ para alguns plug-ins, faz parte de uma configuração de política.  Você pode selecionar por hora, dia, semana ou mês como a frequência de backup da política.  Se você não selecionar nenhuma dessas frequências, a política criada será somente sob demanda.  Você pode acessar as políticas clicando em *Configurações* > *Políticas*.
+
+* Agendamentos de backup
++
+Os agendamentos de backup (exatamente quando os backups devem ser executados) fazem parte de uma configuração de grupo de recursos.  Por exemplo, se você tiver um grupo de recursos com uma política configurada para backups semanais, poderá configurar o agendamento para fazer backup toda quinta-feira às 22h.  Você pode acessar as programações dos grupos de recursos clicando em *Recursos* > *Grupos de Recursos*.
+
+

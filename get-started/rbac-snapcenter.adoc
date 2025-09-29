@@ -1,0 +1,932 @@
+---
+permalink: get-started/rbac-snapcenter.html 
+sidebar: sidebar 
+keywords: RBAC, roles, permissions, application-level RBAC, ONTAP permissions, default snapcenter roles, ONTAP permissions, SnapCenter Admin role 
+summary: 'O controle de acesso baseado em função (RBAC) do SnapCenter e as permissões ONTAP permitem que os administradores do SnapCenter criem funções e definam permissões de acesso.  Esse acesso gerenciado centralmente permite que os administradores de aplicativos trabalhem com segurança em ambientes delegados.' 
+---
+= Controle de acesso baseado em função no SnapCenter
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+O controle de acesso baseado em função (RBAC) do SnapCenter e as permissões ONTAP permitem que os administradores do SnapCenter deleguem o controle dos recursos do SnapCenter a diferentes usuários ou grupos de usuários.  Esse acesso gerenciado centralmente permite que os administradores de aplicativos trabalhem com segurança em ambientes delegados.
+
+Você pode criar e modificar funções e adicionar acesso a recursos aos usuários a qualquer momento.  No entanto, ao configurar o SnapCenter pela primeira vez, você deve pelo menos adicionar usuários ou grupos do Active Directory às funções e, em seguida, adicionar acesso a recursos a esses usuários ou grupos.
+
+
+NOTE: Você não pode usar o SnapCenter para criar contas de usuário ou grupo.  Você deve criar contas de usuário ou grupo no Active Directory do sistema operacional ou banco de dados.
+
+
+
+== Tipos de RBAC no SnapCenter
+
+O SnapCenter usa os seguintes tipos de controle de acesso baseado em função:
+
+* SnapCenter RBAC
+* RBAC de nível de aplicação
+* Plug-in SnapCenter para VMware vSphere RBAC
+* Permissões da ONTAP
+
+
+
+
+=== SnapCenter RBAC
+
+O SnapCenter tem funções predefinidas e você pode atribuir usuários ou grupos de usuários a essas funções.  As funções predefinidas são:
+
+* Função de administrador do SnapCenter
+* Função de administrador de backup e clonagem de aplicativos
+* Função de Visualizador de Backup e Clone
+* Função de administrador de infraestrutura
+
+
+Quando você atribui uma função a um usuário, somente os trabalhos relevantes para esse usuário ficam visíveis na página Trabalhos, a menos que você tenha atribuído a função SnapCenterAdmin.
+
+Você também pode criar novas funções e gerenciar permissões e usuários.  Você pode atribuir permissões a usuários ou grupos para acessar objetos do SnapCenter , como hosts, conexões de armazenamento e grupos de recursos.
+
+Você pode atribuir permissões RBAC a usuários e grupos dentro da mesma floresta e a usuários pertencentes a florestas diferentes.  Não é possível atribuir permissões RBAC a usuários pertencentes a grupos aninhados em florestas.
+
+
+NOTE: Se você criar uma função personalizada, ela deverá conter todas as permissões da função SnapCenterAdmin.  Se você copiar apenas algumas das permissões, por exemplo, Adicionar Host ou Remover Host, não poderá executar essas operações.
+
+Os usuários precisam fornecer autenticação durante o login, por meio da interface gráfica do usuário (GUI) ou usando cmdlets do PowerShell.  Se os usuários forem membros de mais de uma função, após inserir as credenciais de login, eles serão solicitados a especificar a função que desejam usar.  Os usuários também precisam fornecer autenticação para executar as APIs.
+
+
+
+=== RBAC de nível de aplicação
+
+O SnapCenter usa credenciais para verificar se os usuários autorizados do SnapCenter também têm permissões no nível do aplicativo.
+
+Por exemplo, se você quiser executar operações de proteção de dados em um ambiente SQL Server, deverá definir credenciais com as credenciais adequadas do Windows ou SQL.  O SnapCenter Server autentica o conjunto de credenciais usando qualquer um dos métodos. Se você quiser executar operações de proteção de dados em um ambiente de sistema de arquivos do Windows no armazenamento ONTAP , a função de administrador do SnapCenter deverá ter privilégios de administrador no host do Windows.
+
+Da mesma forma, se você quiser executar operações de proteção de dados em um banco de dados Oracle e se a autenticação do sistema operacional (SO) estiver desabilitada no host do banco de dados, você deverá definir credenciais com as credenciais do banco de dados Oracle ou do Oracle ASM. O SnapCenter Server autentica o conjunto de credenciais usando um destes métodos, dependendo da operação.
+
+
+
+=== SnapCenter Plug-in for VMware vSphere RBAC
+
+Se você estiver usando o plug-in SnapCenter VMware para proteção de dados consistente com VM, o vCenter Server fornecerá um nível adicional de RBAC.  O plug-in SnapCenter VMware oferece suporte ao vCenter Server RBAC e ao ONTAP RBAC. https://docs.netapp.com/us-en/sc-plugin-vmware-vsphere/scpivs44_types_of_rbac_for_snapcenter_users.html["Saber mais"^]
+
+|===
+
+
+| *Melhores práticas:* a NetApp recomenda que você crie uma função ONTAP para as operações do SnapCenter Plug-in for VMware vSphere e atribua a ela todos os privilégios necessários. 
+|===
+
+
+=== Permissões da ONTAP
+
+Você deve criar uma conta vsadmin com as permissões necessárias para acessar o sistema de armazenamento.link:../install/task_add_a_user_or_group_and_assign_role_and_assets.html["Saber mais"]
+
+
+
+== Permissões atribuídas às funções predefinidas do SnapCenter
+
+Ao adicionar um usuário a uma função, você deve atribuir a permissão StorageConnection para habilitar a comunicação da máquina virtual de armazenamento (SVM) ou atribuir uma SVM ao usuário para habilitar a permissão de uso da SVM.  A permissão Conexão de armazenamento permite que os usuários criem conexões SVM.
+
+Por exemplo, um usuário com a função de administrador do SnapCenter pode criar conexões SVM e atribuí-las a um usuário com a função de administrador de backup e clonagem de aplicativos, que por padrão não tem permissão para criar ou editar conexões SVM.  Sem uma conexão SVM, os usuários não podem concluir nenhuma operação de backup, clonagem ou restauração.
+
+
+
+=== Função de administrador do SnapCenter
+
+A função de administrador do SnapCenter tem todas as permissões habilitadas.  Você não pode modificar as permissões para esta função.  Você pode adicionar usuários e grupos à função ou removê-los.
+
+
+
+=== Função de administrador de backup e clonagem de aplicativos
+
+A função de administrador de backup e clonagem de aplicativos tem as permissões necessárias para executar ações administrativas para backups de aplicativos e tarefas relacionadas à clonagem.  Esta função não tem permissões para gerenciamento de host, provisionamento, gerenciamento de conexão de armazenamento ou instalação remota.
+
+|===
+| Permissões | Habilitado | Criar | Ler | Atualizar | Excluir 
+
+
+ a| 
+Grupo de Recursos
+ a| 
+Não aplicável
+ a| 
+Sim
+ a| 
+Sim
+ a| 
+Sim
+ a| 
+Sim
+
+
+
+ a| 
+Política
+ a| 
+Não aplicável
+ a| 
+Sim
+ a| 
+Sim
+ a| 
+Sim
+ a| 
+Sim
+
+
+
+ a| 
+Backup
+ a| 
+Não aplicável
+ a| 
+Sim
+ a| 
+Sim
+ a| 
+Sim
+ a| 
+Sim
+
+
+
+ a| 
+Hospedar
+ a| 
+Não aplicável
+ a| 
+Sim
+ a| 
+Sim
+ a| 
+Sim
+ a| 
+Sim
+
+
+
+ a| 
+Conexão de armazenamento
+ a| 
+Não aplicável
+ a| 
+Não
+ a| 
+Sim
+ a| 
+Não
+ a| 
+Não
+
+
+
+ a| 
+Clone
+ a| 
+Não aplicável
+ a| 
+Sim
+ a| 
+Sim
+ a| 
+Sim
+ a| 
+Sim
+
+
+
+ a| 
+Provisão
+ a| 
+Não aplicável
+ a| 
+Não
+ a| 
+Sim
+ a| 
+Não
+ a| 
+Não
+
+
+
+ a| 
+Painel
+ a| 
+Sim
+ a| 
+Não aplicável
+ a| 
+Não aplicável
+ a| 
+Não aplicável
+ a| 
+Não aplicável
+
+
+
+ a| 
+Relatórios
+ a| 
+Sim
+ a| 
+Não aplicável
+ a| 
+Não aplicável
+ a| 
+Não aplicável
+ a| 
+Não aplicável
+
+
+
+ a| 
+Restaurar
+ a| 
+Sim
+ a| 
+Não aplicável
+ a| 
+Não aplicável
+ a| 
+Não aplicável
+ a| 
+Não aplicável
+
+
+
+ a| 
+Recurso
+ a| 
+Sim
+ a| 
+Sim
+ a| 
+Sim
+ a| 
+Sim
+ a| 
+Sim
+
+
+
+ a| 
+Instalação/Desinstalação de Plug-in
+ a| 
+Não
+ a| 
+Não aplicável
+ a| 
+ a| 
+Não aplicável
+ a| 
+Não aplicável
+
+
+
+ a| 
+Migração
+ a| 
+Não
+ a| 
+Não aplicável
+ a| 
+Não aplicável
+ a| 
+Não aplicável
+ a| 
+Não aplicável
+
+
+
+ a| 
+Monte
+ a| 
+Sim
+ a| 
+Sim
+ a| 
+Não aplicável
+ a| 
+Não aplicável
+ a| 
+Não aplicável
+
+
+
+ a| 
+Desmontar
+ a| 
+Sim
+ a| 
+Sim
+ a| 
+Não aplicável
+ a| 
+Não aplicável
+ a| 
+Não aplicável
+
+
+
+ a| 
+Restauração de volume total
+ a| 
+Não
+ a| 
+Não
+ a| 
+Não aplicável
+ a| 
+Não aplicável
+ a| 
+Não aplicável
+
+
+
+ a| 
+Proteção Secundária
+ a| 
+Não
+ a| 
+Não
+ a| 
+Não aplicável
+ a| 
+Não aplicável
+ a| 
+Não aplicável
+
+
+
+ a| 
+Monitor de tarefas
+ a| 
+Sim
+ a| 
+Não aplicável
+ a| 
+Não aplicável
+ a| 
+Não aplicável
+ a| 
+Não aplicável
+
+|===
+
+
+=== Função de Visualizador de Backup e Clone
+
+A função Visualizador de Backup e Clone tem visualização somente leitura de todas as permissões. Essa função também tem permissões habilitadas para descoberta, relatórios e acesso ao Painel.
+
+|===
+| Permissões | Habilitado | Criar | Ler | Atualizar | Excluir 
+
+
+ a| 
+Grupo de Recursos
+ a| 
+Não aplicável
+ a| 
+Não
+ a| 
+Sim
+ a| 
+Não
+ a| 
+Não
+
+
+
+ a| 
+Política
+ a| 
+Não aplicável
+ a| 
+Não
+ a| 
+Sim
+ a| 
+Não
+ a| 
+Não
+
+
+
+ a| 
+Backup
+ a| 
+Não aplicável
+ a| 
+Não
+ a| 
+Sim
+ a| 
+Não
+ a| 
+Não
+
+
+
+ a| 
+Hospedar
+ a| 
+Não aplicável
+ a| 
+Não
+ a| 
+Sim
+ a| 
+Não
+ a| 
+Não
+
+
+
+ a| 
+Conexão de armazenamento
+ a| 
+Não aplicável
+ a| 
+Não
+ a| 
+Sim
+ a| 
+Não
+ a| 
+Não
+
+
+
+ a| 
+Clone
+ a| 
+Não aplicável
+ a| 
+Não
+ a| 
+Sim
+ a| 
+Não
+ a| 
+Não
+
+
+
+ a| 
+Provisão
+ a| 
+Não aplicável
+ a| 
+Não
+ a| 
+Sim
+ a| 
+Não
+ a| 
+Não
+
+
+
+ a| 
+Painel
+ a| 
+Sim
+ a| 
+Não aplicável
+ a| 
+Não aplicável
+ a| 
+Não aplicável
+ a| 
+Não aplicável
+
+
+
+ a| 
+Relatórios
+ a| 
+Sim
+ a| 
+Não aplicável
+ a| 
+Não aplicável
+ a| 
+Não aplicável
+ a| 
+Não aplicável
+
+
+
+ a| 
+Restaurar
+ a| 
+Não
+ a| 
+Não
+ a| 
+Não aplicável
+ a| 
+Não aplicável
+ a| 
+Não aplicável
+
+
+
+ a| 
+Recurso
+ a| 
+Não
+ a| 
+Não
+ a| 
+Sim
+ a| 
+Sim
+ a| 
+Não
+
+
+
+ a| 
+Instalação/Desinstalação de Plug-in
+ a| 
+Não
+ a| 
+Não aplicável
+ a| 
+Não aplicável
+ a| 
+Não aplicável
+ a| 
+Não aplicável
+
+
+
+ a| 
+Migração
+ a| 
+Não
+ a| 
+Não aplicável
+ a| 
+Não aplicável
+ a| 
+Não aplicável
+ a| 
+Não aplicável
+
+
+
+ a| 
+Monte
+ a| 
+Sim
+ a| 
+Não aplicável
+ a| 
+Não aplicável
+ a| 
+Não aplicável
+ a| 
+Não aplicável
+
+
+
+ a| 
+Desmontar
+ a| 
+Sim
+ a| 
+Não aplicável
+ a| 
+Não aplicável
+ a| 
+Não aplicável
+ a| 
+Não aplicável
+
+
+
+ a| 
+Restauração de volume total
+ a| 
+Não
+ a| 
+Não aplicável
+ a| 
+Não aplicável
+ a| 
+Não aplicável
+ a| 
+Não aplicável
+
+
+
+ a| 
+Proteção Secundária
+ a| 
+Não
+ a| 
+Não aplicável
+ a| 
+Não aplicável
+ a| 
+Não aplicável
+ a| 
+Não aplicável
+
+
+
+ a| 
+Monitor de tarefas
+ a| 
+Sim
+ a| 
+Não aplicável
+ a| 
+Não aplicável
+ a| 
+Não aplicável
+ a| 
+Não aplicável
+
+|===
+
+
+=== Função de administrador de infraestrutura
+
+A função Administrador de Infraestrutura tem permissões habilitadas para gerenciamento de host, gerenciamento de armazenamento, provisionamento, grupos de recursos, relatórios de instalação remota e acesso ao Painel.
+
+|===
+| Permissões | Habilitado | Criar | Ler | Atualizar | Excluir 
+
+
+ a| 
+Grupo de Recursos
+ a| 
+Não aplicável
+ a| 
+Sim
+ a| 
+Sim
+ a| 
+Sim
+ a| 
+Sim
+
+
+
+ a| 
+Política
+ a| 
+Não aplicável
+ a| 
+Não
+ a| 
+Sim
+ a| 
+Sim
+ a| 
+Sim
+
+
+
+ a| 
+Backup
+ a| 
+Não aplicável
+ a| 
+Sim
+ a| 
+Sim
+ a| 
+Sim
+ a| 
+Sim
+
+
+
+ a| 
+Hospedar
+ a| 
+Não aplicável
+ a| 
+Sim
+ a| 
+Sim
+ a| 
+Sim
+ a| 
+Sim
+
+
+
+ a| 
+Conexão de armazenamento
+ a| 
+Não aplicável
+ a| 
+Sim
+ a| 
+Sim
+ a| 
+Sim
+ a| 
+Sim
+
+
+
+ a| 
+Clone
+ a| 
+Não aplicável
+ a| 
+Não
+ a| 
+Sim
+ a| 
+Não
+ a| 
+Não
+
+
+
+ a| 
+Provisão
+ a| 
+Não aplicável
+ a| 
+Sim
+ a| 
+Sim
+ a| 
+Sim
+ a| 
+Sim
+
+
+
+ a| 
+Painel
+ a| 
+Sim
+ a| 
+Não aplicável
+ a| 
+Não aplicável
+ a| 
+Não aplicável
+ a| 
+Não aplicável
+
+
+
+ a| 
+Relatórios
+ a| 
+Sim
+ a| 
+Não aplicável
+ a| 
+Não aplicável
+ a| 
+Não aplicável
+ a| 
+Não aplicável
+
+
+
+ a| 
+Restaurar
+ a| 
+Sim
+ a| 
+Não aplicável
+ a| 
+Não aplicável
+ a| 
+Não aplicável
+ a| 
+Não aplicável
+
+
+
+ a| 
+Recurso
+ a| 
+Sim
+ a| 
+Sim
+ a| 
+Sim
+ a| 
+Sim
+ a| 
+Sim
+
+
+
+ a| 
+Instalação/Desinstalação de Plug-in
+ a| 
+Sim
+ a| 
+Não aplicável
+ a| 
+Não aplicável
+ a| 
+Não aplicável
+ a| 
+Não aplicável
+
+
+
+ a| 
+Migração
+ a| 
+Não
+ a| 
+Não aplicável
+ a| 
+Não aplicável
+ a| 
+Não aplicável
+ a| 
+Não aplicável
+
+
+
+ a| 
+Monte
+ a| 
+Não
+ a| 
+Não aplicável
+ a| 
+Não aplicável
+ a| 
+Não aplicável
+ a| 
+Não aplicável
+
+
+
+ a| 
+Desmontar
+ a| 
+Não
+ a| 
+Não aplicável
+ a| 
+Não aplicável
+ a| 
+Não aplicável
+ a| 
+Não aplicável
+
+
+
+ a| 
+Restauração de volume total
+ a| 
+Não
+ a| 
+Não
+ a| 
+Não aplicável
+ a| 
+Não aplicável
+ a| 
+Não aplicável
+
+
+
+ a| 
+Proteção Secundária
+ a| 
+Não
+ a| 
+Não
+ a| 
+Não aplicável
+ a| 
+Não aplicável
+ a| 
+Não aplicável
+
+
+
+ a| 
+Monitor de tarefas
+ a| 
+Sim
+ a| 
+Não aplicável
+ a| 
+Não aplicável
+ a| 
+Não aplicável
+ a| 
+Não aplicável
+
+|===

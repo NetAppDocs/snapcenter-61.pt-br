@@ -1,0 +1,53 @@
+---
+permalink: protect-azure/backup-sql-server-databases.html 
+sidebar: sidebar 
+keywords: SnapCenter Plug-in for SQL Server Database, back up, databases, Azure NetApp Files 
+summary: Faça backup do recurso na página Recursos. 
+---
+= Fazer backup de bancos de dados do SQL Server em execução no Azure NetApp Files
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Se um recurso ainda não fizer parte de nenhum grupo de recursos, você poderá fazer backup do recurso na página Recursos.
+
+.Antes de começar
+Você deve criar um balanceador de carga se o Cluster de Failover do Windows do Azure não tiver um IP de cluster atribuído ou se não puder ser acessado pelo SnapCenter.  O IP do balanceador de carga deve ser configurado e acessível a partir do SnapCenter Server.
+
+.Passos
+. No painel de navegação esquerdo, selecione *Recursos* e, em seguida, selecione o plug-in apropriado na lista.
+. Na página Recurso, selecione *Banco de dados*, *Instância* ou *Grupo de disponibilidade* na lista suspensa Exibir.
+. Na página Recurso, selecione *Usar formato de nome personalizado para cópia do Snapshot* e insira um formato de nome personalizado que você deseja usar para o nome do Snapshot.
+. Na página Políticas, execute as seguintes etapas:
++
+.. Selecione uma ou mais políticas na lista suspensa.
+.. Selecione *image:../media/add_policy_from_resourcegroup.gif["adicionar grupo de recursos de formulário de política"] * na coluna Configurar agendamentos da política para a qual você deseja configurar um agendamento.
+.. Na caixa de diálogo Adicionar agendamentos para a política _nome_da_política_, configure o agendamento e selecione *OK*.
++
+_policy_name_ é o nome da política que você selecionou.
+
+.. Selecione *Usar o agendador do Microsoft SQL Server* e, em seguida, selecione a instância do agendador na lista suspensa *Instância do agendador* associada à política de agendamento.
+
+
+. Na página Verificação, execute as seguintes etapas:
++
+.. Selecione o servidor de verificação.
+.. Selecione a política para a qual deseja configurar seu cronograma de verificação e clique em *image:../media/add_policy_from_resourcegroup.gif["adicionar grupo de recursos de formulário de política"] *.
+.. Selecione *Executar verificação após backup* ou *Executar verificação agendada*.
+.. Clique em OK.
+
+
+. Na página Notificação, na lista suspensa *Preferência de e-mail*, selecione os cenários nos quais você deseja enviar os e-mails.
+. Revise o resumo e clique em *Concluir*.
+. Selecione *Fazer backup agora*.
+. Na página Backup, execute as seguintes etapas:
++
+.. Se várias políticas estiverem associadas ao recurso, na lista suspensa *Política*, selecione a política que você deseja usar para backup.
+.. Selecione *Verificar após backup*.
+.. Selecione *Backup*.
+
+
+. Monitore o progresso da operação clicando em *Monitorar* > *Trabalhos*.
+

@@ -1,0 +1,101 @@
+---
+permalink: protect-sco/clone-application-volume.html 
+sidebar: sidebar 
+keywords: application volume, clone, split a clone 
+summary: Você pode usar o SnapCenter para clonar os backups de volume do aplicativo, dividir o clone e excluí-lo. 
+---
+= Clonar backup de volume do aplicativo
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Você pode usar o SnapCenter para clonar os backups de volume do aplicativo.
+
+*Antes de começar*
+
+Se você instalou o plug-in como um usuário não root, deverá atribuir manualmente as permissões de execução aos diretórios prescript e postscript.
+
+*Passos*
+
+. No painel de navegação esquerdo, clique em *Recursos* e selecione o plug-in do Oracle Database na lista.
+. Na página Recursos, selecione *Volume do aplicativo* na lista *Exibir*.
+. Selecione o volume do aplicativo na exibição de detalhes do volume do aplicativo ou na exibição de detalhes do grupo de recursos.
++
+A página de topologia de volume do aplicativo é exibida.
+
+. Na exibição Gerenciar cópias, selecione os backups entre Cópias locais (primárias), Cópias espelhadas (secundárias) ou Cópias de cofre (secundárias).
+. Selecione o backup da tabela e clique em *image:../media/clone_icon.gif["ícone de clone"] *.
+. Na página Localização, execute as seguintes ações:
++
+|===
+
+
+| Para este campo... | Faça isso... 
+
+
+ a| 
+Host de plug-in
+ a| 
+Selecione o host onde você deseja criar o clone.
+
+
+
+ a| 
+Nome do recurso de destino
+ a| 
+Especifique o nome do recurso.
+
+|===
+. Na página Scripts, especifique os nomes dos scripts a serem executados antes da clonagem, os comandos para montar um sistema de arquivos e os nomes dos scripts a serem executados após a clonagem.
+. Na página Notificação, na lista suspensa *Preferência de e-mail*, selecione os cenários nos quais você deseja enviar os e-mails.
++
+Você também deve especificar os endereços de e-mail do remetente e do destinatário, e o assunto do e-mail.  Se você quiser anexar o relatório da operação de clonagem realizada, selecione *Anexar relatório de trabalho*.
+
++
+
+NOTE: Para notificação por e-mail, você deve ter especificado os detalhes do servidor SMTP usando a GUI ou o comando Set-SmSmtpServer do PowerShell.
+
+. Revise o resumo e clique em *Concluir*.
+
+
+
+
+== Dividir um clone de volume de aplicativo
+
+Você pode usar o SnapCenter para dividir um recurso clonado do recurso pai.  O clone que é dividido se torna independente do recurso pai.
+
+*Passos*
+
+. No painel de navegação esquerdo, clique em *Recursos* e selecione o plug-in do Oracle Database na lista.
+. Na página Recursos, selecione *Volume do aplicativo* na lista *Exibir*.
+. Selecione o recurso clonado e clique emimage:../media/split_clone.gif["clone dividido"] .
+. Revise o tamanho estimado do clone que será dividido e o espaço necessário disponível no agregado e clique em *Iniciar*.
+. Monitore o progresso da operação clicando em *Monitorar* > *Trabalhos*.
+
+
+
+
+== Excluir um clone de volume de aplicativo
+
+Você pode excluir clones se achar que eles não são mais necessários.  Você não pode excluir clones que atuam como fonte para outros clones.
+
+*Passos*
+
+. No painel de navegação esquerdo, clique em *Recursos* e selecione o plug-in do Oracle Database na lista.
+. Na página Recursos, selecione *Volume do aplicativo* na lista *Exibir*.
+. Selecione o recurso ou grupo de recursos na lista.
++
+A página de topologia do recurso ou do grupo de recursos é exibida.
+
+. Na exibição Gerenciar cópias, selecione *Clones* dos sistemas de armazenamento primário ou secundário (espelhado ou replicado).
+. Selecione o clone e clique emimage:../media/delete_icon.gif["ícone de exclusão"] .
+. Na página Excluir clone, execute as seguintes ações:
++
+.. No campo *Pre clone delete*, insira os nomes dos scripts a serem executados antes de excluir o clone.
+.. No campo *Desmontar*, insira os comandos para desmontar o clone antes de excluí-lo.
+
+
+. Clique em *OK*.
+

@@ -1,0 +1,27 @@
+---
+permalink: protect-postgresql/define-a-backup-strategy-for-postgresql.html 
+sidebar: sidebar 
+keywords: SnapCenter Plug-in for PostgreSQL 
+summary: 'Definir uma estratégia de backup antes de criar suas tarefas de backup ajuda você a ter os backups necessários para restaurar ou clonar seus recursos com sucesso.  Seu contrato de nível de serviço (SLA), objetivo de tempo de recuperação (RTO) e objetivo de ponto de recuperação (RPO) determinam em grande parte sua estratégia de backup.' 
+---
+= Definir uma estratégia de backup para PostgreSQL
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Definir uma estratégia de backup antes de criar suas tarefas de backup ajuda você a ter os backups necessários para restaurar ou clonar seus recursos com sucesso.  Seu contrato de nível de serviço (SLA), objetivo de tempo de recuperação (RTO) e objetivo de ponto de recuperação (RPO) determinam em grande parte sua estratégia de backup.
+
+.Sobre esta tarefa
+Um SLA define o nível de serviço esperado e aborda muitas questões relacionadas ao serviço, incluindo a disponibilidade e o desempenho do serviço.  RTO é o tempo em que um processo de negócios deve ser restaurado após uma interrupção no serviço.  O RPO define a estratégia para a idade dos arquivos que devem ser recuperados do armazenamento de backup para que as operações regulares sejam retomadas após uma falha.  SLA, RTO e RPO contribuem para a estratégia de proteção de dados.
+
+.Passos
+. Determine quando você deve fazer backup dos seus recursos.
+. Decida quantos trabalhos de backup você precisa.
+. Decida como nomear seus backups.
+. Decida se você deseja criar uma política baseada em cópia de instantâneo para fazer backup de instantâneos consistentes com o aplicativo do cluster.
+. Decida se você deseja usar a tecnologia NetApp SnapMirror para replicação ou a tecnologia NetApp SnapVault para retenção de longo prazo.
+. Determine o período de retenção dos snapshots no sistema de armazenamento de origem e no destino do SnapMirror .
+. Determine se você deseja executar algum comando antes ou depois da operação de backup e forneça uma prescrição ou pós-escrito.
+

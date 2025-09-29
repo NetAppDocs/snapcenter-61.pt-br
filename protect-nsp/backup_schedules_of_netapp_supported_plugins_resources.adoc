@@ -1,0 +1,30 @@
+---
+permalink: protect-nsp/backup_schedules_of_netapp_supported_plugins_resources.html 
+sidebar: sidebar 
+keywords: NetApp supported plug-in 
+summary: O fator mais crítico na determinação de um cronograma de backup é a taxa de alteração do recurso.  Quanto mais você fizer backup dos seus recursos, menos logs de arquivamento o SnapCenter terá que usar para restauração, o que pode resultar em operações de restauração mais rápidas. 
+---
+= Cronogramas de backup de recursos de plug-in suportados NetApp
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+O fator mais crítico na determinação de um cronograma de backup é a taxa de alteração do recurso.  Quanto mais você fizer backup dos seus recursos, menos logs de arquivamento o SnapCenter terá que usar para restauração, o que pode resultar em operações de restauração mais rápidas.
+
+Você pode fazer backup de um recurso muito utilizado a cada hora, enquanto pode fazer backup de um recurso raramente utilizado uma vez por dia.  Outros fatores incluem a importância do recurso para sua organização, seu acordo de nível de serviço (SLA) e seu objetivo de ponto de recuperação (RPO).
+
+O SLA define o nível de serviço esperado e aborda muitas questões relacionadas ao serviço, incluindo a disponibilidade e o desempenho do serviço.  O RPO define a estratégia para a idade dos arquivos que devem ser recuperados do armazenamento de backup para que as operações regulares sejam retomadas após uma falha.  SLA e RPO contribuem para a estratégia de proteção de dados.
+
+Os agendamentos de backup têm duas partes, conforme a seguir:
+
+* Frequência de backup
++
+A frequência de backup (com que frequência os backups devem ser realizados), também chamada de tipo de agendamento para alguns plug-ins, faz parte de uma configuração de política.  Por exemplo, você pode configurar a frequência de backup como horária, diária, semanal ou mensal.  Você pode acessar políticas na GUI do SnapCenter clicando em *Configurações* > *Políticas*.
+
+* Agendamentos de backup
++
+Os agendamentos de backup (exatamente quando os backups devem ser executados) fazem parte de uma configuração de recurso ou grupo de recursos.  Por exemplo, se você tiver um grupo de recursos com uma política configurada para backups semanais, poderá configurar o agendamento para fazer backup toda quinta-feira às 22h. Você pode acessar os agendamentos do grupo de recursos na GUI do SnapCenter clicando em *Recursos*, selecionando o plug-in apropriado e clicando em *Exibir* > *Grupo de recursos*.
+
+

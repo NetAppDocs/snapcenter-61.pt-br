@@ -1,0 +1,28 @@
+---
+permalink: protect-sce/concept_snapcenter_plug_in_for_exchange_server_overview.html 
+sidebar: sidebar 
+keywords: SnapCenter Plug-in for Exchange Server 
+summary: O SnapCenter Plug-in para Microsoft Exchange Server é um componente do lado do host do NetAppSnapCenter Software que permite o gerenciamento de proteção de dados com reconhecimento de aplicativo de bancos de dados do Exchange.  O Plug-in para Exchange automatiza o backup e a restauração de bancos de dados do Exchange no seu ambiente SnapCenter . 
+---
+= Visão geral do plug-in SnapCenter para Microsoft Exchange Server
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+O SnapCenter Plug-in para Microsoft Exchange Server é um componente do lado do host do NetApp SnapCenter Software que permite o gerenciamento de proteção de dados com reconhecimento de aplicativo de bancos de dados do Exchange.  O Plug-in para Exchange automatiza o backup e a restauração de bancos de dados do Exchange no seu ambiente SnapCenter .
+
+Quando o Plug-in para Exchange estiver instalado, você poderá usar o SnapCenter com a tecnologia NetApp SnapMirror para criar cópias espelhadas de conjuntos de backup em outro volume e com a tecnologia NetApp SnapVault para executar a replicação de backup de disco para disco para fins de conformidade com padrões ou arquivamento.
+
+Se você quiser restaurar e recuperar e-mails ou caixas de correio em vez do banco de dados completo do Exchange, poderá usar o software Single Mailbox Recovery (SMBR).  O NetApp® Single Mailbox Recovery chegou ao fim da disponibilidade (EOA) em 12 de maio de 2023.  A NetApp continuará a oferecer suporte aos clientes que adquiriram capacidade de caixa de correio, manutenção e suporte por meio de números de peça de marketing introduzidos em 24 de junho de 2020, durante a vigência do direito ao suporte.
+
+O NetApp Single Mailbox Recovery é um produto parceiro fornecido pela Ontrack.  O Ontrack PowerControls oferece recursos semelhantes aos do NetApp Single Mailbox Recovery.  Os clientes podem adquirir novas licenças de software Ontrack PowerControls e renovações de manutenção e suporte do Ontrack PowerControls da Ontrack (por meio de licensingteam@ontrack.com) para recuperação granular de caixa de correio.
+
+O plug-in para Exchange oferece suporte à sincronização ativa do SnapMirror (inicialmente lançado como SnapMirror Business Continuity [SM-BC]), que permite que os serviços empresariais continuem operando mesmo durante uma falha completa do site, permitindo que os aplicativos façam failover de forma transparente usando uma cópia secundária.  Não é necessária intervenção manual nem script adicional para acionar um failover com a sincronização ativa do SnapMirror .
+
+Ele suporta o modo assimétrico, failover ou não duplex do SnapMirror Active Sync.  Isso se refere à solução em que o caminho otimizado vem somente do nó proprietário do LUN do lado primário.  Qualquer E/S proveniente dos caminhos do cluster secundário é atendida por proxy para o cluster primário.  A replicação síncrona é unidirecional, na direção do primário para o secundário.
+
+* Automatiza operações de backup e restauração com reconhecimento de aplicativo para bancos de dados do Microsoft Exchange Server e Grupos de Disponibilidade de Banco de Dados (DAGs) em seu ambiente SnapCenter
+* Oferece suporte a servidores Exchange virtualizados em LUNs RDM quando você implanta o SnapCenter Plug-in for VMware vSphere e registra o plug-in com o SnapCenter.
+

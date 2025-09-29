@@ -1,0 +1,41 @@
+---
+permalink: uninstall/task_uninstalling_the_snapcenter_server.html 
+sidebar: sidebar 
+keywords: uninstall, snapcenter server, windows 
+summary: Se não desejar mais usar o SnapCenter Server para gerenciar tarefas de proteção de dados, você pode desinstalar o SnapCenter Server usando o Painel de Controle de Programas e Recursos no host do SnapCenter Server.  Desinstalar o SnapCenter Server remove todos os seus componentes. 
+---
+= Desinstalar o SnapCenter Server no host Windows
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Se não desejar mais usar o SnapCenter Server para gerenciar tarefas de proteção de dados, você pode desinstalar o SnapCenter Server usando o Painel de Controle de Programas e Recursos no host do SnapCenter Server.  Desinstalar o SnapCenter Server remove todos os seus componentes.
+
+.Antes de começar
+* Certifique-se de ter pelo menos 2 GB de espaço livre na unidade onde o SnapCenter Server está instalado.
+* Certifique-se de que o domínio no qual o SnapCenter Server está instalado não seja removido.
++
+Se você remover o domínio onde o SnapCenter Server foi instalado e tentar desinstalá-lo, a operação falhará.
+
+* Você deve ter feito backup do banco de dados do repositório porque ele será limpo e desinstalado.
+
+
+.Passos
+. No host do SnapCenter Server, navegue até o Painel de Controle.
+. Certifique-se de que você está na visualização *Categoria*.
+. Em Programas, clique em *Desinstalar um programa*.
++
+A janela Programas e Recursos é aberta.
+
+. Selecione NetApp SnapCenter Server e clique em *Desinstalar*.
++
+A partir do SnapCenter 4.2, quando você desinstala o SnapCenter Server, todos os seus componentes, incluindo o banco de dados do repositório do MySQL Server, são desinstalados.
+
++
+** A remoção do nó NLB de um cluster NLB exige que você reinicie o host do SnapCenter Server.  Se você não reiniciar o host, poderá ocorrer uma falha ao tentar reinstalar o SnapCenter Server.
+** Você deve desinstalar manualmente o .NET Framework, que não é removido durante a desinstalação.
+
+
+

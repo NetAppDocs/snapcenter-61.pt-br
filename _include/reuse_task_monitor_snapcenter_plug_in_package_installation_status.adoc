@@ -1,0 +1,31 @@
+= 
+:allow-uri-read: 
+
+
+Você pode monitorar o progresso da instalação do pacote de plug-in SnapCenter usando a página Tarefas.  Talvez você queira verificar o andamento da instalação para determinar quando ela foi concluída ou se há algum problema.
+
+.Sobre esta tarefa
+Os seguintes ícones aparecem na página Trabalhos e indicam o estado da operação:
+
+* image:../media/progress_icon.gif["Ícone em andamento"]Em andamento
+* image:../media/success_icon.gif["Ícone concluído"]Concluído com sucesso
+* image:../media/failed_icon.gif["Ícone de falha"]Fracassado
+* image:../media/warning_icon.gif["Concluído com ícone de avisos"]Concluído com avisos ou não pôde ser iniciado devido a avisos
+* image:../media/verification_job_in_queue.gif["O trabalho de verificação está na fila"]Na fila
+
+
+.Passos
+. No painel de navegação esquerdo, clique em *Monitor*.
+. Na página *Monitor*, clique em *Trabalhos*.
+. Na página *Trabalhos*, para filtrar a lista de modo que apenas as operações de instalação de plug-ins sejam listadas, faça o seguinte:
++
+.. Clique em *Filtrar*.
+.. Opcional: especifique a data de início e término.
+.. No menu suspenso Tipo, selecione *Instalação de plug-in*.
+.. No menu suspenso Status, selecione o status da instalação.
+.. Clique em *Aplicar*.
+
+
+. Selecione o trabalho de instalação e clique em *Detalhes* para visualizar os detalhes do trabalho.
+. Na página *Detalhes do trabalho*, clique em *Exibir registros*.
+

@@ -1,0 +1,27 @@
+---
+permalink: protect-sco/overview-application-volume.html 
+sidebar: sidebar 
+keywords: application volume, overview, backup, non-data volumes 
+summary: Os Volumes de Aplicação são o armazenamento onde as informações relacionadas ao Oracle Database são armazenadas. 
+---
+= O que são volumes de aplicação
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Os Volumes de Aplicativos são o armazenamento onde informações como configuração, instalador e outros arquivos não relacionados a dados relacionados ao banco de dados Oracle são armazenadas.
+
+O plug-in SnapCenter para Oracle Database permite que você crie backups consistentes de volumes de aplicativos (volumes não de dados) junto com os bancos de dados Oracle.
+
+O plug-in automatiza o backup e a clonagem de volumes de aplicativos.
+
+* Proteja volumes de aplicativos juntamente com volumes de banco de dados Oracle em um único grupo de recursos.
+* Crie backups de volumes de aplicativos.
+* Crie backups de bancos de dados Oracle junto com volumes de aplicativos.
+* Crie clones de bancos de dados junto com volumes de aplicativos até um determinado momento.
+* Agende operações de backup.
+* Monitore todas as operações.
+* Visualize relatórios de operações de backup e clonagem.
+

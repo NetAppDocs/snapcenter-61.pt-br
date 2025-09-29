@@ -1,0 +1,48 @@
+---
+permalink: protect-nsp/netapp_supported_plugins_features.html 
+sidebar: sidebar 
+keywords: NetApp supported plug-ins features, MongoDB, ORASCPM, Oracle Applications, SAP ASE, SAP MaxDB, Storage plug-in 
+summary: O SnapCenter integra-se ao aplicativo plug-in e às tecnologias NetApp no ​​sistema de armazenamento.  Para trabalhar com plug-ins compatíveis com NetApp , use a interface gráfica do usuário do SnapCenter . 
+---
+= Recursos de plug-ins suportados pela NetApp
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+O SnapCenter integra-se ao aplicativo plug-in e às tecnologias NetApp no ​​sistema de armazenamento.  Para trabalhar com plug-ins compatíveis com NetApp , como MongoDB, ORASCPM (Oracle Applications), SAP ASE, SAP MaxDB e plug-in de armazenamento, use a interface gráfica do usuário do SnapCenter .
+
+* *Interface gráfica de usuário unificada*
++
+A interface do SnapCenter fornece padronização e consistência entre plug-ins e ambientes.  A interface do SnapCenter permite que você conclua operações consistentes de backup, restauração, recuperação e clonagem em plug-ins, use relatórios centralizados, use visualizações de painel rápidas, configure o controle de acesso baseado em função (RBAC) e monitore trabalhos em todos os plug-ins.
+
+* *Administração central automatizada*
++
+Você pode agendar operações de backup, configurar retenção de backup baseada em políticas e executar operações de restauração.  Você também pode monitorar proativamente seu ambiente configurando o SnapCenter para enviar alertas por e-mail.
+
+* *Tecnologia NetApp Snapshot não disruptiva*
++
+O SnapCenter usa a tecnologia NetApp Snapshot com os plug-ins suportados pela NetApp para fazer backup de recursos.  Os instantâneos consomem espaço de armazenamento mínimo.
+
+
+
+Os plug-ins suportados pela NetApp também oferecem os seguintes benefícios:
+
+* Suporte para fluxos de trabalho de backup, restauração e clonagem
+* Segurança com suporte RBAC e delegação centralizada de funções
++
+Você também pode definir as credenciais para que os usuários autorizados do SnapCenter tenham permissões no nível do aplicativo.
+
+* Criação de cópias de recursos com eficiência de espaço e em um determinado momento para testes ou extração de dados usando a tecnologia NetApp FlexClone
++
+Uma licença FlexClone é necessária no sistema de armazenamento onde você deseja criar o clone.
+
+* Suporte para o recurso Snapshot do grupo de consistência (CG) do ONTAP como parte da criação de backups.
+* Capacidade de executar vários backups simultaneamente em vários hosts de recursos
++
+Em uma única operação, os Snapshots são consolidados quando recursos em um único host compartilham o mesmo volume.
+
+* Capacidade de criar Snapshot usando comandos externos.
+* Capacidade de criar instantâneos consistentes do sistema de arquivos em ambientes Windows.
+

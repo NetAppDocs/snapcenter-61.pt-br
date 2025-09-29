@@ -1,0 +1,39 @@
+---
+permalink: protect-sco/concept_what_you_can_do_with_the_snapcenter_plug_in_for_oracle_database.html 
+sidebar: sidebar 
+keywords: backup, restore, clone, oracle database 
+summary: 'Você pode usar o Plug-in para Oracle Database para fazer backup, verificar, restaurar, recuperar, montar, desmontar e clonar bancos de dados Oracle e seus recursos.  Você também pode catalogar ou descatalogar os backups do banco de dados com o Oracle Recovery Manager (RMAN).' 
+---
+= O que você pode fazer com o Plug-in para Oracle Database
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+O SnapCenter Plug-in para Oracle Database é um componente do lado do host do NetApp SnapCenter Software que permite o gerenciamento de proteção de dados com reconhecimento de aplicativo de bancos de dados Oracle.
+
+O plug-in para Oracle Database automatiza o backup, a catalogação e a descatalogação com o Oracle Recovery Manager (RMAN), a verificação, a montagem, a desmontagem, a restauração, a recuperação e a clonagem de bancos de dados Oracle no seu ambiente SnapCenter .  O Plug-in para Oracle Database instala o SnapCenter Plug-in para UNIX para executar todas as operações de proteção de dados.
+
+Você pode usar o Plug-in para Oracle Database para gerenciar backups de bancos de dados Oracle executando aplicativos SAP.  Entretanto, a integração do SAP BR*Tools não é suportada.
+
+* Faça backup de arquivos de dados, arquivos de controle e arquive arquivos de log.
++
+O backup é suportado apenas no nível do banco de dados de contêiner (CDB).
+
+* Restauração e recuperação de bancos de dados, CDBs e bancos de dados plugáveis (PDBs).
++
+A recuperação incompleta de PDBs não é suportada.
+
+* Crie clones de bancos de dados de produção até um determinado momento.
++
+A clonagem é suportada apenas no nível CDB.
+
+* Verifique os backups imediatamente.
+* Monte e desmonte backups de dados e logs para operação de recuperação.
+* Agende operações de backup e verificação.
+* Monitore todas as operações.
+* Visualize relatórios de operações de backup, restauração e clonagem.
+* Automatiza operações de backup, restauração, recuperação, verificação, montagem, desmontagem e clonagem com reconhecimento de aplicativo para bancos de dados Oracle em seu ambiente SnapCenter
+* Suporta bancos de dados Oracle para SAP, no entanto, a integração com SAP BR*Tools não é fornecida
+

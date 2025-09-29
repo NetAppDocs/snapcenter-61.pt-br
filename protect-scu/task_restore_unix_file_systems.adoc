@@ -1,0 +1,67 @@
+---
+permalink: protect-scu/task_restore_unix_file_systems.html 
+sidebar: sidebar 
+keywords: restore, recover, Unix file systems 
+summary: Em caso de perda de dados, você pode usar o SnapCenter para restaurá-los. 
+---
+= Restaurar sistemas de arquivos Unix
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Em caso de perda de dados, você pode usar o SnapCenter para restaurar sistemas de arquivos Unix.
+
+*Sobre esta tarefa*
+
+* Você deve executar os seguintes comandos para estabelecer a conexão com o SnapCenter Server, listar os backups, recuperar suas informações e restaurar o backup.
++
+As informações sobre os parâmetros que podem ser usados com o comando e suas descrições podem ser obtidas executando Get-Help _command_name_. Alternativamente, você também pode consultar o https://library.netapp.com/ecm/ecm_download_file/ECMLP3337666["Guia de referência de comandos do software SnapCenter"^] .
+
+* Para a operação de restauração de sincronização ativa do SnapMirror , você deve selecionar o backup do local principal.
+
+
+.Passos
+. No painel de navegação esquerdo, clique em *Recursos* e selecione o plug-in apropriado na lista.
+. Na página Recursos, selecione *Caminho* ou *Grupo de recursos* na lista *Exibir*.
+. Selecione o sistema de arquivos na exibição de detalhes ou na exibição de detalhes do grupo de recursos.
++
+A página de topologia é exibida.
+
+. Na exibição Gerenciar cópias, selecione *Backups* dos sistemas de armazenamento primário ou secundário (espelhado ou replicado).
+. Selecione o backup da tabela e clique em *image:../media/restore_icon.gif["ícone de restauração"] *.
+. Na página Escopo de restauração:
++
+** Para sistemas de arquivos NFS, por padrão, a restauração *Conectar e Copiar* é selecionada.  Você também pode selecionar *Reverter Volume* ou *Restauração Rápida*.
+** Para sistemas de arquivos não NFS, o escopo de restauração é selecionado dependendo do layout.
++
+Os novos arquivos criados após o backup podem não estar disponíveis após a restauração, dependendo do tipo e do layout do sistema de arquivos.
+
+
+
+. Na página PreOps, insira comandos de pré-restauração a serem executados antes de executar um trabalho de restauração.
+. Na página PostOps, insira comandos de pós-restauração a serem executados após a execução de um trabalho de restauração.
++
+
+NOTE: Você deve verificar se os comandos existem na lista de comandos disponível no host do plug-in no local _/opt/ NetApp/snapcenter/scc/etc/allowed_commands.config_ path.
+
+. Na página Notificação, na lista suspensa *Preferência de e-mail*, selecione os cenários nos quais você deseja enviar as notificações por e-mail.
++
+Você também deve especificar os endereços de e-mail do remetente e do destinatário, e o assunto do e-mail.  Se você quiser anexar o relatório da operação de restauração realizada, selecione *Anexar relatório de tarefa*.
+
++
+
+NOTE: Para notificação por e-mail, você deve ter especificado os detalhes do servidor SMTP usando a GUI ou o comando Set-SmSmtpServer do PowerShell.
+
+. Revise o resumo e clique em *Concluir*.
++
+
+IMPORTANT: Se a operação de restauração falhar, a reversão não será suportada.
+
++
+
+NOTE: Em caso de restauração de um sistema de arquivos residente em um grupo de volumes, o conteúdo antigo no sistema de arquivos não é excluído.  Somente o conteúdo do sistema de arquivos clonado será copiado para o sistema de arquivos de origem.  Isso é aplicável quando há vários sistemas de arquivos no grupo de volumes e restaurações do sistema de arquivos NFS padrão.
+
+. Monitore o progresso da operação clicando em *Monitorar* > *Trabalhos*.
+

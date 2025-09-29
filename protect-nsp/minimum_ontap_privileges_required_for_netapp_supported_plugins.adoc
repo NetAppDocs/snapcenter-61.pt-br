@@ -1,0 +1,99 @@
+---
+permalink: protect-nsp/minimum_ontap_privileges_required_for_netapp_supported_plugins.html 
+sidebar: sidebar 
+keywords: Minimum ONTAP privileges 
+summary: Os privilégios mínimos do ONTAP necessários variam de acordo com os plug-ins do SnapCenter que você está usando para proteção de dados. 
+---
+= Privilégios ONTAP mínimos necessários para plug-in compatível com NetApp
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Os privilégios mínimos do ONTAP necessários variam de acordo com os plug-ins do SnapCenter que você está usando para proteção de dados.
+
+* Comandos de acesso total: privilégios mínimos necessários para ONTAP 9.12.1 e posterior
++
+** evento generate-autosupport-log
+** histórico de trabalho mostrar
+** parada de trabalho
+** mostrar atributo lun
+** lun criar
+** lun delete
+** geometria lunar
+** lun igroup adicionar
+** lun igroup criar
+** lun igroup excluir
+** renomear lun igroup
+** show do lun igroup
+** mapeamento lun add-reporting-nodes
+** criação de mapeamento lun
+** exclusão de mapeamento lun
+** mapeamento lun remove-reporting-nodes
+** show de mapeamento lunar
+** lun modificar
+** volume de entrada lun
+** lua offline
+** lua online
+** redimensionamento de lun
+** série lun
+** show de lua
+** interface de rede
+** política de adição de regra do snapmirror
+** regra de modificação de política do snapmirror
+** política de remoção do snapmirror
+** política do snapmirror mostrar
+** restauração do snapmirror
+** show de espelhos instantâneos
+** histórico de exibição do snapmirror
+** atualização do snapmirror
+** atualização do snapmirror-ls-set
+** lista-destinos do snapmirror
+** versão
+** criação de clone de volume
+** show de clones de volume
+** volume clone split start
+** volume clone divisão parada
+** volume criar
+** destruição de volume
+** clone de arquivo de volume criar
+** arquivo de volume mostrar-uso-do-disco
+** volume offline
+** volume on-line
+** modificação de volume
+** volume qtree criar
+** volume qtree delete
+** volume qtree modificar
+** volume qtree mostrar
+** restrição de volume
+** show de volume
+** criação de instantâneo de volume
+** exclusão de instantâneo de volume
+** modificação de instantâneo de volume
+** renomeação de instantâneo de volume
+** restauração de instantâneo de volume
+** arquivo de restauração de instantâneo de volume
+** exibição de instantâneo de volume
+** desmontagem de volume
+** cifs do vserver
+** vserver cifs compartilhar criar
+** vserver cifs compartilhar excluir
+** vserver cifs shadowcopy mostrar
+** vserver cifs compartilhar mostrar
+** vserver cifs mostrar
+** criação de política de exportação do vserver
+** exclusão da política de exportação do vserver
+** criação de regra de política de exportação do vserver
+** mostrar regra de política de exportação do vserver
+** mostrar política de exportação do vserver
+** mostrar conexão iscsi do vserver
+** vserver mostrar
+
+
+* Comandos somente leitura: privilégios mínimos necessários para ONTAP 8.3.0 e posterior
++
+** interface de rede
+
+
+

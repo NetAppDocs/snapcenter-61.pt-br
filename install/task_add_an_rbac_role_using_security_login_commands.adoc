@@ -1,0 +1,85 @@
+---
+permalink: install/task_add_an_rbac_role_using_security_login_commands.html 
+sidebar: sidebar 
+keywords: RBAC roles, add, NetApp ONTAP RBAC role, storage system 
+summary: Você pode usar os comandos de login de segurança para adicionar uma função NetApp ONTAP RBAC quando seus sistemas de armazenamento estiverem executando o NetApp ONTAP em cluster. 
+---
+= Adicionar uma função NetApp ONTAP RBAC usando comandos de login de segurança
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Você pode usar os comandos de login de segurança para adicionar uma função NetApp ONTAP RBAC quando seus sistemas de armazenamento estiverem executando o ONTAP em cluster.
+
+.Antes de começar
+* Identifique a tarefa (ou tarefas) que você deseja executar e os privilégios necessários para executá-las.
+* Conceda privilégios a comandos e/ou diretórios de comandos.
++
+Há dois níveis de acesso para cada comando/diretório de comando: acesso total e somente leitura.
+
++
+Você deve sempre atribuir os privilégios de acesso total primeiro.
+
+* Atribuir funções aos usuários.
+* Identifique sua configuração dependendo se seus plug-ins do SnapCenter estão conectados ao IP do administrador do cluster para todo o cluster ou diretamente conectados a uma SVM dentro do cluster.
+
+
+.Sobre esta tarefa
+Para simplificar a configuração dessas funções em sistemas de armazenamento, você pode usar a ferramenta RBAC User Creator for NetApp ONTAP , publicada no Fórum de Comunidades da NetApp .
+
+Esta ferramenta gerencia automaticamente a configuração correta dos privilégios do ONTAP .  Por exemplo, a ferramenta RBAC User Creator for NetApp ONTAP adiciona automaticamente os privilégios na ordem correta para que os privilégios de acesso total apareçam primeiro.  Se você adicionar primeiro os privilégios somente leitura e depois adicionar os privilégios de acesso total, o ONTAP marcará os privilégios de acesso total como duplicados e os ignorará.
+
+
+NOTE: Se você atualizar posteriormente o SnapCenter ou o ONTAP, execute novamente a ferramenta RBAC User Creator for NetApp ONTAP para atualizar as funções de usuário criadas anteriormente.  Funções de usuário criadas para uma versão anterior do SnapCenter ou ONTAP não funcionam corretamente com versões atualizadas.  Quando você executa a ferramenta novamente, ela realiza a atualização automaticamente.  Você não precisa recriar as funções.
+
+Para obter mais informações sobre como configurar funções ONTAP RBAC, consulte http://docs.netapp.com/ontap-9/topic/com.netapp.doc.pow-adm-auth-rbac/home.html["Guia de autenticação de administrador do ONTAP 9 e RBAC Power"^] .
+
+.Passos
+. No sistema de armazenamento, crie uma nova função inserindo o seguinte comando:
++
+`security login role create <role_name\> -cmddirname "command" -access all –vserver <svm_name\>`
+
++
+** svm_name é o nome do SVM.  Se você deixar em branco, o padrão será o administrador do cluster.
+** role_name é o nome que você especifica para a função.
+** comando é o recurso ONTAP .
++
+
+NOTE: Você deve repetir este comando para cada permissão.  Lembre-se de que os comandos de acesso total devem ser listados antes dos comandos somente leitura.
+
++
+Para obter informações sobre a lista de permissões, consultelink:../install/task_create_an_ontap_cluster_role_with_minimum_privileges.html#ontap-cli-commands-for-creating-cluster-roles-and-assigning-permissions["Comandos ONTAP CLI para criar funções e atribuir permissões"^] .
+
+
+
+. Crie um nome de usuário digitando o seguinte comando:
++
+`security login create -username <user_name\> -application ontapi -authmethod <password\> -role <name_of_role_in_step_1\> –vserver <svm_name\> -comment "user_description"`
+
++
+** user_name é o nome do usuário que você está criando.
+** <senha> é sua senha.  Se você não especificar uma senha, o sistema solicitará uma.
+** svm_name é o nome do SVM.
+
+
+. Atribua a função ao usuário digitando o seguinte comando:
++
+`security login modify username <user_name\> –vserver <svm_name\> -role <role_name\> -application ontapi -application console -authmethod <password\>`
+
++
+** <user_name> é o nome do usuário que você criou na Etapa 2.  Este comando permite que você modifique o usuário para associá-lo à função.
+** <svm_name> é o nome do SVM.
+** <role_name> é o nome da função que você criou na Etapa 1.
+** <senha> é sua senha.  Se você não especificar uma senha, o sistema solicitará uma.
+
+
+. Verifique se o usuário foi criado corretamente digitando o seguinte comando:
++
+`security login show –vserver <svm_name\> -user-or-group-name <user_name\>`
+
++
+user_name é o nome do usuário que você criou na Etapa 3.
+
+

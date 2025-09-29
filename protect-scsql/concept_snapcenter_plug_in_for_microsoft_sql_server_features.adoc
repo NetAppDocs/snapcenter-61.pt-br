@@ -1,0 +1,61 @@
+---
+permalink: protect-scsql/concept_snapcenter_plug_in_for_microsoft_sql_server_features.html 
+sidebar: sidebar 
+keywords: SnapCenter Plug-in for Microsoft SQL Server 
+summary: O plug-in para SQL Server integra-se ao Microsoft SQL Server no host Windows e à tecnologia NetApp Snapshot no sistema de armazenamento.  Para trabalhar com o Plug-in para SQL Server, use a interface do SnapCenter . 
+---
+= Recursos do plug-in SnapCenter para Microsoft SQL Server
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+O plug-in para SQL Server integra-se ao Microsoft SQL Server no host Windows e à tecnologia NetApp Snapshot no sistema de armazenamento.  Para trabalhar com o Plug-in para SQL Server, use a interface do SnapCenter .
+
+O plug-in para SQL Server inclui estes recursos principais:
+
+* *Interface gráfica de usuário unificada com tecnologia SnapCenter*
++
+A interface do SnapCenter oferece padronização e consistência entre plug-ins e ambientes.  A interface do SnapCenter permite que você conclua processos consistentes de backup e restauração em todos os plug-ins, use relatórios centralizados, use visualizações de painel rápidas, configure o controle de acesso baseado em função (RBAC) e monitore trabalhos em todos os plug-ins.  O SnapCenter também oferece agendamento centralizado e gerenciamento de políticas para dar suporte a operações de backup e clonagem.
+
+* *Administração central automatizada*
++
+Você pode agendar backups de rotina do SQL Server, configurar retenção de backup baseada em políticas e configurar operações de restauração atualizadas e em tempo real.  Você também pode monitorar proativamente seu ambiente do SQL Server configurando o SnapCenter para enviar alertas por e-mail.
+
+* *Tecnologia NetApp Snapshot não disruptiva*
++
+O plug-in para SQL Server usa a tecnologia NetApp Snapshot com o plug-in NetApp SnapCenter para Microsoft Windows.  Isso permite que você faça backup de bancos de dados em segundos e restaure-os rapidamente sem deixar o SQL Server offline.  Os instantâneos consomem espaço de armazenamento mínimo.
+
+
+
+Além desses recursos principais, o Plug-in para SQL Server oferece os seguintes benefícios:
+
+* Suporte ao fluxo de trabalho de backup, restauração, clonagem e verificação
+* Segurança com suporte RBAC e delegação centralizada de funções
+* Criação de cópias pontuais e com economia de espaço de bancos de dados de produção para testes ou extração de dados usando a tecnologia NetApp FlexClone
++
+Uma licença FlexClone é necessária no sistema de armazenamento que contém o clone.
+
+* Verificação de backup automatizada e sem interrupções
+* Capacidade de executar vários backups ao mesmo tempo em vários servidores
+* Cmdlets do PowerShell para scripts de operações de backup, verificação, restauração e clonagem
+* Suporte para Grupos de Disponibilidade AlwaysOn (AGs) no SQL Server para acelerar as operações de configuração, backup e restauração do AG
+* Banco de dados na memória e extensão de pool de buffer (BPE) como parte do SQL Server 2014
+* Suporte para backup de LUNs e discos de máquinas virtuais (VMDKs)
+* Suporte para infraestruturas físicas e virtualizadas
+* Suporte para iSCSI, Fibre Channel, FCoE, mapeamento de dispositivos brutos (RDM) e VMDK sobre NFS e VMFS
++
+
+NOTE: Os volumes NAS devem ter uma política de exportação padrão na máquina virtual de armazenamento (SVM).
+
+* Suporte para FileStream e grupo de arquivos em bancos de dados independentes do SQL Server.
+* Suporte para memória não volátil expressa (NVMe) no Windows Server 2022
++
+** Fluxos de trabalho de backup, restauração, clonagem e verificação no layout VMDK criado em NVMe sobre TCP/IP.
+** Suporta firmware NVMe versão 1.3 a partir do ESX 8.0 atualização 2 e requer hardware virtual versão 21.
+** O Windows Server Failover Clustering (WSFC) não é suportado para aplicativos via VMDK em NVMe via TCP/IP.
+
+
+* Oferece suporte à sincronização ativa do SnapMirror (inicialmente lançado como SnapMirror Business Continuity [SM-BC]), que permite que os serviços empresariais continuem operando mesmo durante uma falha completa do site, permitindo que os aplicativos façam failover de forma transparente usando uma cópia secundária.  Não é necessária intervenção manual nem script adicional para acionar um failover com a sincronização ativa do SnapMirror .
+

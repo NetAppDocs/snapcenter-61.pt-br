@@ -1,0 +1,25 @@
+---
+permalink: install/register-snapcenter-software.html 
+sidebar: sidebar 
+keywords: register, new customer, NetApp account, enable support 
+summary: Se você não tiver uma conta NetApp , registre o produto para habilitar o suporte. 
+---
+= Registrar SnapCenter
+:allow-uri-read: 
+
+
+[role="lead"]
+Se você é novo nos produtos NetApp e não tem uma conta NetApp existente, registre o SnapCenter para habilitar o suporte.
+
+.Passos
+. Após instalar o SnapCenter, navegue até *Ajuda > Sobre*.
+. Na caixa de diálogo _Sobre o SnapCenter_, anote a instância do SnapCenter , um número de 20 dígitos que começa com 971.
+. Clique https://register.netapp.com[] .
+. Clique em *Não sou um cliente registrado da NetApp *.
+. Especifique seus dados para se registrar.
+. Deixe o campo SN de referência da NetApp em branco.
+. Selecione * SnapCenter* no menu suspenso Linha de produtos.
+. Selecione o provedor de cobrança.
+. Insira o ID da instância do SnapCenter de 20 dígitos.
+. Clique em *Enviar*.
+

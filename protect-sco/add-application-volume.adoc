@@ -1,0 +1,64 @@
+---
+permalink: protect-sco/add-application-volume.html 
+sidebar: sidebar 
+keywords: application volume, overview, add, modify, delete, Oracle database 
+summary: Você deve adicionar manualmente os volumes do aplicativo. 
+---
+= Adicionar volumes de aplicação
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+O SnapCenter oferece suporte ao backup e à clonagem de volumes de aplicativos do banco de dados Oracle.  Você deve adicionar manualmente os volumes do aplicativo.  A descoberta automática de volumes de aplicativos não é suportada.
+
+
+NOTE: Os volumes de aplicativos suportam apenas conexões NFS diretas e iSCSI diretas.
+
+*Passos*
+
+. No painel de navegação esquerdo, clique em *Recursos* e selecione o plug-in do Oracle Database na lista.
+. Clique em *Adicionar volume do aplicativo*.
+. Na página Nome, execute as seguintes ações:
++
+** No campo Nome, insira o nome do volume do aplicativo.
+** No campo Nome do host, insira o nome do host.
+
+
+. Na página Storage Footprint, insira o nome do sistema de armazenamento, selecione um ou mais volumes e especifique os LUNs ou Qtrees associados.
++
+Você pode adicionar vários sistemas de armazenamento.
+
+. Revise o resumo e clique em *Concluir*.
+. Na página Recursos, selecione *Volume do aplicativo* na lista *Exibir* para visualizar todos os volumes de aplicativo que você adicionou.
+
+
+
+
+== Modificar volume do aplicativo
+
+Você pode modificar todos os valores especificados ao adicionar o volume do aplicativo, se nenhum backup for criado.  Se o backup for criado, você só poderá modificar os detalhes do sistema de armazenamento.
+
+*Passos*
+
+. No painel de navegação esquerdo, clique em *Recursos* e selecione o plug-in do Oracle Database na lista.
+. Na página Recursos, selecione *Volume do aplicativo* na lista *Exibir*.
+. Cliqueimage:../media/edit_icon.gif["ícone de edição"] para modificar os valores.
+. Cliqueimage:../media/edit_icon.gif["ícone de edição"] para modificar os valores.
+
+
+
+
+== Excluir volume do aplicativo
+
+Quando você exclui um volume de aplicativo, se houver algum backup associado ao volume de aplicativo, o volume de aplicativo será colocado no modo de manutenção e nenhum novo backup será criado e nenhum backup anterior será retido.  Se não houver backups associados, todos os metadados serão excluídos.
+
+Se necessário, o SnapCenter permite que você desfaça a operação de exclusão.
+
+*Passos*
+
+. No painel de navegação esquerdo, clique em *Recursos* e selecione o plug-in do Oracle Database na lista.
+. Na página Recursos, selecione *Volume do aplicativo* na lista *Exibir*.
+. Cliqueimage:../media/delete_icon.gif["ícone de exclusão"] [elete icon] para modificar os valores.
+

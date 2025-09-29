@@ -1,0 +1,90 @@
+---
+permalink: protect-sco/task_view_oracle_databse_backups_and_clones_in_the_topology_page.html 
+sidebar: sidebar 
+keywords: SnapCenter Plug-in for Oracle Databases 
+summary: Ao se preparar para fazer backup ou clonar um recurso, pode ser útil visualizar uma representação gráfica de todos os backups e clones no armazenamento primário e secundário. 
+---
+= Visualize backups e clones do banco de dados Oracle na página Topologia
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Ao se preparar para fazer backup ou clonar um recurso, pode ser útil visualizar uma representação gráfica de todos os backups e clones no armazenamento primário e secundário.
+
+*Sobre esta tarefa*
+
+Na página Topologia, você pode ver todos os backups e clones disponíveis para o recurso ou grupo de recursos selecionado.  Você pode visualizar os detalhes desses backups e clones e selecioná-los para executar operações de proteção de dados.
+
+Você pode revisar os seguintes ícones na exibição Gerenciar cópias para determinar se os backups e clones estão disponíveis no armazenamento primário ou secundário (cópias espelhadas ou cópias do Vault).
+
+* image:../media/topology_primary_storage.gif["ícone de armazenamento primário"]exibe o número de backups e clones que estão disponíveis no armazenamento primário.
+* image:../media/topology_mirror_secondary_storage.gif["ícone de espelho de armazenamento secundário"]exibe o número de backups e clones que são espelhados no armazenamento secundário usando a tecnologia SnapMirror .
+* image:../media/topology_vault_secondary_storage.gif["ícone do cofre secundário"]exibe o número de backups e clones que são replicados no armazenamento secundário usando a tecnologia SnapVault .
++
+O número de backups exibidos inclui os backups excluídos do armazenamento secundário.  Por exemplo, se você criou 6 backups usando uma política para manter apenas 4 backups, o número de backups exibidos será 6.
+
+
+
+
+NOTE: Clones de um backup de um espelho flexível em termos de versão em um volume do tipo mirror-vault são exibidos na exibição de topologia, mas a contagem de backups de espelho na exibição de topologia não inclui o backup flexível em termos de versão.
+
+Se você tiver um relacionamento secundário como sincronização ativa do SnapMirror (inicialmente lançado como SnapMirror Business Continuity [SM-BC]), poderá ver os seguintes ícones adicionais:
+
+* image:../media/topology_replica_site_up.png["site de réplica"]O site de réplica está no ar.
+* image:../media/topology_replica_site_down.png["site de réplica fora do ar"]O site de réplicas está fora do ar.
+* image:../media/topology_reestablished.png["o relacionamento é restabelecido"]O espelho secundário ou o relacionamento do cofre não foram restabelecidos.
+
+
+*Passos*
+
+. No painel de navegação esquerdo, clique em *Recursos* e selecione o plug-in apropriado na lista.
+. Na página Recursos, selecione o recurso ou grupo de recursos na lista suspensa *Exibir*.
+. Selecione o recurso na exibição de detalhes do recurso ou na exibição de detalhes do grupo de recursos.
++
+Se o recurso estiver protegido, a página Topologia do recurso selecionado será exibida.
+
+. Revise o cartão Resumo para ver um resumo do número de backups e clones disponíveis no armazenamento primário e secundário.
++
+A seção Cartão de Resumo exibe o número total de backups e clones e o número total de backups de log.
+
++
+Clicar no botão *Atualizar* inicia uma consulta do armazenamento para exibir uma contagem precisa.
+
++
+Se o backup habilitado para SnapLock for feito, clicar no botão *Atualizar* atualiza o tempo de expiração do SnapLock primário e secundário recuperado do ONTAP.  Uma programação semanal também atualiza o tempo de expiração do SnapLock primário e secundário recuperado do ONTAP.
+
++
+Quando o recurso do aplicativo estiver distribuído em vários volumes, o tempo de expiração do SnapLock para o backup será o maior tempo de expiração do SnapLock definido para um Snapshot em um volume.  O maior tempo de expiração do SnapLock é recuperado do ONTAP.
+
++
+Para sincronização ativa do SnapMirror , clicar no botão *Atualizar* atualiza o inventário de backup do SnapCenter consultando o ONTAP para sites primários e de réplica.  Uma programação semanal também executa essa atividade para todos os bancos de dados que contêm o relacionamento de sincronização ativo do SnapMirror .
+
++
+** Para sincronização ativa do SnapMirror e somente para o ONTAP 9.14.1, os relacionamentos Async Mirror ou Async MirrorVault com o novo destino primário devem ser configurados manualmente após o failover.  A partir do ONTAP 9.15.1, o Async Mirror ou o Async MirrorVault são configurados automaticamente para o novo destino principal.
+** Após o failover, um backup deve ser criado para que o SnapCenter esteja ciente do failover.  Você pode clicar em *Atualizar* somente após um backup ter sido criado.
+
+
+. Na exibição Gerenciar cópias, clique em *Backups* ou *Clones* do armazenamento primário ou secundário para ver detalhes de um backup ou clone.
++
+Os detalhes dos backups e clones são exibidos em formato de tabela.
+
+. Selecione o backup na tabela e clique nos ícones de proteção de dados para executar operações de restauração, clonagem, montagem, desmontagem, renomeação, catalogação, descatalogação e exclusão.
++
+
+NOTE: Não é possível renomear ou excluir backups que estejam no armazenamento secundário.
+
++
+** Se você tiver selecionado um backup de log, você só poderá executar operações de renomeação, montagem, desmontagem, catalogação, descatalogação e exclusão.
+** Se você catalogou o backup usando o Oracle Recovery Manager (RMAN), não poderá renomear esses backups catalogados.
+
+
+. Se você quiser excluir um clone, selecione o clone na tabela e clique emimage:../media/delete_icon.gif["ícone de exclusão"] .
+
+
+Se o valor atribuído a SnapmirrorStatusUpdateWaitTime for menor, as cópias de backup do Mirror e do Vault não serão listadas na página de topologia, mesmo que os volumes de dados e log sejam protegidos com sucesso.  Você deve aumentar o valor atribuído a SnapmirrorStatusUpdateWaitTime usando o cmdlet _Set-SmConfigSettings_ do PowerShell.
+
+As informações sobre os parâmetros que podem ser usados com o comando e suas descrições podem ser obtidas executando Get-Help _command_name_.
+
+Alternativamente, você também pode consultar o https://library.netapp.com/ecm/ecm_download_file/ECMLP3337666["Guia de referência de comandos do software SnapCenter"^] ou https://docs.netapp.com/us-en/snapcenter-cmdlets/index.html["Guia de referência do cmdlet do software SnapCenter"^] .

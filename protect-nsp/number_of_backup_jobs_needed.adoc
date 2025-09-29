@@ -1,0 +1,16 @@
+---
+permalink: protect-nsp/number_of_backup_jobs_needed.html 
+sidebar: sidebar 
+keywords: backup jobs 
+summary: 'Os fatores que determinam o número de tarefas de backup necessárias incluem o tamanho do recurso, o número de volumes usados, a taxa de alteração do recurso e seu Contrato de Nível de Serviço (SLA).' 
+---
+= Número de trabalhos de backup necessários
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Os fatores que determinam o número de tarefas de backup necessárias incluem o tamanho do recurso, o número de volumes usados, a taxa de alteração do recurso e seu Contrato de Nível de Serviço (SLA).
+
+O número de tarefas de backup que você escolhe normalmente depende do número de volumes nos quais você colocou seus recursos.  Por exemplo, se você colocar um grupo de recursos pequenos em um volume e um recurso grande em outro volume, você poderá criar uma tarefa de backup para os recursos pequenos e uma tarefa de backup para o recurso grande.

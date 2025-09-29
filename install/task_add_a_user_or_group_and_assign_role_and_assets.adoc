@@ -1,0 +1,167 @@
+---
+permalink: install/task_add_a_user_or_group_and_assign_role_and_assets.html 
+sidebar: sidebar 
+keywords: RBAC, add user, add group, assign role, assign assets 
+summary: Para configurar o controle de acesso baseado em função para usuários do SnapCenter , você pode adicionar usuários ou grupos e atribuir uma função.  A função determina as opções que os usuários do SnapCenter podem acessar. 
+---
+= Adicionar um usuário ou grupo e atribuir função e ativos
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Para configurar o controle de acesso baseado em função para usuários do SnapCenter , você pode adicionar usuários ou grupos e atribuir uma função.  A função determina as opções que os usuários do SnapCenter podem acessar.
+
+.Antes de começar
+* Você deve ter efetuado login com a função "SnapCenterAdmin".
+* Você deve ter criado as contas de usuário ou grupo no Active Directory no sistema operacional ou banco de dados.  Você não pode usar o SnapCenter para criar essas contas.
++
+
+NOTE: Você pode incluir somente os seguintes caracteres especiais em nomes de usuários e grupos: espaço ( ), hífen (-), sublinhado (_) e dois pontos (:).
+
+* O SnapCenter inclui várias funções predefinidas.
++
+Você pode atribuir essas funções ao usuário ou criar novas funções.
+
+* Usuários e grupos do AD adicionados ao SnapCenter RBAC devem ter permissão de LEITURA no contêiner de usuários e no contêiner de computadores no Active Directory.
+* Depois de atribuir uma função a um usuário ou grupo que contém as permissões apropriadas, você deve atribuir ao usuário acesso aos ativos do SnapCenter , como hosts e conexões de armazenamento.
++
+Isso permite que os usuários executem as ações para as quais têm permissão nos ativos atribuídos a eles.
+
+* Você deve atribuir uma função ao usuário ou grupo em algum momento para aproveitar as permissões e eficiências do RBAC.
+* Você pode atribuir ativos como host, grupos de recursos, política, conexão de armazenamento, plug-in e credencial ao usuário ao criar o usuário ou grupo.
+* Os ativos mínimos que você deve atribuir a um usuário para executar determinadas operações são os seguintes:
++
+|===
+| Operação | Atribuição de ativos 
+
+
+ a| 
+Proteja os recursos
+ a| 
+anfitrião, política
+
+
+
+ a| 
+Backup
+ a| 
+host, grupo de recursos, política
+
+
+
+ a| 
+Restaurar
+ a| 
+host, grupo de recursos
+
+
+
+ a| 
+Clone
+ a| 
+host, grupo de recursos, política
+
+
+
+ a| 
+Ciclo de vida do clone
+ a| 
+hospedar
+
+
+
+ a| 
+Criar um Grupo de Recursos
+ a| 
+hospedar
+
+|===
+* Quando um novo nó é adicionado a um cluster do Windows ou a um ativo DAG (Exchange Server Database Availability Group) e se esse novo nó for atribuído a um usuário, você deve reatribuir o ativo ao usuário ou grupo para incluir o novo nó ao usuário ou grupo.
++
+Você deve reatribuir o usuário ou grupo RBAC ao cluster ou DAG para incluir o novo nó ao usuário ou grupo RBAC.  Por exemplo, você tem um cluster de dois nós e atribuiu um usuário ou grupo RBAC ao cluster.  Ao adicionar outro nó ao cluster, você deve reatribuir o usuário ou grupo RBAC ao cluster para incluir o novo nó para o usuário ou grupo RBAC.
+
+* Se você estiver planejando replicar Snapshots, deverá atribuir a conexão de armazenamento para o volume de origem e de destino ao usuário que está executando a operação.
++
+Você deve adicionar ativos antes de atribuir acesso aos usuários.
+
+
+
+
+IMPORTANT: Se estiver usando as funções do SnapCenter Plug-in for VMware vSphere para proteger VMs, VMDKs ou datastores, você deverá usar a GUI do VMware vSphere para adicionar um usuário do vCenter a uma função do SnapCenter Plug-in for VMware vSphere .  Para obter informações sobre funções do VMware vSphere, consulte https://docs.netapp.com/us-en/sc-plugin-vmware-vsphere/scpivs44_predefined_roles_packaged_with_snapcenter.html["Funções predefinidas incluídas no SnapCenter Plug-in for VMware vSphere"^] .
+
+*Passos*
+
+. No painel de navegação esquerdo, clique em *Configurações*.
+. Na página Configurações, clique em *Usuários e acesso* > *image:../media/add_icon_configure_database.gif["adicionar ícone na tela de configuração do banco de dados"] *.
+. Na página Adicionar usuários/grupos do Active Directory ou grupo de trabalho:
++
+|===
+| Para este campo... | Faça isso... 
+
+
+ a| 
+Tipo de acesso
+ a| 
+Selecione Domínio ou grupo de trabalho
+
+Para o tipo de autenticação de domínio, você deve especificar o nome de domínio do usuário ou grupo ao qual deseja adicionar o usuário a uma função.
+
+Por padrão, ele é pré-preenchido com o nome de domínio conectado.
+
+
+NOTE: Você deve registrar o domínio não confiável na página *Configurações* > *Configurações globais* > *Configurações de domínio*.
+
+
+
+ a| 
+Tipo
+ a| 
+Selecione Usuário ou Grupo
+
+
+NOTE: O SnapCenter suporta apenas o grupo de segurança e não o grupo de distribuição.
+
+
+
+ a| 
+Nome de usuário
+ a| 
+.. Digite o nome de usuário parcial e clique em *Adicionar*.
++
+
+NOTE: O nome de usuário diferencia maiúsculas de minúsculas.
+
+.. Selecione o nome de usuário na lista de pesquisa.
+
+
+
+NOTE: Ao adicionar usuários de um domínio diferente ou de um domínio não confiável, você deve digitar o nome do usuário completo, pois não há lista de pesquisa para usuários de vários domínios.
+
+Repita esta etapa para adicionar usuários ou grupos adicionais à função selecionada.
+
+
+
+ a| 
+Funções
+ a| 
+Selecione a função à qual você deseja adicionar o usuário.
+
+|===
+. Clique em *Atribuir* e, em seguida, na página Atribuir ativos:
++
+.. Selecione o tipo de ativo na lista suspensa *Ativo*.
+.. Na tabela Ativos, selecione o ativo.
++
+Os ativos são listados somente se o usuário os tiver adicionado ao SnapCenter.
+
+.. Repita esse procedimento para todos os ativos necessários.
+.. Clique em *Salvar*.
+
+
+. Clique em *Enviar*.
++
+Depois de adicionar usuários ou grupos e atribuir funções, atualize a lista de recursos.
+
+

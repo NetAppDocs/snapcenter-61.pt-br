@@ -1,0 +1,29 @@
+---
+permalink: protect-db2/snapcenter-plug-in-for-ibm-db2-overview.html 
+sidebar: sidebar 
+keywords: SnapCenter Plug-in for IBM Db2 
+summary: O SnapCenter Plug-in para IBM Db2 é um componente do lado do host do SnapCenter software NetApp SnapCenter que permite o gerenciamento de proteção de dados com reconhecimento de aplicativo de bancos de dados IBM Db2.  O plug-in para IBM Db2 Database automatiza o backup, a restauração e a clonagem de bancos de dados IBM Db2 no seu ambiente SnapCenter . 
+---
+= Visão geral do plug-in SnapCenter para IBM Db2
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+O SnapCenter Plug-in para IBM Db2 Database é um componente do lado do host do SnapCenter software NetApp SnapCenter que permite o gerenciamento de proteção de dados com reconhecimento de aplicativo de bancos de dados IBM Db2.  O plug-in para IBM Db2 Database automatiza o backup, a restauração e a clonagem de bancos de dados IBM Db2 no seu ambiente SnapCenter .
+
+* O SnapCenter 6.0 é compatível com o IBM Db2 10.5 e versões posteriores.
+* O SnapCenter 6.0.1 é compatível com IBM Db2 9.7.x e posteriores.  Além disso, a partir do SnapCenter 6.0.1, o IBM Db2 no AIX é suportado.
+
+
+O SnapCenter oferece suporte a configurações de instância única e múltiplas instâncias do Db2.  Você pode usar o Plug-in para IBM Db2 Database em ambientes Linux e Windows.  Em ambientes Windows, o Db2 será suportado como recurso manual.
+
+
+NOTE: O ambiente Db2 pureScale e os sistemas Db2 multi-nó (DPF) não são suportados.
+
+Quando o plug-in para o IBM Db2 Database estiver instalado, você poderá usar o SnapCenter com a tecnologia NetApp SnapMirror para criar cópias espelhadas de conjuntos de backup em outro volume.  Você também pode usar o plug-in com a tecnologia NetApp SnapVault para executar a replicação de backup de disco para disco para conformidade com os padrões.
+
+O plug-in SnapCenter para Db2 oferece suporte a NFS e SAN em layouts de armazenamento de arquivos ONTAP e Azure NetApp .
+
+O layout de armazenamento virtual VMDK, vVol e RDM é suportado.

@@ -1,0 +1,33 @@
+= 
+:allow-uri-read: 
+
+
+Você pode monitorar o progresso das operações de clonagem do SnapCenter usando a página Tarefas.  Talvez você queira verificar o andamento de uma operação para determinar quando ela foi concluída ou se há algum problema.
+
+.Sobre esta tarefa
+Os seguintes ícones aparecem na página Trabalhos e indicam o estado da operação:
+
+* image:../media/progress_icon.gif["Ícone em andamento"]Em andamento
+* image:../media/success_icon.gif["Ícone concluído"]Concluído com sucesso
+* image:../media/failed_icon.gif["Ícone de falha"]Fracassado
+* image:../media/warning_icon.gif["Concluído com ícone de avisos"]Concluído com avisos ou não pôde ser iniciado devido a avisos
+* image:../media/verification_job_in_queue.gif["O trabalho de verificação está na fila"]Na fila
+* image:../media/cancel_icon.gif["Ícone de cancelamento"]Cancelado
+
+
+*Passos*
+
+. No painel de navegação esquerdo, clique em *Monitor*.
+. Na página *Monitor*, clique em *Trabalhos*.
+. Na página *Jobs*, execute as seguintes etapas:
++
+.. Cliqueimage:../media/filter_icon.gif["ícone de filtro"] para filtrar a lista de modo que somente operações de clonagem sejam listadas.
+.. Especifique as datas de início e término.
+.. Na lista suspensa *Tipo*, selecione *Clone*.
+.. Na lista suspensa *Status*, selecione o status do clone.
+.. Clique em *Aplicar* para visualizar as operações concluídas com sucesso.
+
+
+. Selecione o trabalho de clonagem e clique em *Detalhes* para visualizar os detalhes do trabalho.
+. Na página Detalhes do trabalho, clique em *Exibir registros*.
+

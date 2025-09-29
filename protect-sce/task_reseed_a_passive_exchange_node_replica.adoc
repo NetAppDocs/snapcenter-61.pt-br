@@ -1,0 +1,56 @@
+---
+permalink: protect-sce/task_reseed_a_passive_exchange_node_replica.html 
+sidebar: sidebar 
+keywords:  
+summary: Se você precisar repropagar uma cópia de réplica, por exemplo, quando uma cópia estiver corrompida, você poderá repropagar para o backup mais recente usando o recurso de repropagação no SnapCenter. 
+---
+= Reproduzir uma réplica de nó passivo do Exchange
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Se você precisar repropagar uma cópia de réplica, por exemplo, quando uma cópia estiver corrompida, você poderá repropagar para o backup mais recente usando o recurso de repropagação no SnapCenter.
+
+.Antes de começar
+Você deve ter criado um backup do banco de dados que deseja propagar novamente.
+
++ Para evitar atrasos entre os nós, você pode criar um novo backup antes de executar uma operação de nova propagação ou escolher o host com o backup mais recente.
+
+.Passos
+. No painel de navegação esquerdo, clique em *Recursos* e selecione *Plug-in do Microsoft Exchange Server* na lista.
+. Na página Recursos, selecione a opção apropriada na lista Exibir:
++
+|===
+| Opção | Descrição 
+
+
+ a| 
+Para replantar um único banco de dados
+ a| 
+Selecione *Banco de dados* na lista Exibir.
+
+
+
+ a| 
+Para replantar bancos de dados em um DAG
+ a| 
+Selecione *Grupo de Disponibilidade de Banco de Dados* na lista Exibir.
+
+|===
+. Selecione o recurso que você deseja propagar novamente.
+. Na página Gerenciar cópias, clique em *Repropagar*.
+. Na lista de cópias de bancos de dados não íntegros no assistente Reseed, selecione aquela que você deseja reseed e clique em *Avançar*.
+. Na janela Host, selecione o host com o backup do qual você deseja repropagar e clique em *Avançar*.
+. Na página Notificação, na lista suspensa *Preferência de e-mail*, selecione os cenários nos quais você deseja enviar os e-mails.
++
+Você também deve especificar os endereços de e-mail do remetente e do destinatário, e o assunto do e-mail.
+
+. Revise o resumo e clique em *Concluir*.
+. Você pode visualizar o status do trabalho expandindo o painel Atividade na parte inferior da página.
++
+
+NOTE: A operação de nova propagação não será suportada se a cópia passiva do banco de dados residir em um armazenamento que não seja da NetApp .
+
+

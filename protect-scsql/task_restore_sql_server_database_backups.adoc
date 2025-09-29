@@ -1,0 +1,292 @@
+---
+permalink: protect-scsql/task_restore_sql_server_database_backups.html 
+sidebar: sidebar 
+keywords: restore operation 
+summary: Você pode usar o SnapCenter para restaurar bancos de dados SQL Server com backup.  A restauração do banco de dados é um processo multifásico que copia todos os dados e páginas de log de um backup especificado do SQL Server para um banco de dados especificado. 
+---
+= Restaurar backups de banco de dados do SQL Server
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Você pode usar o SnapCenter para restaurar bancos de dados SQL Server com backup.  A restauração do banco de dados é um processo multifásico que copia todos os dados e páginas de log de um backup especificado do SQL Server para um banco de dados especificado.
+
+.Sobre esta tarefa
+* Você pode restaurar os bancos de dados do SQL Server com backup em uma instância diferente do SQL Server no mesmo host onde o backup foi criado.
++
+Você pode usar o SnapCenter para restaurar os bancos de dados do SQL Server com backup em um caminho alternativo para não substituir uma versão de produção.
+
+* O SnapCenter pode restaurar bancos de dados em um cluster do Windows sem deixar o grupo de clusters do SQL Server offline.
+* Se ocorrer uma falha de cluster (uma operação de movimentação de grupo de clusters) durante uma operação de restauração (por exemplo, se o nó que possui os recursos ficar inativo), você deverá se reconectar à instância do SQL Server e reiniciar a operação de restauração.
+* Não é possível restaurar o banco de dados quando os usuários ou os trabalhos do SQL Server Agent estiverem acessando o banco de dados.
+* Não é possível restaurar bancos de dados do sistema para um caminho alternativo.
+* O SCRIPTS_PATH é definido usando a chave PredefinedWindowsScriptsDirectory localizada no arquivo SMCoreServiceHost.exe.Config do host do plug-in.
++
+Se necessário, você pode alterar esse caminho e reiniciar o serviço SMcore.  É recomendável que você use o caminho padrão por segurança.
+
++
+O valor da chave pode ser exibido no swagger por meio da API: API /4.7/configsettings
+
++
+Você pode usar a API GET para exibir o valor da chave.  A API SET não é suportada.
+
+* A maioria dos campos nas páginas do assistente de restauração são autoexplicativos.  As informações a seguir descrevem campos para os quais você pode precisar de orientação.
+* Para a operação de restauração de sincronização ativa do SnapMirror , você deve selecionar o backup do local principal.
+* Para políticas habilitadas para SnapLock , para ONTAP 9.12.1 e versões anteriores, se você especificar um período de bloqueio de Snapshot, os clones criados a partir de Snapshots à prova de violação como parte da restauração herdarão o tempo de expiração do SnapLock . O administrador de armazenamento deve limpar manualmente os clones após o tempo de expiração do SnapLock .
+
+
+[role="tabbed-block"]
+====
+.Interface do usuário do SnapCenter
+--
+.Passos
+. No painel de navegação esquerdo, clique em *Recursos* e selecione o plug-in apropriado na lista.
+. Na página Recursos, selecione *Banco de dados* ou *Grupo de recursos* na lista *Exibir*.
+. Selecione o banco de dados ou o grupo de recursos na lista.
++
+A página de topologia é exibida.
+
+. Na exibição Gerenciar cópias, selecione *Backups* do sistema de armazenamento.
+. Selecione o backup da tabela e clique emimage:../media/restore_icon.gif["ícone de restauração"] ícone.
++
+image::../media/restoring_resource.gif[restaurando recursos]
+
+. Na página Escopo de restauração, selecione uma das seguintes opções:
++
+|===
+| Opção | Descrição 
+
+
+ a| 
+Restaurar o banco de dados para o mesmo host onde o backup foi criado
+ a| 
+Selecione esta opção se quiser restaurar o banco de dados para o mesmo servidor SQL onde os backups foram feitos.
+
+
+
+ a| 
+Restaurar o banco de dados para um host alternativo
+ a| 
+Selecione esta opção se desejar que o banco de dados seja restaurado para um servidor SQL diferente no mesmo host ou em um host diferente onde os backups são feitos.
+
+Selecione um nome de host, forneça um nome de banco de dados (opcional), selecione uma instância e especifique os caminhos de restauração.
+
+
+NOTE: A extensão de arquivo fornecida no caminho alternativo deve ser a mesma que a extensão de arquivo do arquivo de banco de dados original.
+
+Se a opção *Restaurar o banco de dados em um host alternativo* não for exibida na página Escopo de restauração, limpe o cache do navegador.
+
+
+
+ a| 
+Restaurar o banco de dados usando arquivos de banco de dados existentes
+ a| 
+Selecione esta opção se desejar que o banco de dados seja restaurado para um SQL Server alternativo no mesmo host ou em um host diferente onde os backups são feitos.
+
+Os arquivos de banco de dados já devem estar presentes nos caminhos de arquivo existentes fornecidos.  Selecione um nome de host, forneça um nome de banco de dados (opcional), selecione uma instância e especifique os caminhos de restauração.
+
+|===
+. Na página Escopo de Recuperação, selecione uma das seguintes opções:
++
+|===
+| Opção | Descrição 
+
+
+ a| 
+Nenhum
+ a| 
+Selecione *Nenhum* quando precisar restaurar apenas o backup completo, sem nenhum log.
+
+
+
+ a| 
+Todos os backups de log
+ a| 
+Selecione a operação de restauração de backup atualizada *Todos os backups de log* para restaurar todos os backups de log disponíveis após o backup completo.
+
+
+
+ a| 
+Por backups de log até
+ a| 
+Selecione *Por backups de log* para executar uma operação de restauração pontual, que restaura o banco de dados com base nos logs de backup até o log de backup com a data selecionada.
+
+
+
+ a| 
+Por data específica até
+ a| 
+Selecione *Por data específica até* para especificar a data e a hora após as quais os logs de transações não serão aplicados ao banco de dados restaurado.
+
+Esta operação de restauração pontual interrompe a restauração de entradas de log de transações que foram registradas após a data e hora especificadas.
+
+
+
+ a| 
+Usar diretório de log personalizado
+ a| 
+Se você selecionou *Todos os backups de log*, *Por backups de log* ou *Por data específica até* e os logs estiverem localizados em um local personalizado, selecione *Usar diretório de log personalizado* e especifique o local do log.
+
+A opção *Usar diretório de log personalizado* estará disponível somente se você tiver selecionado *Restaurar o banco de dados em um host alternativo* ou *Restaurar o banco de dados usando arquivos de banco de dados existentes*.  Você também pode usar o caminho compartilhado, mas certifique-se de que o caminho seja acessível ao usuário do SQL.
+
+
+NOTE: O diretório de log personalizado não é suportado pelo banco de dados do grupo de disponibilidade.
+
+|===
+. Na página Pré-Operações, execute as seguintes etapas:
++
+.. Na página Opções de pré-restauração, selecione uma das seguintes opções:
++
+*** Selecione *Substituir o banco de dados com o mesmo nome durante a restauração* para restaurar o banco de dados com o mesmo nome.
+*** Selecione *Manter configurações de replicação do banco de dados SQL* para restaurar o banco de dados e manter as configurações de replicação existentes.
+*** Selecione *Criar backup do log de transações antes da restauração* para criar um log de transações antes do início da operação de restauração.
+*** Selecione *Encerrar restauração se o backup do log de transações antes da restauração falhar* para abortar a operação de restauração se o backup do log de transações falhar.
+
+
+.. Especifique scripts opcionais a serem executados antes de executar um trabalho de restauração.
++
+Por exemplo, você pode executar um script para atualizar traps SNMP, automatizar alertas, enviar logs e assim por diante.
+
++
+
+NOTE: O caminho de prescrições ou pós-escritos não deve incluir unidades ou compartilhamentos.  O caminho deve ser relativo ao SCRIPTS_PATH.
+
+
+
+. Na página Post Ops, execute as seguintes etapas:
++
+.. Na seção Escolher estado do banco de dados após a conclusão da restauração, selecione uma das seguintes opções:
++
+*** Selecione *Operacional, mas indisponível para restaurar logs de transações adicionais* se você estiver restaurando todos os backups necessários agora.
++
+Este é o comportamento padrão, que deixa o banco de dados pronto para uso, revertendo as transações não confirmadas.  Você não pode restaurar logs de transações adicionais até criar um backup.
+
+*** Selecione *Não operacional, mas disponível para restaurar logs transacionais adicionais* para deixar o banco de dados não operacional sem reverter as transações não confirmadas.
++
+Logs de transações adicionais podem ser restaurados.  Você não pode usar o banco de dados até que ele seja recuperado.
+
+*** Selecione *Modo somente leitura, disponível para restaurar logs transacionais adicionais* para deixar o banco de dados no modo somente leitura.
++
+Esta opção desfaz transações não confirmadas, mas salva as ações desfeitas em um arquivo de espera para que os efeitos da recuperação possam ser revertidos.
+
++
+Se a opção Desfazer diretório estiver habilitada, mais logs de transações serão restaurados.  Se a operação de restauração do log de transações não for bem-sucedida, as alterações poderão ser revertidas.  A documentação do SQL Server contém mais informações.
+
+
+
+.. Especifique scripts opcionais a serem executados após executar um trabalho de restauração.
++
+Por exemplo, você pode executar um script para atualizar traps SNMP, automatizar alertas, enviar logs e assim por diante.
+
++
+
+NOTE: O caminho de prescrições ou pós-escritos não deve incluir unidades ou compartilhamentos.  O caminho deve ser relativo ao SCRIPTS_PATH.
+
+
+
+. Na página Notificação, na lista suspensa *Preferência de e-mail*, selecione os cenários nos quais você deseja enviar os e-mails.
++
+Você também deve especificar os endereços de e-mail do remetente e do destinatário, e o assunto do e-mail.
+
+. Revise o resumo e clique em *Concluir*.
+. Monitore o processo de restauração usando a página *Monitor* > *Tarefas*.
+
+
+--
+.Cmdlets do PowerShell
+--
+.Passos
+. Inicie uma sessão de conexão com o SnapCenter Server para um usuário especificado usando o cmdlet Open-SmConnection.
++
+[listing]
+----
+PS C:\> Open-Smconnection
+----
+. Recupere as informações sobre um ou mais backups que você deseja restaurar usando os cmdlets Get-SmBackup e Get-SmBackupReport.
++
+Este exemplo exibe informações sobre todos os backups disponíveis:
+
++
+[listing]
+----
+PS C:\> Get-SmBackup
+
+BackupId                      BackupName                    BackupTime                    BackupType
+--------                      ----------                    ----------                    ----------
+  1               Payroll Dataset_vise-f6_08... 8/4/2015    11:02:32 AM                 Full Backup
+  2               Payroll Dataset_vise-f6_08... 8/4/2015    11:23:17 AM
+----
++
+Este exemplo exibe informações detalhadas sobre o backup de 29 de janeiro de 2015 a 3 de fevereiro de 2015:
+
++
+[listing]
+----
+PS C:\> Get-SmBackupReport -FromDateTime "1/29/2015" -ToDateTime "2/3/2015"
+
+   SmBackupId           : 113
+   SmJobId              : 2032
+   StartDateTime        : 2/2/2015 6:57:03 AM
+   EndDateTime          : 2/2/2015 6:57:11 AM
+   Duration             : 00:00:07.3060000
+   CreatedDateTime      : 2/2/2015 6:57:23 AM
+   Status               : Completed
+   ProtectionGroupName  : Clone
+   SmProtectionGroupId  : 34
+   PolicyName           : Vault
+   SmPolicyId           : 18
+   BackupName           : Clone_SCSPR0019366001_02-02-2015_06.57.08
+   VerificationStatus   : NotVerified
+
+   SmBackupId           : 114
+   SmJobId              : 2183
+   StartDateTime        : 2/2/2015 1:02:41 PM
+   EndDateTime          : 2/2/2015 1:02:38 PM
+   Duration             : -00:00:03.2300000
+   CreatedDateTime      : 2/2/2015 1:02:53 PM
+   Status               : Completed
+   ProtectionGroupName  : Clone
+   SmProtectionGroupId  : 34
+   PolicyName           : Vault
+   SmPolicyId           : 18
+   BackupName           : Clone_SCSPR0019366001_02-02-2015_13.02.45
+   VerificationStatus   : NotVerified
+----
+. Restaure os dados do backup usando o cmdlet Restore-SmBackup.
++
+[listing]
+----
+Restore-SmBackup -PluginCode 'DummyPlugin' -AppObjectId 'scc54.sccore.test.com\DummyPlugin\NTP\DB1' -BackupId 269 -Confirm:$false
+output:
+Name                : Restore 'scc54.sccore.test.com\DummyPlugin\NTP\DB1'
+Id                  : 2368
+StartTime           : 10/4/2016 11:22:02 PM
+EndTime             :
+IsCancellable       : False
+IsRestartable       : False
+IsCompleted         : False
+IsVisible           : True
+IsScheduled         : False
+PercentageCompleted : 0
+Description         :
+Status              : Queued
+Owner               :
+Error               :
+Priority            : None
+Tasks               : {}
+ParentJobID         : 0
+EventId             : 0
+JobTypeId           :
+ApisJobKey          :
+ObjectId            : 0
+PluginCode          : NONE
+PluginName          :
+----
+
+
+As informações sobre os parâmetros que podem ser usados com o cmdlet e suas descrições podem ser obtidas executando _Get-Help command_name_. Alternativamente, você também pode consultar o https://docs.netapp.com/us-en/snapcenter-cmdlets/index.html["Guia de referência do cmdlet do software SnapCenter"^] .
+
+--
+====

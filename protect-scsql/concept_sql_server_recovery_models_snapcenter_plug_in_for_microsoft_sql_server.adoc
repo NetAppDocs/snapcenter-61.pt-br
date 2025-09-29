@@ -1,0 +1,30 @@
+---
+permalink: protect-scsql/concept_sql_server_recovery_models_snapcenter_plug_in_for_microsoft_sql_server.html 
+sidebar: sidebar 
+keywords: SnapCenter Plug-in for Microsoft SQL Server 
+summary: Modelos de recuperação específicos são atribuídos a cada tipo de banco de dados por padrão.  O administrador do banco de dados do SQL Server pode reatribuir cada banco de dados a um modelo de recuperação diferente. 
+---
+= Modelos de recuperação do SQL Server suportados pelo SnapCenter
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Modelos de recuperação específicos são atribuídos a cada tipo de banco de dados por padrão.  O administrador do banco de dados do SQL Server pode reatribuir cada banco de dados a um modelo de recuperação diferente.
+
+O SnapCenter oferece suporte a três tipos de modelos de recuperação do SQL Server:
+
+* Modelo de recuperação simples
++
+Ao usar o modelo de recuperação simples, você não pode fazer backup dos logs de transações.
+
+* Modelo de recuperação total
++
+Ao usar o modelo de recuperação completa, você pode restaurar um banco de dados ao seu estado anterior a partir do ponto de falha.
+
+* Modelo de recuperação de log em massa
++
+Ao usar o modelo de recuperação de log em massa, você deve reexecutar manualmente a operação de log em massa.  Você deve executar a operação de registro em massa se o log de transações que contém o registro de confirmação da operação não tiver sido feito backup antes da restauração.  Se a operação de registro em massa inserir 10 milhões de linhas em um banco de dados e o banco de dados falhar antes do backup do log de transações, o banco de dados restaurado não conterá as linhas que foram inseridas pela operação de registro em massa.
+
+

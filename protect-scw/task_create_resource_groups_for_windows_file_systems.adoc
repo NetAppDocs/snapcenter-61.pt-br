@@ -1,0 +1,136 @@
+---
+permalink: protect-scw/task_create_resource_groups_for_windows_file_systems.html 
+sidebar: sidebar 
+keywords: resource groups 
+summary: Um grupo de recursos é o contêiner ao qual você pode adicionar vários sistemas de arquivos que deseja proteger.  Você também deve anexar uma ou mais políticas ao grupo de recursos para definir o tipo de trabalho de proteção de dados que deseja executar e, em seguida, especificar o agendamento de backup. 
+---
+= Criar grupos de recursos para sistemas de arquivos do Windows
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Um grupo de recursos é o contêiner ao qual você pode adicionar vários sistemas de arquivos que deseja proteger.  Você também deve anexar uma ou mais políticas ao grupo de recursos para definir o tipo de trabalho de proteção de dados que deseja executar e, em seguida, especificar o agendamento de backup.
+
+.Sobre esta tarefa
+* Para o ONTAP 9.12.1 e versões anteriores, os clones criados a partir dos SnapLock Vault Snapshots como parte da restauração herdarão o tempo de expiração do SnapLock Vault. O administrador de armazenamento deve limpar manualmente os clones após o tempo de expiração do SnapLock .
+* Não há suporte para adicionar novos sistemas de arquivos sem sincronização ativa do SnapMirror a um grupo de recursos existente que contém recursos com sincronização ativa do SnapMirror .
+* Não há suporte para adicionar novos sistemas de arquivos a um grupo de recursos existente no modo de failover da sincronização ativa do SnapMirror .  Você pode adicionar recursos ao grupo de recursos somente no estado regular ou de failback.
+
+
+.Passos
+. No painel de navegação esquerdo, clique em *Recursos* e selecione o plug-in apropriado na lista.
+. Na página Recursos, selecione *Sistemas de arquivos* na lista.
++
+
+NOTE: Se você adicionou recentemente um sistema de arquivos ao SnapCenter, clique em *Atualizar recursos* para visualizar o recurso recém-adicionado.
+
+. Clique em *Novo Grupo de Recursos*.
+. Na página Nome do assistente, faça o seguinte:
++
+|===
+| Para este campo... | Faça isso... 
+
+
+ a| 
+Nome
+ a| 
+Digite o nome do grupo de recursos.
+
+
+NOTE: O nome do grupo de recursos não deve exceder 250 caracteres.
+
+
+
+ a| 
+Use formato de nome personalizado para cópia do Snapshot
+ a| 
+Opcional: insira um nome e formato de Snapshot personalizado.
+
+Por exemplo, customtext_resourcegroup_policy_hostname ou resourcegroup_hostname.  Por padrão, um registro de data e hora é anexado ao nome do Snapshot.
+
+
+
+ a| 
+Marcação
+ a| 
+Insira uma tag descritiva para ajudar a encontrar um grupo de recursos.
+
+|===
+. Na página Recursos, execute as seguintes tarefas:
++
+.. Selecione o host para filtrar a lista de recursos.
++
+Se você adicionou recursos recentemente, eles aparecerão na lista de recursos disponíveis somente depois que você atualizar sua lista de recursos.
+
+.. Na seção Recursos disponíveis, clique nos sistemas de arquivos dos quais deseja fazer backup e, em seguida, clique na seta para a direita para movê-los para a seção Adicionados.
++
+Se você selecionar a opção *Selecionar automaticamente todos os recursos no mesmo volume de armazenamento*, todos os recursos no mesmo volume serão selecionados.  Quando você os move para a seção Adicionados, todos os recursos naquele volume são movidos juntos.
+
++
+Para adicionar um único sistema de arquivos, desmarque a opção *Selecionar automaticamente todos os recursos no mesmo volume de armazenamento* e selecione os sistemas de arquivos que deseja mover para a seção Adicionados.
+
+
+
+. Na página Políticas, execute as seguintes tarefas:
++
+.. Selecione uma ou mais políticas na lista suspensa.
++
+Você pode selecionar qualquer política existente e clicar em *Detalhes* para determinar se pode usar essa política.
+
++
+Se nenhuma política existente atender às suas necessidades, você pode criar uma nova política clicando em *image:../media/add_policy_from_resourcegroup.gif["ícone de mais"] * para iniciar o assistente de política.
+
++
+As políticas selecionadas são listadas na coluna Política na seção Configurar agendamentos para políticas selecionadas.
+
+.. Na seção Configurar agendamentos para políticas selecionadas, clique em *image:../media/add_policy_from_resourcegroup.gif["ícone de mais"] * na coluna Configurar agendamentos da política para a qual você deseja configurar o agendamento.
+.. Se a política estiver associada a vários tipos de agendamento (frequências), selecione a frequência que deseja configurar.
+.. Na caixa de diálogo Adicionar agendamentos para a política _nome_da_política_, configure o agendamento especificando a data de início, a data de expiração e a frequência e clique em *Concluir*.
++
+Os agendamentos configurados são listados na coluna Agendamentos aplicados na seção Configurar agendamentos para políticas selecionadas.
+
+
+
++
+Os agendamentos de backup de terceiros não são suportados quando se sobrepõem aos agendamentos de backup do SnapCenter .  Você não deve modificar os agendamentos do agendador de tarefas do Windows e do SQL Server Agent.
+
+. Na página Notificação, forneça informações de notificação, da seguinte forma:
++
+|===
+| Para este campo... | Faça isso... 
+
+
+ a| 
+Preferência de e-mail
+ a| 
+Selecione *Sempre*, *Em caso de falha* ou *Em caso de falha ou aviso* para enviar e-mails aos destinatários após criar grupos de recursos de backup, anexar políticas e configurar agendamentos.  Insira o servidor SMTP, a linha de assunto do e-mail padrão e os endereços de e-mail De e Para.
+
+
+
+ a| 
+De
+ a| 
+Endereço de email
+
+
+
+ a| 
+Para
+ a| 
+Endereço de e-mail
+
+
+
+ a| 
+Assunto
+ a| 
+Assunto padrão do e-mail
+
+|===
+. Revise o resumo e clique em *Concluir*.
++
+Você pode executar um backup sob demanda ou aguardar a ocorrência do backup agendado.
+
+

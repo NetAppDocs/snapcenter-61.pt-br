@@ -1,0 +1,185 @@
+---
+permalink: admin/concept_what_operations_can_be_performed_from_the_resource_page.html 
+sidebar: sidebar 
+keywords: Resources page 
+summary: Você pode descobrir recursos e executar operações de proteção de dados na página Recursos.  As operações que você pode executar variam de acordo com o plug-in que você está usando para gerenciar seus recursos. 
+---
+= Operações suportadas pela página de Recursos
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Você pode descobrir recursos e executar operações de proteção de dados na página Recursos.  As operações que você pode executar variam de acordo com o plug-in que você está usando para gerenciar seus recursos.
+
+Na página Recursos, você pode executar as seguintes tarefas:
+
+|===
+| Você pode executar estas tarefas... | Para Microsoft Exchange Server | Para Microsoft SQL Server | Para Microsoft Windows | Para banco de dados Oracle | Para banco de dados SAP HANA 
+
+
+ a| 
+Determinar se há recursos disponíveis para backup
+ a| 
+Sim
+ a| 
+Sim
+ a| 
+Sim
+ a| 
+Sim
+ a| 
+Sim
+
+
+
+ a| 
+Executar backup sob demanda de um recurso
+ a| 
+Sim
+ a| 
+Sim
+ a| 
+Sim
+ a| 
+Sim
+ a| 
+Sim
+
+
+
+ a| 
+Restaurar a partir de backups
+ a| 
+Sim
+ a| 
+Sim
+ a| 
+Sim
+ a| 
+Sim
+ a| 
+Sim
+
+
+
+ a| 
+Clonar backups
+ a| 
+Não
+ a| 
+Sim
+ a| 
+Sim
+ a| 
+Sim
+ a| 
+Sim
+
+
+
+ a| 
+Gerenciar backups
+ a| 
+Sim
+ a| 
+Sim
+ a| 
+Sim
+ a| 
+Sim
+ a| 
+Sim
+
+
+
+ a| 
+Gerenciar clones
+ a| 
+Não
+ a| 
+Sim
+ a| 
+Sim
+ a| 
+Sim
+ a| 
+Sim
+
+
+
+ a| 
+Gerenciar políticas
+ a| 
+Sim
+ a| 
+Sim
+ a| 
+Sim
+ a| 
+Sim
+ a| 
+Sim
+
+
+
+ a| 
+Gerenciar conexões de armazenamento
+ a| 
+Sim
+ a| 
+Sim
+ a| 
+Sim
+ a| 
+Sim
+ a| 
+Sim
+
+
+
+ a| 
+Montar backups
+ a| 
+Não
+ a| 
+Não
+ a| 
+Não
+ a| 
+Sim
+ a| 
+Não
+
+
+
+ a| 
+Desmontar backups
+ a| 
+Não
+ a| 
+Não
+ a| 
+Não
+ a| 
+Sim
+ a| 
+Não
+
+
+
+ a| 
+Ver detalhes
+ a| 
+Sim
+ a| 
+Sim
+ a| 
+Sim
+ a| 
+Sim
+ a| 
+Sim
+
+|===

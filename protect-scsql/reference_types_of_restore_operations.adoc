@@ -1,0 +1,87 @@
+---
+permalink: protect-scsql/reference_types_of_restore_operations.html 
+sidebar: sidebar 
+keywords: SnapCenter Plug-in for SQL Server 
+summary: Você pode usar o SnapCenter para executar diferentes tipos de operações de restauração em recursos do SQL Server. 
+---
+= Tipos de operações de restauração
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Você pode usar o SnapCenter para executar diferentes tipos de operações de restauração em recursos do SQL Server.
+
+* Restaurar atualizado
+* Restaurar para um ponto anterior no tempo
+
+
+Você pode restaurar até o minuto ou restaurar para um ponto anterior no tempo nas seguintes situações:
+
+* Restaurar do armazenamento secundário SnapMirror ou SnapVault
+* Restaurar para caminho alternativo (local)
+
+
+
+NOTE: O SnapCenter não oferece suporte ao SnapRestore baseado em volume.
+
+
+
+== Restaurar até o minuto
+
+Em uma operação de restauração atualizada (selecionada por padrão), os bancos de dados são recuperados até o ponto de falha.  O SnapCenter faz isso executando a seguinte sequência:
+
+. Faz backup do último log de transações ativo antes de restaurar o banco de dados.
+. Restaura os bancos de dados do backup completo do banco de dados selecionado.
+. Aplica todos os logs de transações que não foram confirmados nos bancos de dados (incluindo logs de transações dos backups desde o momento em que o backup foi criado até o momento mais recente).
++
+Os logs de transações são movidos e aplicados a quaisquer bancos de dados selecionados.
+
+
+
+Uma operação de restauração atualizada requer um conjunto contíguo de logs de transações.
+
+Como o SnapCenter não pode restaurar logs de transações do banco de dados SQL Server a partir de arquivos de backup de envio de logs (o envio de logs permite que você envie automaticamente backups de logs de transações de um banco de dados primário em uma instância do servidor primário para um ou mais bancos de dados secundários em instâncias separadas do servidor secundário), você não pode executar uma operação de restauração atualizada a partir dos backups de logs de transações.  Por esse motivo, você deve usar o SnapCenter para fazer backup dos arquivos de log de transações do banco de dados SQL Server.
+
+Se você não precisar manter a capacidade de restauração atualizada para todos os backups, poderá configurar a retenção de backup do log de transações do seu sistema por meio das políticas de backup.
+
+
+
+== Exemplo de uma operação de restauração atualizada
+
+Suponha que você execute o backup do SQL Server todos os dias ao meio-dia e, na quarta-feira às 16h, você precise restaurar um backup.  Por algum motivo, o backup de quarta-feira ao meio-dia falhou na verificação, então você decide restaurar o backup de terça-feira ao meio-dia.  Depois disso, se o backup for restaurado, todos os logs de transações serão movidos para frente e aplicados aos bancos de dados restaurados, começando com aqueles que não foram confirmados quando você criou o backup de terça-feira e continuando até o último log de transações escrito na quarta-feira às 16h (se os logs de transações foram copiados).
+
+
+
+== Restaurar para um ponto anterior no tempo
+
+Em uma operação de restauração pontual, os bancos de dados são restaurados apenas para um momento específico do passado.  Uma operação de restauração pontual ocorre nas seguintes situações de restauração:
+
+* O banco de dados é restaurado para um determinado momento em um log de transações de backup.
+* O banco de dados é restaurado e apenas um subconjunto de logs de transações de backup é aplicado a ele.
+
+
+
+NOTE: Restaurar um banco de dados para um ponto no tempo resulta em um novo caminho de recuperação.
+
+A imagem a seguir ilustra os problemas quando uma operação de restauração de ponto no tempo é executada:
+
+image::../media/point_in_time_recovery_path.gif[Restaurar para um ponto anterior no tempo]
+
+Na imagem, o caminho de recuperação 1 consiste em um backup completo seguido por vários backups de log de transações.  Você restaura o banco de dados para um ponto no tempo.  Novos backups de log de transações são criados após a operação de restauração de ponto no tempo, o que resulta no caminho de recuperação 2.  Os novos backups do log de transações são criados sem criar um novo backup completo.  Devido à corrupção de dados ou outros problemas, não é possível restaurar o banco de dados atual até que um novo backup completo seja criado.  Além disso, não é possível aplicar os logs de transações criados no caminho de recuperação 2 ao backup completo pertencente ao caminho de recuperação 1.
+
+Se você aplicar backups de log de transações, também poderá especificar uma data e hora específicas nas quais deseja interromper a aplicação das transações de backup.  Para fazer isso, você especifica uma data e hora dentro do intervalo disponível e o SnapCenter remove todas as transações que não foram confirmadas antes desse momento.  Você pode usar esse método para restaurar bancos de dados para um ponto no tempo anterior à ocorrência de uma corrupção ou para se recuperar de uma exclusão acidental de banco de dados ou tabela.
+
+
+
+== Exemplo de uma operação de restauração pontual
+
+Suponha que você faça backups completos do banco de dados uma vez à meia-noite e um backup do log de transações a cada hora.  O banco de dados falha às 9h45, mas você ainda faz backup dos logs de transações do banco de dados com falha.  Você pode escolher entre estes cenários de restauração pontuais:
+
+* Restaure o backup completo do banco de dados feito à meia-noite e aceite a perda das alterações feitas posteriormente no banco de dados.  (Opção: Nenhuma)
+* Restaurar o backup completo do banco de dados e aplicar todos os backups do log de transações até 9h45 (Opção: Logar até)
+* Restaure o backup completo do banco de dados e aplique backups do log de transações, especificando o horário em que você deseja que as transações sejam restauradas do último conjunto de backups do log de transações.  (Opção: Por horário específico)
+
+
+Nesse caso, você calcularia a data e a hora em que um determinado erro foi relatado.  Todas as transações que não foram confirmadas antes da data e hora especificadas serão removidas.

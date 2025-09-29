@@ -1,0 +1,54 @@
+---
+permalink: protect-hana/task_cancel_backup_operations_for_sap_hana.html 
+sidebar: sidebar 
+keywords: plug-in for SAP HANA database 
+summary: Você pode cancelar operações de backup que estão na fila. 
+---
+= Cancelar operações de backup para SAP HANA
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Você pode cancelar operações de backup que estão na fila.
+
+*O que você vai precisar*
+
+* Você deve estar conectado como administrador do SnapCenter ou proprietário do trabalho para cancelar operações.
+* Você pode cancelar uma operação de backup na página *Monitor* ou no painel *Atividade*.
+* Não é possível cancelar uma operação de backup em execução.
+* Você pode usar a GUI do SnapCenter , os cmdlets do PowerShell ou os comandos da CLI para cancelar as operações de backup.
+* O botão *Cancelar trabalho* fica desabilitado para operações que não podem ser canceladas.
+* Se você selecionou *Todos os membros desta função podem ver e operar em objetos de outros membros* na página Usuários\Grupos ao criar uma função, você pode cancelar as operações de backup enfileiradas de outros membros enquanto estiver usando essa função.
+
+
+*Passos*
+
+. Execute uma das seguintes ações:
++
+|===
+| Do... | Ação 
+
+
+ a| 
+Página do monitor
+ a| 
+.. No painel de navegação esquerdo, clique em *Monitor* > *Trabalhos*.
+.. Selecione a operação e clique em *Cancelar trabalho*.
+
+
+
+
+ a| 
+Painel de atividades
+ a| 
+.. Após iniciar a operação de backup, clique em *image:../media/activity_pane_icon.gif["ícone do painel de atividades"] * no painel Atividade para visualizar as cinco operações mais recentes.
+.. Selecione a operação.
+.. Na página Detalhes do trabalho, clique em *Cancelar trabalho*.
+
+
+|===
+
+
+A operação é cancelada e o recurso é revertido ao estado anterior.

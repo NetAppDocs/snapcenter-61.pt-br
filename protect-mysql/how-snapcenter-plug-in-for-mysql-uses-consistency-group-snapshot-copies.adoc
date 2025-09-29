@@ -1,0 +1,16 @@
+---
+permalink: protect-mysql/how-snapcenter-plug-in-for-mysql-uses-consistency-group-snapshot-copies.html 
+sidebar: sidebar 
+keywords: SnapCenter Plug-in for MySQL 
+summary: Você pode usar o plug-in para criar instantâneos de grupos de consistência para grupos de recursos.  Um grupo de consistência é um contêiner que pode abrigar vários volumes para que você possa gerenciá-los como uma única entidade.  Um grupo de consistência é composto por instantâneos simultâneos de vários volumes, fornecendo cópias consistentes de um grupo de volumes. 
+---
+= Como o plug-in SnapCenter para MySQL usa instantâneos de grupo de consistência
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Você pode usar o plug-in para criar instantâneos de grupos de consistência para grupos de recursos.  Um grupo de consistência é um contêiner que pode abrigar vários volumes para que você possa gerenciá-los como uma única entidade.  Um grupo de consistência é composto por instantâneos simultâneos de vários volumes, fornecendo cópias consistentes de um grupo de volumes.
+
+Você também pode especificar o tempo de espera para que o controlador de armazenamento agrupe snapshots de forma consistente.  As opções de tempo de espera disponíveis são *Urgente*, *Médio* e *Relaxado*.  Você também pode habilitar ou desabilitar a sincronização do Write Anywhere File Layout (WAFL) durante a operação consistente de snapshot de grupo.  A sincronização do WAFL melhora o desempenho de um instantâneo de grupo de consistência.

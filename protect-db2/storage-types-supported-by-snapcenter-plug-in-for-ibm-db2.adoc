@@ -1,0 +1,47 @@
+---
+permalink: protect-db2/storage-types-supported-by-snapcenter-plug-in-for-ibm-db2.html 
+sidebar: sidebar 
+keywords: storage types, 
+summary: 'O SnapCenter oferece suporte a uma ampla variedade de tipos de armazenamento em máquinas físicas e virtuais (VMs).  Você deve verificar o suporte para seu tipo de armazenamento antes de instalar o SnapCenter Plug-in para IBM Db2.' 
+---
+= Tipos de armazenamento suportados pelo SnapCenter Plug-in para IBM Db2
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+O SnapCenter oferece suporte a uma ampla variedade de tipos de armazenamento em máquinas físicas e virtuais (VMs).  Você deve verificar o suporte para seu tipo de armazenamento antes de instalar o SnapCenter Plug-in para IBM Db2.
+
+|===
+| Máquina | Tipo de armazenamento 
+
+
+ a| 
+Servidor físico
+ a| 
+* LUNs conectados por FC
+* LUNs conectados por iSCSI
+* Volumes conectados ao NFS
+
+
+
+
+ a| 
+VMware ESXi
+ a| 
+* LUNs RDM conectados por um FC ou iSCSI ESXi HBAA varredura de adaptadores de barramento de host (HBAs) pode levar muito tempo para ser concluída porque o SnapCenter verifica todos os adaptadores de barramento de host presentes no host.
++
+Você pode editar o arquivo *LinuxConfig.pm* localizado em _/opt/ NetApp/snapcenter/spl/plugins/scu/scucore/modules/SCU/Config_ para definir o valor do parâmetro *SCSI_HOSTS_OPTIMIZED_RESCAN* como 1 para verificar novamente apenas os HBAs listados em HBA_DRIVER_NAMES.
+
+* LUNs iSCSI conectados diretamente ao sistema convidado pelo iniciador iSCSI
+* VMDKs em armazenamentos de dados NFS
+* VMDKs em VMFS criados
+* Volumes NFS conectados diretamente ao sistema convidado
+* Armazenamentos de dados vVol em NFS e SAN
++
+O armazenamento de dados vVol só pode ser provisionado com o ONTAP Tools para VMware vSphere.
+
+
+
+|===

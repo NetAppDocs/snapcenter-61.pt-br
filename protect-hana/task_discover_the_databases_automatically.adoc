@@ -1,0 +1,58 @@
+---
+permalink: protect-hana/task_discover_the_databases_automatically.html 
+sidebar: sidebar 
+keywords: credentials 
+summary: Os recursos são bancos de dados SAP HANA e volumes não relacionados a dados no host Linux que são gerenciados pelo SnapCenter.  Você pode adicionar esses recursos a grupos de recursos para executar operações de proteção de dados depois de descobrir os bancos de dados SAP HANA que estão disponíveis. 
+---
+= Descubra os bancos de dados automaticamente
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Os recursos são bancos de dados SAP HANA e volumes não relacionados a dados no host Linux que são gerenciados pelo SnapCenter.  Você pode adicionar esses recursos a grupos de recursos para executar operações de proteção de dados depois de descobrir os bancos de dados SAP HANA que estão disponíveis.
+
+.Antes de começar
+* Você já deve ter concluído tarefas como instalar o SnapCenter Server, adicionar a chave de armazenamento do usuário do HDB, adicionar hosts e configurar as conexões do sistema de armazenamento.
+* Você deve ter configurado a chave de armazenamento de usuário seguro do HDB e o usuário do sistema operacional SQL do HDB no host Linux.
++
+** Você deve configurar a chave de armazenamento do usuário HDB com o SID adm user.  Por exemplo, para o sistema HANA com A22 como SID, a chave de armazenamento do usuário HDB deve ser configurada com a22adm.
+
+
+* O plug-in SnapCenter para banco de dados SAP HANA não oferece suporte à descoberta automática de recursos que residem em ambientes virtuais RDM/VMDK.  Você deve fornecer as informações de armazenamento para ambientes virtuais ao adicionar os bancos de dados manualmente.
+
+
+.Sobre esta tarefa
+Após instalar o plug-in, todos os recursos naquele host Linux são descobertos automaticamente e exibidos na página Recursos.
+
+Os recursos descobertos automaticamente não podem ser modificados ou excluídos.
+
+.Passos
+. No painel de navegação esquerdo, clique em *Recursos* e selecione o Plug-in para Banco de Dados SAP HANA na lista.
+. Na página Recursos, selecione o tipo de recurso na lista Exibir.
+. (Opcional) Clique em *image:../media/filter_icon.gif["ícone de filtro"] * e, em seguida, selecione o nome do host.
++
+Você pode então clicar em *image:../media/filter_icon.gif["ícone de filtro"] * para fechar o painel de filtro.
+
+. Clique em *Atualizar recursos* para descobrir os recursos disponíveis no host.
++
+Os recursos são exibidos junto com informações como tipo de recurso, nome do host, grupos de recursos associados, tipo de backup, políticas e status geral.
+
++
+** Se o banco de dados estiver em um armazenamento NetApp e não estiver protegido, Não protegido será exibido na coluna Status geral.
+** Se o banco de dados estiver em um sistema de armazenamento NetApp e protegido, e se nenhuma operação de backup for realizada, Backup não executado será exibido na coluna Status geral.  Caso contrário, o status mudará para Falha no backup ou Backup bem-sucedido com base no último status do backup.
+
+
+
+
+
+NOTE: Se o banco de dados SAP HANA não tiver uma chave de armazenamento de usuário segura HDB configurada, um ícone de cadeado vermelho aparecerá ao lado do recurso.  Se, durante uma operação de descoberta subsequente, a chave de armazenamento de usuário segura do HDB configurada for considerada incorreta ou não fornecer acesso ao próprio banco de dados, o ícone de cadeado vermelho reaparecerá.
+
+
+IMPORTANT: Você deve atualizar os recursos se os bancos de dados forem renomeados fora do SnapCenter.
+
+.Depois que você terminar
+Você deve configurar a chave de armazenamento do usuário seguro do HDB e o usuário do sistema operacional HDBSQL para poder proteger o banco de dados ou adicioná-lo ao grupo de recursos para executar operações de proteção de dados.
+
+link:task_configure_hdb_user_store_key_and_hdbsql_os_user_for_the_sap_hana_database.html["Configurar a chave de armazenamento do usuário HDB e o usuário do sistema operacional HDBSQL para o banco de dados SAP HANA"]

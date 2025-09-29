@@ -1,0 +1,20 @@
+---
+permalink: protect-postgresql/type-of-backups-supported.html 
+sidebar: sidebar 
+keywords: SnapCenter Plug-in for postgresql 
+summary: O tipo de backup especifica o tipo de backup que você deseja criar.  O SnapCenter oferece suporte ao tipo de backup baseado em cópia de snapshot para clusters PostgreSQL. 
+---
+= Tipo de backups suportados
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+O tipo de backup especifica o tipo de backup que você deseja criar.  O SnapCenter oferece suporte ao tipo de backup baseado em cópia de snapshot para clusters PostgreSQL.
+
+
+
+== Backup baseado em cópia instantânea
+
+Os backups baseados em cópias de instantâneo aproveitam a tecnologia de instantâneo da NetApp para criar cópias on-line somente leitura dos volumes nos quais os clusters PostgreSQL residem.

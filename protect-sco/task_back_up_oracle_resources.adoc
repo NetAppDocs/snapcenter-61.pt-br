@@ -1,0 +1,122 @@
+---
+permalink: protect-sco/task_back_up_oracle_resources.html 
+sidebar: sidebar 
+keywords: backup, Oracle database, policy, schedule, verification, resources 
+summary: Se um recurso não fizer parte de nenhum grupo de recursos, você poderá fazer backup do recurso na página Recursos. 
+---
+= Fazer backup de recursos Oracle
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Se um recurso não fizer parte de nenhum grupo de recursos, você poderá fazer backup do recurso na página Recursos.
+
+.Passos
+. No painel de navegação esquerdo, selecione *Recursos* e o plug-in apropriado na lista.
+. Na página Recursos, selecione *Banco de dados* na lista Exibir.
+. Cliqueimage:../media/filter_icon.gif["ícone de filtro"] e selecione o nome do host e o tipo de banco de dados para filtrar os recursos.
++
+Você pode então clicarimage:../media/filter_icon.gif["ícone de filtro"] para fechar o painel de filtro.
+
+. Selecione o banco de dados que você deseja fazer backup.
++
+A página Database-Protect é exibida.
+
+. Na página Recursos, execute as seguintes etapas:
++
+.. Marque a caixa de seleção e insira um formato de nome personalizado que você deseja usar para o nome do Snapshot.
++
+Por exemplo, `customtext_policy_hostname` ou `resource_hostname` .  Um registro de data e hora é anexado ao nome do Snapshot por padrão.
+
+.. Especifique os destinos dos arquivos de log de arquivamento dos quais você não deseja fazer backup.
+
+
+. Na página Políticas, execute as seguintes etapas:
++
+.. Selecione uma ou mais políticas na lista suspensa.
++
+Você pode criar uma política clicando emimage:../media/add_policy_from_resourcegroup.gif["adicionar símbolo"] .
+
++
+Na seção Configurar agendamentos para políticas selecionadas, as políticas selecionadas são listadas.
+
+.. Cliqueimage:../media/add_policy_from_resourcegroup.gif["adicionar símbolo"] na coluna Configurar agendamentos para configurar um agendamento para a política desejada.
+.. Na janela Adicionar agendamentos para a política _nome_da_política_, configure o agendamento e selecione `OK` .
++
+_policy_name_ é o nome da política que você selecionou.
+
++
+Os agendamentos configurados são listados na coluna Agendamentos Aplicados.
+
+
+
+. Na página Verificação, execute as seguintes etapas:
++
+.. Clique em *Carregar localizadores* para carregar os volumes SnapMirror ou SnapVault para verificar o armazenamento secundário.
+.. Cliqueimage:../media/add_policy_from_resourcegroup.gif["adicionar símbolo"] na coluna Configurar agendamentos para configurar o agendamento de verificação para todos os tipos de agendamento da política.  + Na caixa de diálogo Adicionar agendamentos de verificação _policy_name_, você pode executar as seguintes etapas:
+.. Selecione *Executar verificação após backup*.
+.. Selecione *Executar verificação agendada* e selecione o tipo de agendamento na lista suspensa.
++
+
+NOTE: Em uma configuração do Flex ASM, não é possível executar a operação de verificação em nós Leaf se a cardinalidade for menor que o número de nós no cluster RAC.
+
+.. Selecione *Verificar no local secundário* para verificar seus backups no armazenamento secundário.
+.. Clique em *OK*.
++
+Os agendamentos de verificação configurados são listados na coluna Agendamentos Aplicados.
+
+
+
+. Na página Notificação, selecione os cenários nos quais você deseja enviar os e-mails na lista suspensa *Preferência de e-mail*.
++
+Você deve especificar os endereços de e-mail do remetente e do destinatário, e o assunto do e-mail.  Se você quiser anexar o relatório da operação de backup realizada no recurso, selecione *Anexar relatório de tarefa*.
+
++
+
+NOTE: Para notificação por e-mail, você deve ter especificado os detalhes do servidor SMTP usando a GUI ou o comando PowerShell `Set-SmSmtpServer` .
+
+. Revise o resumo e clique em *Concluir*.
++
+A página de topologia do banco de dados é exibida.
+
+. Clique em *Fazer backup agora*.
+. Na página Backup, execute as seguintes etapas:
++
+.. Se você aplicou várias políticas ao recurso, na lista suspensa Política, selecione a política que deseja usar para backup.
++
+Se a política selecionada para o backup sob demanda estiver associada a um agendamento de backup, os backups sob demanda serão retidos com base nas configurações de retenção especificadas para o tipo de agendamento.
+
+.. Clique em *Backup*.
+
+
+. Monitore o progresso da operação clicando em *Monitorar* > *Trabalhos*.
+
+
+.Depois que você terminar
+* Na configuração do AIX, você pode usar o `lkdev` comando para bloquear e o `rendev` comando para renomear os discos nos quais o banco de dados que foi feito backup estava residindo.
++
+Bloquear ou renomear dispositivos não afetará a operação de restauração quando você restaurar usando esse backup.
+
+* Se a operação de backup falhar porque o tempo de execução da consulta ao banco de dados excedeu o valor de tempo limite, você deve alterar o valor dos parâmetros ORACLE_SQL_QUERY_TIMEOUT e ORACLE_PLUGIN_SQL_QUERY_TIMEOUT executando o comando `Set-SmConfigSettings` cmdlet:
++
+Após modificar o valor dos parâmetros, reinicie o serviço SnapCenter Plug-in Loader (SPL) executando o seguinte comando `/opt/NetApp/snapcenter/spl/bin/spl restart`
+
+* Se o arquivo não estiver acessível e o ponto de montagem não estiver disponível durante o processo de verificação, a operação poderá falhar com o código de erro DBV-00100 no arquivo especificado.  Você deve modificar os valores dos parâmetros VERIFICATION_DELAY e VERIFICATION_RETRY_COUNT em sco.properties.
++
+Após modificar o valor dos parâmetros, reinicie o serviço SnapCenter Plug-in Loader (SPL) executando o seguinte comando `/opt/NetApp/snapcenter/spl/bin/spl restart`
+
+* Nas configurações do MetroCluster , o SnapCenter pode não conseguir detectar um relacionamento de proteção após um failover.
+* Se você estiver fazendo backup de dados do aplicativo em VMDKs e o tamanho do heap Java para o SnapCenter Plug-in for VMware vSphere não for grande o suficiente, o backup poderá falhar.
++
+Para aumentar o tamanho do heap Java, localize o arquivo de script _/opt/netapp/init_scripts/scvservice_.  Nesse roteiro, o `do_start method` O comando inicia o serviço de plug-in SnapCenter VMware.  Atualize esse comando para o seguinte: `Java -jar -Xmx8192M -Xms4096M` .
+
+
+
+.Encontre mais informações
+* https://kb.netapp.com/Advice_and_Troubleshooting/Data_Protection_and_Security/SnapCenter/Unable_to_detect_SnapMirror_or_SnapVault_relationship_after_MetroCluster_failover["Não é possível detectar o relacionamento SnapMirror ou SnapVault após failover do MetroCluster"^]
+* https://kb.netapp.com/Advice_and_Troubleshooting/Data_Protection_and_Security/SnapCenter/Oracle_RAC_One_Node_database_is_skipped_for_performing_SnapCenter_operations["O banco de dados Oracle RAC One Node é ignorado para executar operações do SnapCenter"^]
+* https://kb.netapp.com/Advice_and_Troubleshooting/Data_Protection_and_Security/SnapCenter/Failed_to_change_the_state_of_an_Oracle_12c_ASM_database_from_shutdown_to_mount["Falha ao alterar o estado de um banco de dados Oracle 12c ASM"^]
+* https://kb.netapp.com/Advice_and_Troubleshooting/Data_Protection_and_Security/SnapCenter/What_are_the_customizable_parameters_for_backup_restore_and_clone_operations_on_AIX_systems["Parâmetros personalizáveis para operações de backup, restauração e clonagem em sistemas AIX"^](Requer login)
+

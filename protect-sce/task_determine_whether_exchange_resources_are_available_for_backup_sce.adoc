@@ -1,0 +1,68 @@
+---
+permalink: protect-sce/task_determine_whether_exchange_resources_are_available_for_backup_sce.html 
+sidebar: sidebar 
+keywords: credentials 
+summary: Os recursos são os bancos de dados, Grupos de Disponibilidade de Banco de Dados do Exchange que são mantidos pelos plug-ins que você instalou.  Você pode adicionar esses recursos a grupos de recursos para poder executar tarefas de proteção de dados, mas primeiro você deve identificar quais recursos estão disponíveis.  Determinar os recursos disponíveis também verifica se a instalação do plug-in foi concluída com sucesso. 
+---
+= Determinar se os recursos do Exchange estão disponíveis para backup
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Os recursos são os bancos de dados, Grupos de Disponibilidade de Banco de Dados do Exchange que são mantidos pelos plug-ins que você instalou.  Você pode adicionar esses recursos a grupos de recursos para poder executar tarefas de proteção de dados, mas primeiro você deve identificar quais recursos estão disponíveis.  Determinar os recursos disponíveis também verifica se a instalação do plug-in foi concluída com sucesso.
+
+.Antes de começar
+* Você já deve ter concluído tarefas como instalar o SnapCenter Server, adicionar hosts, criar conexões de sistema de armazenamento, adicionar credenciais e instalar o Plug-in para Exchange.
+* Para aproveitar os recursos do software Single Mailbox Recovery, você deve ter localizado seu banco de dados ativo no Exchange Server onde o software Single Mailbox Recovery está instalado.
+* Se os bancos de dados residirem em LUNs do VMware RDM, você deverá implantar o SnapCenter Plug-in for VMware vSphere e registrar o plug-in no SnapCenter.  O https://docs.netapp.com/us-en/sc-plugin-vmware-vsphere/scpivs44_get_started_overview.html["Documentação do SnapCenter Plug-in for VMware vSphere"] tem mais informações.
+
+
+.Sobre esta tarefa
+* Não é possível fazer backup de bancos de dados quando a opção *Status geral* na página Detalhes estiver definida como Não disponível para backup.  A opção *Status geral* é definida como Não disponível para backup quando qualquer uma das seguintes condições for verdadeira:
++
+** Os bancos de dados não estão em um LUN do NetApp .
+** Os bancos de dados não estão em estado normal.
++
+Os bancos de dados não estão em estado normal quando estão em estado de montagem, desmontagem, nova propagação ou recuperação pendente.
+
+
+
+* Se você tiver um Grupo de Disponibilidade de Banco de Dados (DAG), poderá fazer backup de todos os bancos de dados do grupo executando a tarefa de backup no DAG.
+
+
+.Passos
+. No painel de navegação esquerdo, clique em *Recursos* e selecione *Microsoft Exchange Server* na lista suspensa de plug-ins localizada no canto superior esquerdo da página Recursos.
+. Na página Recursos, selecione *Banco de dados*, ou *Grupo de disponibilidade de banco de dados*, ou *Grupo de recursos*, na lista suspensa *Exibir*.
++
+Todos os bancos de dados e DAGs são exibidos com seus DAGs ou nomes de host no formato FQDN, para que você possa distinguir entre vários bancos de dados.
+
++
+Cliqueimage:../media/filter_icon.gif["ícone de filtro"] e selecione o nome do host e o Exchange Server para filtrar os recursos.  Você pode então clicarimage:../media/filter_icon.gif["ícone de filtro"] para fechar o painel de filtro.
+
+. Clique em *Atualizar recursos*.
++
+Os recursos recém-adicionados, renomeados ou excluídos são atualizados para o inventário do SnapCenter Server.
+
++
+
+IMPORTANT: Você deve atualizar os recursos se os bancos de dados forem renomeados fora do SnapCenter.
+
++
+Os recursos são exibidos junto com informações como nome do recurso, nome do grupo de disponibilidade do banco de dados, servidor no qual o banco de dados está ativo no momento, servidor com cópias, hora do último backup e status geral.
+
++
+** Se o banco de dados estiver em um armazenamento não NetApp , Não disponível para backup será exibido na coluna Status geral.
++
+Em um DAG, se a cópia ativa do banco de dados estiver em um armazenamento não NetApp e se pelo menos uma cópia passiva do banco de dados estiver em um armazenamento NetApp , Não protegido será exibido na coluna *Status geral*.
+
++
+Não é possível executar operações de proteção de dados em um banco de dados que esteja em um tipo de armazenamento que não seja NetApp .
+
+** Se o banco de dados estiver no armazenamento NetApp e não estiver protegido, Não protegido será exibido na coluna *Status geral*.
+** Se o banco de dados estiver em um sistema de armazenamento NetApp e protegido, a interface do usuário exibirá a mensagem Backup não executado na coluna *Status geral*.
+** Se o banco de dados estiver em um sistema de armazenamento NetApp e estiver protegido, e se o backup for acionado para o banco de dados, a interface do usuário exibirá a mensagem Backup bem-sucedido na coluna *Status geral*.
+
+
+

@@ -1,0 +1,28 @@
+---
+permalink: protect-nsp/clone_netapp_supported_plugins_resource_backups.html 
+sidebar: sidebar 
+keywords: clone, NetApp supported plug-ins 
+summary: O fluxo de trabalho de clonagem inclui executar a operação de clonagem e monitorar a operação. 
+---
+= Clonar backups de recursos de plug-ins suportados pelo NetApp
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+O fluxo de trabalho de clonagem inclui executar a operação de clonagem e monitorar a operação.
+
+.Sobre esta tarefa
+Você pode clonar backups de recursos pelos seguintes motivos:
+
+* Para testar a funcionalidade que deve ser implementada usando a estrutura e o conteúdo atuais dos recursos durante os ciclos de desenvolvimento do aplicativo
+* Para ferramentas de extração e manipulação de dados ao preencher data warehouses
+* Para recuperar dados que foram excluídos ou alterados por engano
+
+
+O fluxo de trabalho a seguir mostra a sequência na qual você deve executar a operação de clonagem:
+
+image:../media/sco_scc_wfs_clone_workflow.gif["Fluxo de trabalho de clonagem"]
+
+Você também pode usar cmdlets do PowerShell manualmente ou em scripts para executar operações de backup, restauração e clonagem.  Para obter informações detalhadas sobre cmdlets do PowerShell, use a ajuda do cmdlet do SnapCenter ou consulte o https://docs.netapp.com/us-en/snapcenter-cmdlets/index.html["Guia de referência do cmdlet do software SnapCenter"^] .

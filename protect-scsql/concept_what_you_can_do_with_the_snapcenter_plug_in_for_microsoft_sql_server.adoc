@@ -1,0 +1,42 @@
+---
+permalink: protect-scsql/concept_what_you_can_do_with_the_snapcenter_plug_in_for_microsoft_sql_server.html 
+sidebar: sidebar 
+keywords: SnapCenter Plug-in for Microsoft SQL Server 
+summary: Quando o SnapCenter Plug-in para Microsoft SQL Server estiver instalado em seu ambiente, você poderá usar o SnapCenter para fazer backup, restaurar e clonar bancos de dados do SQL Server. 
+---
+= O que você pode fazer com o plug-in SnapCenter para Microsoft SQL Server
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Quando o SnapCenter Plug-in para Microsoft SQL Server estiver instalado em seu ambiente, você poderá usar o SnapCenter para fazer backup, restaurar e clonar bancos de dados do SQL Server.
+
+Você pode executar as seguintes tarefas que dão suporte a operações de backup, operações de restauração e operações de clonagem de bancos de dados e recursos de banco de dados do SQL Server:
+
+* Faça backup de bancos de dados do SQL Server e logs de transações associados
++
+Não é possível criar um backup de log para bancos de dados do sistema master e msdb.  No entanto, você pode criar backups de log para o banco de dados do sistema modelo.
+
+* Restaurar recursos do banco de dados
++
+** Você pode restaurar bancos de dados do sistema mestre, bancos de dados do sistema msdb e bancos de dados do sistema modelo.
+** Não é possível restaurar vários bancos de dados, instâncias e grupos de disponibilidade.
+** Não é possível restaurar o banco de dados do sistema para um caminho alternativo.
+
+
+* Crie clones pontuais de bancos de dados de produção
++
+Não é possível executar operações de backup, restauração, clonagem e ciclo de vida de clonagem em bancos de dados do sistema tempdb.
+
+* Verifique as operações de backup imediatamente ou adie a verificação para mais tarde
++
+A verificação do banco de dados do sistema SQL Server não é suportada.  O SnapCenter clona os bancos de dados para executar a operação de verificação.  O SnapCenter não pode clonar bancos de dados do sistema SQL Server e, portanto, a verificação desses bancos de dados não é suportada.
+
+* Agendar operações de backup e operações de clonagem
+* Monitorar operações de backup, operações de restauração e operações de clonagem
+
+
+
+NOTE: O plug-in para SQL Server não oferece suporte a backup e recuperação de bancos de dados SQL Server em compartilhamentos SMB.

@@ -1,0 +1,50 @@
+---
+permalink: protect-hana/reference_types_of_restore_performed_for_auto_discovered_sap_hana_databases.html 
+sidebar: sidebar 
+keywords: SnapCenter Plug-in for SAP HANA Databases 
+summary: 'O SnapCenter oferece suporte a SnapRestore baseado em volume (VBSR), Single File SnapRestore e tipos de restauração de conexão e cópia para bancos de dados SAP HANA descobertos automaticamente.' 
+---
+= Tipos de operações de restauração para bancos de dados SAP HANA descobertos automaticamente
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+O SnapCenter oferece suporte a tipos de restauração SnapRestore baseado em volume (VBSR), SnapRestore de arquivo único e conectar e copiar para bancos de dados SAP HANA descobertos automaticamente.
+
+
+
+== O SnapRestore baseado em volume (VBSR) é executado em ambientes NFS para os seguintes cenários:
+
+* Quando o backup selecionado para restauração for feito em versões anteriores ao SnapCenter 4.3 e somente se a opção **Recurso Completo** estiver selecionada
+* Quando o backup selecionado para restauração é feito no SnapCenter 4.3 e se a opção *Volume Revert* estiver selecionada
+
+
+
+
+== O Single File SnapRestore é executado em ambientes NFS para os seguintes cenários:
+
+* Quando o backup selecionado para restauração é feito no SnapCenter 4.3 e se apenas a opção *Recurso Completo* é selecionada
+* Para contêineres de banco de dados multilocatário (MDC), quando o backup selecionado para restauração é feito no SnapCenter 4.3 e a opção *Banco de dados locatário* é selecionada
+* Quando o backup selecionado for de um local secundário do SnapMirror ou SnapVault e a opção *Recurso Completo* for selecionada
+
+
+
+
+== O Single File SnapRestore é executado em ambientes SAN para os seguintes cenários:
+
+* Quando os backups são feitos em versões anteriores ao SnapCenter 4.3 e somente se a opção *Recurso Completo* estiver selecionada
+* Quando os backups são feitos no SnapCenter 4.3, e somente se a opção *Recurso Completo* estiver selecionada
+* Quando o backup é selecionado de um local secundário do SnapMirror ou SnapVault e a opção *Recurso Completo* é selecionada
+
+
+
+
+== A restauração baseada em conectar e copiar é executada em ambientes SAN para o seguinte cenário:
+
+* Para o MDC, quando o backup selecionado para restauração é feito no SnapCenter 4.3 e a opção *Banco de Dados de Locatários* é selecionada
+
+
+
+NOTE: As opções *Recurso Completo*, *Reversão de Volume* e *Banco de Dados de Locatários* estão disponíveis na página Escopo de Restauração.

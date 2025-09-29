@@ -1,0 +1,30 @@
+---
+permalink: protect-postgresql/how-resources-resource-groups-and-policies-are-used-for-protecting-postgresql.html 
+sidebar: sidebar 
+keywords: postgresql 
+summary: Antes de usar o SnapCenter, é útil entender os conceitos básicos relacionados às operações de backup, clonagem e restauração que você deseja executar.  Você interage com recursos, grupos de recursos e políticas para diferentes operações. 
+---
+= Como recursos, grupos de recursos e políticas são usados para proteger o PostgreSQL
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Antes de usar o SnapCenter, é útil entender os conceitos básicos relacionados às operações de backup, clonagem e restauração que você deseja executar.  Você interage com recursos, grupos de recursos e políticas para diferentes operações.
+
+* Os recursos geralmente são clusters PostgreSQL dos quais você faz backup ou clona com o SnapCenter.
+* Um grupo de recursos do SnapCenter é uma coleção de recursos em um host.
++
+Ao executar uma operação em um grupo de recursos, você executa essa operação nos recursos definidos no grupo de recursos de acordo com o cronograma especificado para o grupo de recursos.
+
++
+Você pode fazer backup sob demanda de um único recurso ou de um grupo de recursos.  Você também pode executar backups agendados para recursos individuais e grupos de recursos.
+
+* As políticas especificam a frequência de backup, replicação, scripts e outras características das operações de proteção de dados.
++
+Ao criar um grupo de recursos, você seleciona uma ou mais políticas para esse grupo.  Você também pode selecionar uma política ao executar um backup sob demanda para um único recurso.
+
+
+
+Pense em um grupo de recursos como algo que define o que você quer proteger e quando quer proteger em termos de dia e hora.  Pense em uma política como a definição de como você deseja protegê-la.  Se você estiver fazendo backup de todos os clusters, por exemplo, poderá criar um grupo de recursos que inclua todos os clusters no host.  Você pode então anexar duas políticas ao grupo de recursos: uma política diária e uma política horária.  Ao criar o grupo de recursos e anexar as políticas, você pode configurar o grupo de recursos para executar um backup completo diariamente.

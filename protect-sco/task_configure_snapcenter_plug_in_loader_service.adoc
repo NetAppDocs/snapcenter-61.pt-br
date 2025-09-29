@@ -1,0 +1,195 @@
+---
+permalink: protect-sco/task_configure_snapcenter_plug_in_loader_service.html 
+sidebar: sidebar 
+keywords: SPL, plug-in loader service 
+summary: O serviço SnapCenter Plug-in Loader carrega o pacote de plug-in para Linux ou AIX para interagir com o SnapCenter Server.  O serviço SnapCenter Plug-in Loader é instalado quando você instala o SnapCenter Plug-ins Package para Linux ou o SnapCenter Plug-ins Package para AIX. 
+---
+= Configurar o serviço SnapCenter Plug-in Loader
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+O serviço SnapCenter Plug-in Loader carrega o pacote de plug-in para Linux ou AIX para interagir com o SnapCenter Server.  O serviço SnapCenter Plug-in Loader é instalado quando você instala o SnapCenter Plug-ins Package para Linux ou o SnapCenter Plug-ins Package para AIX.
+
+*Sobre esta tarefa*
+
+Após instalar o SnapCenter Plug-ins Package para Linux ou o SnapCenter Plug-ins Package para AIX, o serviço SnapCenter Plug-in Loader é iniciado automaticamente.  Se o serviço SnapCenter Plug-in Loader não iniciar automaticamente, você deve:
+
+* Certifique-se de que o diretório onde o plug-in está operando não seja excluído
+* Aumentar o espaço de memória alocado à Máquina Virtual Java
+
+
+O arquivo spl.properties, localizado em _/custom_location/ NetApp/snapcenter/spl/etc/_, contém os seguintes parâmetros.  Valores padrão são atribuídos a esses parâmetros.
+
+|===
+| Nome do parâmetro | Descrição 
+
+
+ a| 
+NÍVEL_LOG
+ a| 
+Exibe os níveis de log suportados.
+
+Os valores possíveis são TRACE, DEBUG, INFO, WARN, ERROR e FATAL.
+
+
+
+ a| 
+PROTOCOLO_SPL
+ a| 
+Exibe o protocolo suportado pelo SnapCenter Plug-in Loader.
+
+Somente o protocolo HTTPS é suportado.  Você pode adicionar o valor se o valor padrão estiver faltando.
+
+
+
+ a| 
+PROTOCOLO_DO_SERVIDOR_SNAPCENTER
+ a| 
+Exibe o protocolo suportado pelo SnapCenter Server.
+
+Somente o protocolo HTTPS é suportado.  Você pode adicionar o valor se o valor padrão estiver faltando.
+
+
+
+ a| 
+PULAR_ATUALIZAÇÃO_JAVAHOME
+ a| 
+Por padrão, o serviço SPL detecta o caminho Java e atualiza o parâmetro JAVA_HOME.
+
+Portanto, o valor padrão é definido como FALSE.  Você pode definir como TRUE se quiser desabilitar o comportamento padrão e corrigir manualmente o caminho Java.
+
+
+
+ a| 
+SPL_KEYSTORE_SENHA
+ a| 
+Exibe a senha do arquivo keystore.
+
+Você só poderá alterar esse valor se alterar a senha ou criar um novo arquivo de keystore.
+
+
+
+ a| 
+PORTA SPL
+ a| 
+Exibe o número da porta na qual o serviço SnapCenter Plug-in Loader está em execução.
+
+Você pode adicionar o valor se o valor padrão estiver faltando.
+
+
+NOTE: Você não deve alterar o valor após instalar os plug-ins.
+
+
+
+ a| 
+SNAPCENTER_SERVER_HOST
+ a| 
+Exibe o endereço IP ou nome do host do SnapCenter Server.
+
+
+
+ a| 
+CAMINHO_DE_KEYSTORE_SPL
+ a| 
+Exibe o caminho absoluto do arquivo keystore.
+
+
+
+ a| 
+PORTA_DO_SERVIDOR_SNAPCENTER
+ a| 
+Exibe o número da porta na qual o SnapCenter Server está sendo executado.
+
+
+
+ a| 
+CONTAGEM_MÁXIMA_DE_LOGS
+ a| 
+Exibe o número de arquivos de log do SnapCenter Plug-in Loader que são retidos na pasta _/custom_location/snapcenter/spl/logs_.
+
+O valor padrão é definido como 5000.  Se a contagem for maior que o valor especificado, os últimos 5000 arquivos modificados serão retidos.  A verificação do número de arquivos é feita automaticamente a cada 24 horas a partir do momento em que o serviço SnapCenter Plug-in Loader é iniciado.
+
+
+NOTE: Se você excluir manualmente o arquivo spl.properties, o número de arquivos a serem retidos será definido como 9999.
+
+
+
+ a| 
+JAVA_HOME
+ a| 
+Exibe o caminho absoluto do diretório do JAVA_HOME que é usado para iniciar o serviço SPL.
+
+Este caminho é determinado durante a instalação e como parte do início do SPL.
+
+
+
+ a| 
+TAMANHO_MÁXIMO_DE_LOG
+ a| 
+Exibe o tamanho máximo do arquivo de log do trabalho.
+
+Quando o tamanho máximo é atingido, o arquivo de log é compactado e os logs são gravados no novo arquivo daquele trabalho.
+
+
+
+ a| 
+RETER_REGISTROS_DOS_ÚLTIMOS_DIAS
+ a| 
+Exibe o número de dias até os quais os logs são retidos.
+
+
+
+ a| 
+HABILITAR_VALIDAÇÃO_DE_CERTIFICADO
+ a| 
+Exibe verdadeiro quando a validação do certificado CA está habilitada para o host.
+
+Você pode habilitar ou desabilitar esse parâmetro editando o spl.properties ou usando a GUI ou o cmdlet do SnapCenter .
+
+|===
+Se algum desses parâmetros não estiver atribuído ao valor padrão ou se você quiser atribuir ou alterar o valor, você poderá modificar o arquivo spl.properties.  Você também pode verificar o arquivo spl.properties e editá-lo para solucionar quaisquer problemas relacionados aos valores atribuídos aos parâmetros.  Depois de modificar o arquivo spl.properties, você deve reiniciar o serviço SnapCenter Plug-in Loader .
+
+*Passos*
+
+. Execute uma das seguintes ações, conforme necessário:
++
+** Inicie o serviço SnapCenter Plug-in Loader :
++
+*** Como usuário root, execute: `/custom_location/NetApp/snapcenter/spl/bin/spl start`
+*** Como usuário não root, execute: `sudo /custom_location/NetApp/snapcenter/spl/bin/spl start`
+
+
+** Pare o serviço SnapCenter Plug-in Loader :
++
+*** Como usuário root, execute: `/custom_location/NetApp/snapcenter/spl/bin/spl stop`
+*** Como usuário não root, execute: `sudo /custom_location/NetApp/snapcenter/spl/bin/spl stop`
++
+
+NOTE: Você pode usar a opção -force com o comando stop para interromper o serviço SnapCenter Plug-in Loader à força.  No entanto, você deve ter cuidado antes de fazer isso, pois isso também encerra as operações existentes.
+
+
+
+** Reinicie o serviço SnapCenter Plug-in Loader :
++
+*** Como usuário root, execute: `/custom_location/NetApp/snapcenter/spl/bin/spl restart`
+*** Como usuário não root, execute: `sudo /custom_location/NetApp/snapcenter/spl/bin/spl restart`
+
+
+** Encontre o status do serviço SnapCenter Plug-in Loader :
++
+*** Como usuário root, execute: `/custom_location/NetApp/snapcenter/spl/bin/spl status`
+*** Como usuário não root, execute: `sudo /custom_location/NetApp/snapcenter/spl/bin/spl status`
+
+
+** Encontre a alteração no serviço SnapCenter Plug-in Loader :
++
+*** Como usuário root, execute: `/custom_location/NetApp/snapcenter/spl/bin/spl change`
+*** Como usuário não root, execute: `sudo /custom_location/NetApp/snapcenter/spl/bin/spl change`
+
+
+
+
+

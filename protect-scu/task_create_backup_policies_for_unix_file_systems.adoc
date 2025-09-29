@@ -1,0 +1,128 @@
+---
+permalink: protect-scu/task_create_backup_policies_for_unix_file_systems.html 
+sidebar: sidebar 
+keywords: backup policies, policies, unix file systems, file systems 
+summary: Crie uma política de backup para os sistemas de arquivos Unix dos quais você deseja fazer backup. 
+---
+= Crie políticas de backup para sistemas de arquivos Unix
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Antes de usar o SnapCenter para fazer backup de sistemas de arquivos Unix, você deve criar uma política de backup para o recurso ou grupo de recursos do qual deseja fazer backup.  Uma política de backup é um conjunto de regras que regem como você gerencia, agenda e mantém backups.  Você também pode especificar as configurações de replicação, script e tipo de backup.  Criar uma política economiza tempo quando você deseja reutilizá-la em outro recurso ou grupo de recursos.
+
+.Antes de começar
+* Você deve ter se preparado para a proteção de dados concluindo tarefas como instalar o SnapCenter, adicionar hosts, descobrir os sistemas de arquivos e criar conexões do sistema de armazenamento.
+* Se você estiver replicando Snapshots para um espelho ou armazenamento secundário de cofre, o administrador do SnapCenter deverá ter atribuído as SVMs a você para os volumes de origem e destino.
+* Revise os pré-requisitos e limitações específicos da sincronização ativa do SnapMirror . Para obter informações, consulte https://docs.netapp.com/us-en/ontap/smbc/considerations-limits.html#volumes["Limites de objetos para sincronização ativa do SnapMirror"] .
+
+
+.Sobre esta tarefa
+* SnapLock
++
+** Se a opção 'Manter as cópias de backup por um número específico de dias' for selecionada, o período de retenção do SnapLock deverá ser menor ou igual aos dias de retenção mencionados.
++
+Especificar um período de bloqueio de Snapshot impede a exclusão dos Snapshots até que o período de retenção expire. Isso pode levar à retenção de um número maior de Snapshots do que a contagem especificada na política.
+
++
+Para o ONTAP 9.12.1 e versões anteriores, os clones criados a partir dos SnapLock Vault Snapshots como parte da restauração herdarão o tempo de expiração do SnapLock Vault. O administrador de armazenamento deve limpar manualmente os clones após o tempo de expiração do SnapLock .
+
+
+
+
+
+.Passos
+. No painel de navegação esquerdo, clique em *Configurações*.
+. Na página Configurações, clique em *Políticas*.
+. Selecione *Sistemas de arquivos Unix* na lista suspensa.
+. Clique em *Novo*.
+. Na página Nome, insira o nome e os detalhes da política.
+. Na página Backup e Replicação, execute as seguintes ações:
++
+.. Especifique as configurações de backup.
+.. Especifique a frequência da programação selecionando *Sob demanda*, *Por hora*, *Diariamente*, *Semanalmente* ou *Mensalmente*.
+.. Na seção Selecionar opções de replicação secundária, selecione uma ou ambas as seguintes opções de replicação secundária:
+
+
++
+|===
+| Para este campo... | Faça isso... 
+
+
+ a| 
+Atualizar o SnapMirror após criar uma cópia local do Snapshot
+ a| 
+Selecione este campo para criar cópias espelhadas dos conjuntos de backup em outro volume (replicação SnapMirror ).
+
+Esta opção deve ser habilitada para sincronização ativa do SnapMirror .
+
+
+
+ a| 
+Atualizar o SnapVault após criar uma cópia local do Snapshot
+ a| 
+Selecione esta opção para executar a replicação de backup de disco para disco (backups do SnapVault ).
+
+
+
+ a| 
+Contagem de novas tentativas de erro
+ a| 
+Insira o número máximo de tentativas de replicação que podem ser permitidas antes que a operação seja interrompida.
+
+|===
+. Na página Retenção, especifique as configurações de retenção para o tipo de backup e o tipo de agendamento selecionado na página Backup e Replicação:
++
+|===
+
+
+| Se você quiser... | Então... 
+
+
+ a| 
+Mantenha um certo número de Snapshots
+ a| 
+Selecione *Cópias a serem mantidas* e especifique o número de Snapshots que você deseja manter.
+
+Se o número de Snapshots exceder o número especificado, os Snapshots serão excluídos, com as cópias mais antigas sendo excluídas primeiro.
+
+
+NOTE: O valor máximo de retenção é 1018. Os backups falharão se a retenção for definida como um valor maior do que o suportado pela versão subjacente do ONTAP .
+
+
+IMPORTANT: Você deve definir a contagem de retenção como 2 ou mais se planeja habilitar a replicação do SnapVault .  Se você definir a contagem de retenção como 1, a operação de retenção poderá falhar porque o primeiro Snapshot será o Snapshot de referência para o relacionamento SnapVault até que um Snapshot mais recente seja replicado para o destino.
+
+
+
+ a| 
+Mantenha os Snapshots por um certo número de dias
+ a| 
+Selecione *Manter cópias por* e especifique o número de dias pelos quais você deseja manter os Snapshots antes de excluí-los.
+
+
+
+ a| 
+Período de bloqueio de cópia de instantâneo
+ a| 
+Selecione *Período de bloqueio de cópia de instantâneo* e especifique a duração em dias, meses ou anos.
+
+O período de retenção do Snaplock deve ser inferior a 100 anos.
+
+|===
+. Selecione o rótulo da política.
++
+
+NOTE: Você pode atribuir rótulos SnapMirror a snapshots primários para replicação remota, permitindo que os snapshots primários descarreguem a operação de replicação de snapshots do SnapCenter para sistemas secundários ONTAP . Isso pode ser feito sem habilitar a opção SnapMirror ou SnapVault na página de política.
+
+. Na página Script, insira o caminho e os argumentos do prescript ou postscript que você deseja executar antes ou depois da operação de backup, respectivamente.
++
+
+NOTE: Você deve verificar se os comandos existem na lista de comandos disponível no host do plug-in no caminho _ /opt/ NetApp/snapcenter/scc/etc/allowed_commands.config_.
+
++
+Você também pode especificar o valor do tempo limite do script. O valor padrão é 60 segundos.
+
+. Revise o resumo e clique em *Concluir*.
+

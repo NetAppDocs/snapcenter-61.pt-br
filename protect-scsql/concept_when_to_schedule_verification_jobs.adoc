@@ -1,0 +1,16 @@
+---
+permalink: protect-scsql/concept_when_to_schedule_verification_jobs.html 
+sidebar: sidebar 
+keywords: SnapCenter Plug-in for Microsoft SQL Server 
+summary: Embora o SnapCenter possa verificar os backups imediatamente após criá-los, isso pode aumentar significativamente o tempo necessário para concluir o trabalho de backup e consome muitos recursos.  Portanto, quase sempre é melhor agendar a verificação em uma tarefa separada para um momento posterior.  Por exemplo, se você fizer backup de um banco de dados às 17h todos os dias, poderá agendar a verificação para ocorrer uma hora depois, às 18h. 
+---
+= Quando agendar trabalhos de verificação
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Embora o SnapCenter possa verificar os backups imediatamente após criá-los, isso pode aumentar significativamente o tempo necessário para concluir o trabalho de backup e consome muitos recursos.  Portanto, quase sempre é melhor agendar a verificação em uma tarefa separada para um momento posterior.  Por exemplo, se você fizer backup de um banco de dados às 17h todos os dias, poderá agendar a verificação para ocorrer uma hora depois, às 18h.
+
+Pelo mesmo motivo, geralmente não é necessário executar a verificação de backup toda vez que você faz um backup.  Executar verificações em intervalos regulares, mas menos frequentes, geralmente é suficiente para garantir a integridade do backup.  Uma única tarefa de verificação pode verificar vários backups ao mesmo tempo.
