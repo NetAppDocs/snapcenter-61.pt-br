@@ -1231,7 +1231,6 @@
   <block id="6e13f804ad8be111cf6ad70744afe388" category="list-text">Dados que estão nos sistemas primário e secundário ONTAP ASA r2</block>
   <block id="67387428a7e5d4e4205f94627d948f8a" category="list-text">No local em uma Nuvem Híbrida para proteger o seguinte:</block>
   <block id="f5c37d824040662f50cbb8a32d77182d" category="list-text">Dados que estão nos sistemas primários ONTAP FAS, AFF ou ASA e replicados para o Cloud Volumes ONTAP</block>
-  <block id="f7b38c62b0e74d318a255bc3094cf531" category="list-text">Dados que estão nos sistemas primários e secundários ONTAP FAS, AFF ou ASA e protegidos para armazenamento de objetos e arquivos na nuvem (usando a integração de BlueXP backup and recovery )</block>
   <block id="ca5570a253e3c0a27562c65c06bb6125" category="list-text">Em uma nuvem pública para proteger o seguinte:</block>
   <block id="b340c2b4a7a978a510c8ebb351622143" category="list-text">Dados que estão nos sistemas primários do Cloud Volumes ONTAP (anteriormente ONTAP Cloud)</block>
   <block id="b380e442ff5c6e48e283af8b6f99806f" category="list-text">Dados que estão no Amazon FSX para ONTAP</block>
@@ -9557,4 +9556,6 @@
   <block id="60bea4969590084ae9e74b765b209fad" category="sidebar">Desinstalar pacotes de plug-in SnapCenter</block>
   <block id="fdcd3d6f45be97e0e24b4e793a81fac0" category="sidebar">Atualizar o SnapCenter Server e os plug-ins</block>
   <block id="8693aef17f2d371968a29ad0e0dff726" category="sidebar">Fluxo de trabalho de atualização</block>
+  <block id="88d9e24753477cfb09f25b21c0a59b9e" category="paragraph">O SnapCenter executa as atualizações no SnapMirror e no SnapVault após concluir a operação Snapshot. As atualizações do SnapMirror e do SnapVault são executadas como parte do trabalho do SnapCenter . Se você estiver usando a sincronização ativa do SnapMirror , use os agendamentos padrão do SnapMirror ou SnapVault para a sincronização ativa do SnapMirror e para relacionamentos assíncronos.</block>
+  <block id="ea1c96f839915f73d25b910bbc92b734" category="list-text">Dados que estão em sistemas primários e secundários ONTAP FAS, AFF ou ASA e protegidos para armazenamento de objetos e arquivos na nuvem usando integração de backup e recuperação do NetApp</block>
 </blocks>

@@ -4,7 +4,7 @@
 
 Você pode usar um plug-in SnapCenter com a tecnologia ONTAP SnapMirror para criar cópias espelhadas de conjuntos de backup em outro volume e com a tecnologia ONTAP SnapVault para executar replicação de backup de disco para disco para conformidade com padrões e outros propósitos relacionados à governança.  Antes de executar essas tarefas, você deve configurar um relacionamento de proteção de dados entre os volumes de origem e destino e inicializar o relacionamento.
 
-O SnapCenter executa as atualizações no SnapMirror e no SnapVault após concluir a operação Snapshot. As atualizações do SnapMirror e do SnapVault são executadas como parte do trabalho do SnapCenter ; não crie uma programação ONTAP separada.
+O SnapCenter executa as atualizações no SnapMirror e no SnapVault após concluir a operação Snapshot. As atualizações do SnapMirror e do SnapVault são executadas como parte do trabalho do SnapCenter . Se você estiver usando a sincronização ativa do SnapMirror , use os agendamentos padrão do SnapMirror ou SnapVault para a sincronização ativa do SnapMirror e para relacionamentos assíncronos.
 
 
 NOTE: Se você estiver acessando o SnapCenter a partir de um produto NetApp SnapManager e estiver satisfeito com os relacionamentos de proteção de dados configurados, pode pular esta seção.
