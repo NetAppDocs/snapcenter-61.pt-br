@@ -162,9 +162,7 @@ Para EMS, você pode consultar https://docs.netapp.com/us-en/snapcenter/admin/co
 Depois que o clone for criado, você nunca deve renomeá-lo.
 
 .Informações relacionadas
-https://kb.netapp.com/Advice_and_Troubleshooting/Data_Protection_and_Security/SnapCenter/Clone_operation_might_fail_or_take_longer_time_to_complete_with_default_TCP_TIMEOUT_value["A operação de clonagem pode falhar ou levar mais tempo para ser concluída com o valor TCP_TIMEOUT padrão"]
-
-https://kb.netapp.com/Advice_and_Troubleshooting/Data_Protection_and_Security/SnapCenter/The_failover_cluster_instance_database_clone_fails["Falha na clonagem do banco de dados da instância do cluster de failover"]
+https://kb.netapp.com/Advice_and_Troubleshooting/Data_Protection_and_Security/SnapCenter/The_failover_cluster_instance_database_clone_fails["Falha na clonagem do banco de dados da instância do cluster de failover"^]
 
 --
 .Cmdlets do PowerShell

@@ -26,5 +26,3 @@ Você também pode usar cmdlets do PowerShell manualmente ou em scripts para exe
 link:task_clone_from_a_sql_server_database_backup.html["Clonar de um backup de banco de dados SQL Server"]
 
 link:task_perform_clone_lifecycle_management.html["Executar ciclo de vida do clone"]
-
-link:https://kb.netapp.com/Advice_and_Troubleshooting/Data_Protection_and_Security/SnapCenter/Clone_operation_might_fail_or_take_longer_time_to_complete_with_default_TCP_TIMEOUT_value["A operação de clonagem pode falhar ou levar mais tempo para ser concluída com o valor TCP_TIMEOUT padrão"]

@@ -454,7 +454,6 @@
   <block id="6d2bf94f38d1fdf840fe9b231866899c" category="inline-link">Visão geral da implantação</block>
   <block id="95d04783b89b5d5f8a4c905e6a139950" category="paragraph">Para obter informações sobre como implantar, consulte<block ref="09fdd78e4c4f2997a9baa6b6e4423d52" category="inline-link-rx"></block> .</block>
   <block id="c9abc3786b4bb68c9d780c7e265731ff" category="inline-link">Criar ou importar certificado SSL</block>
-  <block id="77e6d176ef9b9d439f75a9636390005d" category="paragraph">Para configurar o Certificado CA com o SnapCenter Plug-in for VMware vSphere, consulte<block ref="1b5e247395791063ff5d33fa4a1ba4ec" category="inline-link-rx"></block> .</block>
   <block id="3228309100966454e78a162d4ba9bd75" category="section-title">Configurar o arquivo CRL</block>
   <block id="456dce50d13fcf7c2c4881e39c114254" category="paragraph">O SnapCenter Plug-in for VMware vSphere procura os arquivos CRL em um diretório pré-configurado.  O diretório padrão dos arquivos CRL do SnapCenter Plug-in for VMware vSphere é _/opt/netapp/config/crl_.</block>
   <block id="2794927004b00b8d766ca3deca4c7096" category="paragraph">Você pode monitorar o progresso de diferentes operações de backup usando a página SnapCenterJobs.  Talvez você queira verificar o progresso para determinar quando ele foi concluído ou se há algum problema.</block>
@@ -1775,8 +1774,6 @@
   <block id="b88dbedd8fcea13adf629d85780a25e4" category="list-text">O plug-in para Windows não oferece suporte a MPIO em máquinas virtuais em um cluster da Microsoft.</block>
   <block id="5010ac065b072d3a5a66d4913af22358" category="section-title">Criar um FC RDM LUN compartilhado</block>
   <block id="10680a7aa79949d8b454b29a782cc64a" category="paragraph">Antes de poder usar LUNs FC RDM para compartilhar armazenamento entre nós em um cluster Microsoft, você deve primeiro criar o disco de quorum compartilhado e o disco de armazenamento compartilhado e, em seguida, adicioná-los às duas máquinas virtuais no cluster.</block>
-  <block id="cbdb6828febec04786f22df9a1ccc748" category="inline-link">Agrupar máquinas virtuais em hosts físicos</block>
-  <block id="6eec14240810faadbd60c3ec98b543e7" category="paragraph">O disco compartilhado não é criado usando o Plug-in para Windows.  Você deve criar e adicionar o LUN compartilhado a cada máquina virtual no cluster. Para obter informações, consulte<block ref="0564b16166a6e24aa234d21e5bcdc18a" category="inline-link-rx"></block> .</block>
   <block id="28f9c2d1c67ea659588c7bfc2680e96d" category="summary">Uma licença baseada em controlador SnapCenter Standard será necessária se você estiver usando controladores de armazenamento FAS, AFF ou ASA .</block>
   <block id="b1c23ca4e9e67a158bfb24299743d88f" category="paragraph">A licença baseada em controlador tem as seguintes características:</block>
   <block id="5300768d44eab29e62cfac966d22baea" category="list-text">O direito ao SnapCenter Standard está incluído na compra do Premium ou Flash Bundle (não no pacote básico)</block>
@@ -1896,9 +1893,7 @@
   <block id="ac91c641781bd7c7379113e123abc706" category="section-title">Habilitar autenticação baseada em certificado</block>
   <block id="2deb2b431122c2428813248c5cc7e3cf" category="paragraph">Para habilitar a autenticação baseada em certificado para o SnapCenter Server e os hosts de plug-in do Windows, execute o seguinte cmdlet do PowerShell.  Para os hosts de plug-in do Linux, a autenticação baseada em certificado será habilitada quando você habilitar o SSL bidirecional.</block>
   <block id="012d451c2966c8058914f66afd3ff9be" category="list-text">Para habilitar a autenticação baseada em certificado de cliente:</block>
-  <block id="c7414a7d4890863a34509bebe1bd9225" category="paragraph"><block ref="a578dd94961bb2b0ce287d29a112740b" prefix="" category="inline-code"></block><block ref="e685e5103f8306754d61ec1a0da15686" prefix=" " category="inline-code"></block><block ref="a71cdd4660400fab236be52b25300411" prefix=" " category="inline-code"></block></block>
   <block id="8b5db05d124326542535790d2a1a0411" category="list-text">Para desabilitar a autenticação baseada em certificado de cliente:</block>
-  <block id="b5cfca9930b60b6f87f38ad0e8d31765" category="paragraph"><block ref="ee29fb805334372351c3e459eaf40ac3" prefix="" category="inline-code"></block><block ref="e685e5103f8306754d61ec1a0da15686" prefix=" " category="inline-code"></block><block ref="b1b73520f4b4ea4d2583cc59029bbe0d" prefix=" " category="inline-code"></block></block>
   <block id="5bdc9dfe0790a57a6fe905d1fb1e3eae" category="section-title">Exportar certificados de Autoridade Certificadora (CA) do SnapCenter Server</block>
   <block id="d061d73c2d594c5f93d58cd0750abfd2" category="paragraph">Você deve exportar os certificados de CA do SnapCenter Server para os hosts de plug-in usando o console de gerenciamento da Microsoft (MMC).</block>
   <block id="ebbc012954ef860bf051c32d8c46da93" category="paragraph">Você deve ter configurado o SSL bidirecional.</block>
@@ -3197,10 +3192,6 @@
   <block id="623ef35114e69633221d2c9bf99f6cab" category="list-text">Ativação HTTP do Windows Communication Foundation (WCF)45</block>
   <block id="c38d32373eca3e6335e44b42893f0034" category="list-text">Ativação TCP</block>
   <block id="cb6ddd90b08469e2479460ec34538fe2" category="list-text">Ativação HTTP</block>
-  <block id="c3dbd8c35d4829310dd57365a749f10f" category="paragraph">Enfileiramento de mensagens</block>
-  <block id="9c7750973d73f078f45c6bfd80cbfc85" category="list-text">Serviços de enfileiramento de mensagens</block>
-  <block id="be0efd214f0b56cf8372d18ec1837f53" category="admonition">Certifique-se de que nenhum outro aplicativo use o serviço MSMQ que o SnapCenter cria e gerencia.</block>
-  <block id="7eaa993723e57b3bfc99923c196e2e17" category="list-text">RabbitMQ</block>
   <block id="a8e1305e0c86caf1fec261807b3362ef" category="paragraph">Serviço de Ativação de Processos do Windows</block>
   <block id="494ecde4fb6ee77e99799902ed23cd14" category="list-text">Modelo de Processo</block>
   <block id="293616622aeda675821b42e39b4d4e7b" category="paragraph">APIs de configuração</block>
@@ -7607,8 +7598,6 @@
   <block id="3eee6ccd820abf187846b44912303266" category="inline-link-macro">Clonar de um backup de banco de dados SQL Server</block>
   <block id="a121a292ca8a39c5591cdcc69d0f0ff8" category="paragraph"><block ref="a121a292ca8a39c5591cdcc69d0f0ff8" category="inline-link-macro-rx"></block></block>
   <block id="b5fb765366530fd4f75c7c5c651544bd" category="paragraph"><block ref="b5fb765366530fd4f75c7c5c651544bd" category="inline-link-macro-rx"></block></block>
-  <block id="68f8e37f5b3d7c3c6c34a481b33a736f" category="inline-link-macro">A operação de clonagem pode falhar ou levar mais tempo para ser concluída com o valor TCP_TIMEOUT padrão</block>
-  <block id="5f2b3d8994098e5cded686a40b8bb7c9" category="paragraph"><block ref="5f2b3d8994098e5cded686a40b8bb7c9" category="inline-link-macro-rx"></block></block>
   <block id="e120fc76fd23e12235b495bc6454901a" category="doc">Privilégios ONTAP mínimos necessários para o plug-in SQL</block>
   <block id="f9769cb6db4dd2d01611ef4c2e69e554" category="doc">Preparar sistemas de armazenamento para replicação SnapMirror e SnapVault para Plug-in para servidor SQL</block>
   <block id="f9ba38b961aca7823da15b938828b64f" category="doc">Pré-requisitos para adicionar hosts e instalar o SnapCenter Plug-in para Microsoft SQL Server</block>
@@ -7616,7 +7605,6 @@
   <block id="953acf14bebe77c11e648186f3957214" category="list-text">Você deve ter um usuário com permissões de administrador de sistema no SQL Server.</block>
   <block id="d165009fc919b7c43f63036983c47ae0" category="paragraph">O plug-in SnapCenter para Microsoft SQL Server usa o Microsoft VDI Framework, que requer acesso de administrador de sistema.</block>
   <block id="9221af74572734362746f0af9104d884" category="inline-link">Artigo de Suporte da Microsoft 2926557: As operações de backup e restauração do SQL Server VDI exigem privilégios de Sysadmin</block>
-  <block id="cb5d59c817a7392efa454c9c69508067" category="paragraph"><block ref="cb5d59c817a7392efa454c9c69508067" category="inline-link-rx"></block></block>
   <block id="9c9a08a242e9f6311be9fa5bd945d582" category="list-text">Se o SnapManager para Microsoft SQL Server estiver instalado, você deverá ter interrompido ou desabilitado o serviço e os agendamentos.</block>
   <block id="1931c747684bb6010ac638ae2be606b3" category="paragraph">Se você planeja importar trabalhos de backup ou clonagem para o SnapCenter, não desinstale o SnapManager para Microsoft SQL Server.</block>
   <block id="024ecfe0da835b1f362b5e64ec1408ab" category="list-text">O host deve ser resolvível para o nome de domínio totalmente qualificado (FQDN) do servidor.</block>
@@ -7791,11 +7779,7 @@
   <block id="5891deda92209d1d45144775b7d5c20d" category="admonition">Você não deve renomear o trabalho de backup criado no agendador do Windows ou no agente do SQL Server.</block>
   <block id="1ca9ef3a64115b9b5155a63404740914" category="paragraph">Um grupo de recursos implícito é criado.  Você pode visualizar isso selecionando o respectivo usuário ou grupo na página Acesso do Usuário.  O tipo de grupo de recursos implícito é "`Recurso`".</block>
   <block id="50e1edb21a598f492619b01f99e77a4f" category="paragraph"><block ref="50e1edb21a598f492619b01f99e77a4f" category="inline-link-macro-rx"></block></block>
-  <block id="db9c751c1327ee48b470f3140421daf6" category="inline-link">As operações de backup falham com erro de conexão do MySQL devido ao atraso no TCP_TIMEOUT</block>
-  <block id="0cd607c6c3ab41f1a5532b188171495c" category="paragraph"><block ref="0cd607c6c3ab41f1a5532b188171495c" category="inline-link-rx"></block></block>
   <block id="c473dc65af16d92c688e88cffad5b825" category="inline-link">O backup falha com erro do agendador do Windows</block>
-  <block id="ee70f525f7b0b70b3e7de9d8f872cbe4" category="paragraph"><block ref="ee70f525f7b0b70b3e7de9d8f872cbe4" category="inline-link-rx"></block></block>
-  <block id="393997bd3b722d52ae03ce598aa5cfec" category="paragraph"><block ref="393997bd3b722d52ae03ce598aa5cfec" category="inline-link-rx"></block></block>
   <block id="ba4484b740822363967ef7dbb090de6a" category="inline-image-macro">Ícone de filtro</block>
   <block id="ed1f105e7535983bff7c7f9f8e4f107a" category="paragraph">Você pode pesquisar o grupo de recursos inserindo o nome do grupo de recursos na caixa de pesquisa ou selecionando<block ref="5daa1c5d91da80c848b68dcd336ec220" category="inline-image-macro-rx" type="image"></block> e, em seguida, selecionando a tag.  Você pode então selecionar<block ref="5daa1c5d91da80c848b68dcd336ec220" category="inline-image-macro-rx" type="image"></block> para fechar o painel de filtro.</block>
   <block id="8e927494c3186b26a3de09d9578e731f" category="paragraph">A opção *Verificar* na política se aplica somente a trabalhos agendados.</block>
@@ -7846,9 +7830,7 @@
   <block id="cd580f0c35d4c37236f3153c15452b6f" category="paragraph">O tempo limite padrão do script é 60 segundos.</block>
   <block id="4b70ba28cecacc0b972de64bf00eafac" category="paragraph">Para EMS, você pode consultar<block ref="6a6cc2b71a11174970b94b5318ade705" category="inline-link-rx"></block></block>
   <block id="b8ceb1eaf0d60af03679989562024d6b" category="paragraph">Depois que o clone for criado, você nunca deve renomeá-lo.</block>
-  <block id="f7e7f0dd9d36aec3d609775de2dbbd0b" category="paragraph"><block ref="f7e7f0dd9d36aec3d609775de2dbbd0b" category="inline-link-rx"></block></block>
   <block id="1e9ab426973a56020f8d1db85cb07f06" category="inline-link">Falha na clonagem do banco de dados da instância do cluster de failover</block>
-  <block id="2df5362c7aa8c12a0dd2f1b211cdf61d" category="paragraph"><block ref="2df5362c7aa8c12a0dd2f1b211cdf61d" category="inline-link-rx"></block></block>
   <block id="d46bdc3a4fe241badafb83ade1e31452" category="summary">Você pode configurar credenciais para executar trabalhos de proteção de dados em recursos individuais do SQL Server para cada usuário.</block>
   <block id="78cb0d244e4320583b51cc8da36e130e" category="doc">Configurar credenciais para um recurso individual do SQL Server</block>
   <block id="82ebbd4916aa80b290bf59524e5e173b" category="paragraph">Você pode configurar credenciais para executar trabalhos de proteção de dados em recursos individuais do SQL Server para cada usuário.  Embora você possa configurar as credenciais globalmente, talvez queira fazer isso apenas para um recurso específico.</block>
@@ -9558,4 +9540,14 @@
   <block id="88d9e24753477cfb09f25b21c0a59b9e" category="paragraph">O SnapCenter executa as atualizações no SnapMirror e no SnapVault após concluir a operação Snapshot. As atualizações do SnapMirror e do SnapVault são executadas como parte do trabalho do SnapCenter . Se você estiver usando a sincronização ativa do SnapMirror , use os agendamentos padrão do SnapMirror ou SnapVault para a sincronização ativa do SnapMirror e para relacionamentos assíncronos.</block>
   <block id="ea1c96f839915f73d25b910bbc92b734" category="list-text">Dados que estão em sistemas primários e secundários ONTAP FAS, AFF ou ASA e protegidos para armazenamento de objetos e arquivos na nuvem usando integração de backup e recuperação do NetApp</block>
   <block id="e6f36a956625505e0a3733e3e0073fa0" category="paragraph">Porta da web do SnapCenter</block>
+  <block id="92f7e9adcc0061bde4c2abd78f00e01e" category="paragraph">Para configurar o certificado CA com o SnapCenter Plug-in for VMware vSphere, consulte <block ref="e0ef04da7ad7ee6e29cb49ed5497582e" category="inline-link-rx"></block>.</block>
+  <block id="1e70ac4737c2e839c6fd901789e3bafb" category="paragraph">O disco compartilhado não é criado usando o Plug-in for Windows. Você deve criar e, em seguida, adicionar o LUN compartilhado a cada máquina virtual no cluster.</block>
+  <block id="ae0aa1a81eb18e69d5fc662eaee0efd5" category="inline-link">Documentação técnica Broadcom</block>
+  <block id="e3b8e6a8b23425a59add498ed0e47659" category="paragraph">Consulte <block ref="94f03a61d7283013b50d8cc8e88c9fd8" category="inline-link-rx"></block> e pesquise a documentação sobre clustering de máquinas virtuais em hosts físicos e criação de LUNs FC RDM compartilhadas para clusters Microsoft.</block>
+  <block id="0ff275ffe02e672fcd7c5215c9cbcfb6" category="paragraph"><block ref="a578dd94961bb2b0ce287d29a112740b" prefix="" category="inline-code"></block><block ref="e685e5103f8306754d61ec1a0da15686" prefix=" " category="inline-code"></block><block ref="0897acf49c7c1ea9f76efe59187aa046" prefix=" " category="inline-code"></block></block>
+  <block id="11428fc511268a2c63fa0e7ebcb2530d" category="paragraph"><block ref="ee29fb805334372351c3e459eaf40ac3" prefix="" category="inline-code"></block><block ref="e685e5103f8306754d61ec1a0da15686" prefix=" " category="inline-code"></block><block ref="0897acf49c7c1ea9f76efe59187aa046" prefix=" " category="inline-code"></block></block>
+  <block id="2af0fc8c21c11cf5ed04e0063f53931e" category="paragraph"><block ref="2af0fc8c21c11cf5ed04e0063f53931e" category="inline-link-rx"></block></block>
+  <block id="fb322b1c90de9bc9209933a55dc7c3a1" category="paragraph"><block ref="fb322b1c90de9bc9209933a55dc7c3a1" category="inline-link-rx"></block></block>
+  <block id="76d78c694f90915981830809ea4ed0ea" category="paragraph"><block ref="76d78c694f90915981830809ea4ed0ea" category="inline-link-rx"></block></block>
+  <block id="654bb6446b6bf43b65f5a763bbc17afe" category="paragraph"><block ref="654bb6446b6bf43b65f5a763bbc17afe" category="inline-link-rx"></block></block>
 </blocks>
